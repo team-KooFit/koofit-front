@@ -1,0 +1,77 @@
+class _SignUpScreenState extends State<SignUpScreen> {
+  // ... (previous code remains unchanged)
+
+  Widget buildInputField({
+    required TextEditingController controller,
+    required String labelText,
+    TextInputType keyboardType = TextInputType.text,
+    List<TextInputFormatter>? inputFormatters,
+    bool isFocused = false,
+  }) {
+    Color underlineColor = isFocused
+        ? Color.fromARGB(255, 151, 84, 251)
+        : Color.fromARGB(255, 182, 183, 184);
+
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
+      focusNode: FocusNode(),
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: TextStyle(
+          color: Color.fromARGB(255, 182, 183, 184),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: underlineColor,
+          ),
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: underlineColor,
+          ),
+        ),
+        counterText: '',
+      ),
+    );
+  }
+
+  // ... (rest of the code remains unchanged)
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('회원가입'),
+      ),
+      body: GestureDetector(
+        onTap: hideKeyboard,
+        child: Padding(
+          padding: EdgeInsets.all(20.w),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ..._inputFields.asMap().entries.map(
+                      (entry) => buildInputField(
+                        controller: entry.value,
+                        labelText: entry.key == _currentFieldIndex
+                            ? '이름'
+                            : '다른 필드 이름', // Change label text as needed
+                        isFocused: entry.key == _currentFieldIndex,
+                      ),
+                    ),
+                Spacer(),
+                buildSubmitButton(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ... (rest of the code remains unchanged)
+}

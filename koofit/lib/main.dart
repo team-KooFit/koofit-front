@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:koofit/login/main_login_screen.dart';
 import 'package:koofit/login/sign_up_screen';
+import 'package:koofit/login/body_size_sign_up_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,11 +27,12 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) {
           return GetMaterialApp(
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'signUp',
+              initialRoute: 'BodySignUp',
               routes: {
                 // SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),
                 'signUp': (context) => const SignUpScreen(),
+                'BodySignUp': (context) => const BodyInfoScreen()
               });
         });
   }

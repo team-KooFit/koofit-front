@@ -4,37 +4,36 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
 
-
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class BodyInfoScreen extends StatefulWidget {
+  const BodyInfoScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<BodyInfoScreen> createState() => _BodyInfoScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _BodyInfoScreenState extends State<BodyInfoScreen> {
   final formKey = GlobalKey<FormState>();
 
   final List<String> _textList = [
-    '이름을 입력해주세요.',
-    '휴대폰 번호를 입력해주세요.',
-    '나이를 입력해주세요.'
+    '키를 입력해주세요.',
+    '몸무게를 입력해주세요.',
+    '목표 몸무게를 입력해주세요.'
   ];
 
-  FocusNode node1 = FocusNode();
-  FocusNode numberField = FocusNode();
-  FocusNode ageField = FocusNode();
+  FocusNode heightField = FocusNode();
+  FocusNode weightField = FocusNode();
+  FocusNode goalWeightField = FocusNode();
 
-  bool isNameFilled = false;
-  bool isNumberFilled = false;
-  bool isAgeFilled = false;
+  bool isHeightFilled = false;
+  bool isWeightFilled = false;
+  bool isGoalWeightFilled = false;
 
   bool isButtonActive = false;
   int titleIndex = 0;
 
-  String _name = '';
-  String _age = '';
-  String _number = '';
+  String _height = '';
+  String _weight = '';
+  String _goalWeight = '';
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                 ),
-                backgroundColor: Color(0xFFffffff),
+                backgroundColor: const Color(0xFFffffff),
                 body: Container(
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 20).r,
@@ -65,38 +64,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22.sp,
-                                color: Color.fromARGB(255, 51, 61, 75)),
+                                color: Colors.black54),
                           ),
                           Visibility(
-                            visible: isNumberFilled,
+                            visible: isGoalWeightFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
-                                  _age = val.toString();
+                                  _goalWeight = val.toString();
                                 });
                               },
                               validator: (val) {
                                 if (val != null) {
-                                
                                 } else {
-                                  return '나이를 입력해주세요';
+                                  return '목표 몸무게를 입력해주세요';
                                 }
+                                return null;
                               },
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
-                              // focusNode: node1,
+                              // focusNode: heightField,
                               onChanged: (text) {
                                 setState(() {
-                                  _age = text;
+                                  _goalWeight = text;
                                   if (titleIndex == 2) {
-                                    if (_name.isNotEmpty &&
-                                        _number.length == 11 &&
-                                        _age.length == 2                                        
-                                        // int.parse(_age) >= 15 &&
-                                        // int.parse(_age) <= 19
-                                        ) {
+                                    if (_height.isNotEmpty &&
+                                        _goalWeight.length <= 3 &&
+                                        _weight.length <= 3) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -105,70 +101,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 });
                               },
                               maxLength: 2,
-                              focusNode: ageField,
+                              focusNode: goalWeightField,
                               autofocus: true,
-                              decoration: InputDecoration(
-                                  // errorText: _age.isNotEmpty && _age.length == 2
-                                  //     ? int.parse(_age) >= 20
-                                  //         ? '만 19세 이상은 서비스 이용이 제한됩니다.'
-                                  //         : int.parse(_age) < 15
-                                  //             ? '15세 미만은 서비스 이용이 제한됩니다.'
-                                  //             : null
-                                  //     : null,
+                              decoration: const InputDecoration(
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color: Palette.mainSkyBlue)),
-                                  labelText: "나이",
+                                  labelText: "목표 몸무게",
                                   labelStyle: TextStyle(
                                       color:
                                           Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
                           Visibility(
-                            visible: isNameFilled,
+                            visible: isHeightFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
-                                  _number = val.toString();
+                                  _weight = val.toString();
                                 });
                               },
                               validator: (val) {
                                 if (val != null) {
-                                  if (val.length != 11) {
-                                    return '올바른 휴대폰 번호를 입력해주세요';
-                                  } else {
-                                    if (!val.startsWith('010')) {
-                                      return "'010'으로 시작하는 올바른 휴대폰 번호를 입력해주세요";
-                                    } else {
-                                      return null;
-                                    }
+                                  if (val.length < 2) {
+                                    return '올바른 몸무게를 입력해주세요';
                                   }
                                 } else {
-                                  return '휴대폰 번호를 입력해주세요';
+                                  return '몸무게를 입력해주세요';
                                 }
+                                return null;
                               },
                               autofocus: true,
-                              focusNode: numberField,
-                              maxLength: 11,
+                              focusNode: weightField,
+                              maxLength: 3,
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               onChanged: (text) {
                                 setState(() {
-                                  _number = text;
+                                  _weight = text;
                                   if (titleIndex == 1) {
-                                    if (text.length == 11) {
-                                      ageField.requestFocus();
-                                      isNumberFilled = true;
-                                      titleIndex = 2;
+                                    if (text.length < 4) {
+                                      isButtonActive = true;
+                                      // goalWeightField.requestFocus();
+                                      // isWeightFilled = true;
+                                      // titleIndex = 2;
                                     }
                                   } else if (titleIndex == 2) {
-                                    if (_name.isNotEmpty &&
-                                        _number.length == 11 &&
-                                        _age.length == 2 
-                                       ) {
+                                    if (_height.isNotEmpty &&
+                                        _weight.length <= 3 &&
+                                        _goalWeight.length <= 3) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -176,57 +160,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   }
                                 });
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color: Palette.mainSkyBlue)),
-                                  labelText: "휴대폰 번호",
+                                  labelText: "몸무게",
                                   labelStyle: TextStyle(
                                       color:
                                           Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
                           TextFormField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp('[ㄱ-ㅎㅏ-ㅣ가-힣]')),
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
                             ],
                             onSaved: (val) {
                               setState(() {
-                                _name = val.toString();
+                                _height = val.toString();
                               });
                             },
                             validator: (val) {
                               if (val != null) {
-                                final consonantsPattern = RegExp(
-                                    r'^[ㄱ-ㅎ]*$'); // 한글 모음을 정규표현식으로 나타낸 패턴
-                                final vowelsPattern = RegExp(
-                                    r'^[ㅏ-ㅣ]*$'); // 한글 모음을 정규표현식으로 나타낸 패턴
-
-                                for(var i=0; i<val.length; i++){
-                                  if(consonantsPattern.hasMatch(val[i]) ||
-                                      vowelsPattern.hasMatch(val[i])){
-                                    return '올바른 이름을 입력해주세요';
-                                  }
-                                }
-
-                                return null;
+                                _height = val;
                               } else {
-                                return '이름을 입력해주세요';
+                                return '키를 입력해주세요';
                               }
+                              return null;
                             },
-                            focusNode: node1,
+                            focusNode: heightField,
                             autofocus: true,
                             onChanged: (value) {
                               setState(() {
-                                _name = value;
+                                _height = value;
                                 if (titleIndex == 0) {
                                   isButtonActive = value.isNotEmpty;
                                 } else if (titleIndex == 2) {
-                                  if (_name.isNotEmpty &&
-                                      _number.length == 11 &&
-                                      _age.length == 2 ) {
+                                  if (_height.isNotEmpty &&
+                                      _goalWeight.length <= 3 &&
+                                      _weight.length <= 3) {
                                     isButtonActive = true;
                                   } else {
                                     isButtonActive = false;
@@ -234,16 +206,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 }
                               });
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                        Palette.mainSkyBlue)),
-                                labelText: "이름",
+                                    borderSide:
+                                        BorderSide(color: Palette.mainSkyBlue)),
+                                labelText: "키",
                                 labelStyle: TextStyle(
                                     color: Color.fromARGB(255, 182, 183, 184))),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Visibility(
                               visible: isButtonActive,
                               child: SizedBox(
@@ -259,13 +230,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             ? Palette.mainSkyBlue
                                                 .withOpacity(0.12)
                                             : null),
-                                    onPressed: (){
+                                    onPressed: () {
+                                      print(333333 + titleIndex);
+
                                       if (titleIndex == 0) {
                                         setState(() {
-                                          numberField.requestFocus();
+                                          weightField.requestFocus();
                                           isButtonActive = false;
-                                          isNameFilled = true;
+                                          isHeightFilled = true;
                                           titleIndex = 1;
+                                        });
+                                      } else if (titleIndex == 1) {
+                                        setState(() {
+                                          goalWeightField.requestFocus();
+                                          isButtonActive = false;
+                                          isWeightFilled = true;
+                                          titleIndex = 2;
                                         });
                                       } else {
                                         if (formKey.currentState != null) {
@@ -275,11 +255,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             formKey.currentState!.save();
                                             // User newUser = User(
                                             //   uid: args.uid,
-                                            //   name: _name,
+                                            //   height: _height,
                                             //   profileImage: args.profileImage,
-                                        
+
                                             // );
-                                            // Navigator.pushNamed(context, 'school',
+                                            // Navigator.pushheightd(context, 'school',
                                             //     arguments: newUser);
                                           }
                                         }

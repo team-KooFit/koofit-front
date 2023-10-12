@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
 
-class BodyInfoScreen extends StatefulWidget {
-  const BodyInfoScreen({super.key});
+class BodySignUpScreen extends StatefulWidget {
+  const BodySignUpScreen({super.key});
 
   @override
-  State<BodyInfoScreen> createState() => _BodyInfoScreenState();
+  State<BodySignUpScreen> createState() => _BodySignUpScreenState();
 }
 
-class _BodyInfoScreenState extends State<BodyInfoScreen> {
+class _BodySignUpScreenState extends State<BodySignUpScreen> {
   final formKey = GlobalKey<FormState>();
 
   final List<String> _textList = [
@@ -20,13 +20,13 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
     '목표 몸무게를 입력해주세요.'
   ];
 
-  FocusNode heightField = FocusNode();
+  FocusNode node1 = FocusNode();
   FocusNode weightField = FocusNode();
   FocusNode goalWeightField = FocusNode();
 
   bool isHeightFilled = false;
   bool isWeightFilled = false;
-  bool isGoalWeightFilled = false;
+  // bool isAgeFilled = false;
 
   bool isButtonActive = false;
   int titleIndex = 0;
@@ -64,14 +64,14 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22.sp,
-                                color: Colors.black54),
+                                color: const Color.fromARGB(255, 51, 61, 75)),
                           ),
                           Visibility(
-                            visible: isGoalWeightFilled,
+                            visible: isWeightFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
-                                  _goalWeight = val.toString();
+                                  _weight = val.toString();
                                 });
                               },
                               validator: (val) {
@@ -85,15 +85,17 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
-                              // focusNode: heightField,
+                              // focusNode: node1,
                               onChanged: (text) {
                                 setState(() {
-                                  _goalWeight = text;
-                                  if (titleIndex == 2) {
+                                  _weight = text;
+                                  if (titleIndex >= 2) {
                                     if (_height.isNotEmpty &&
-                                        _height.length > 2 &&
-                                        _goalWeight.length > 1 &&
-                                        _weight.length > 1) {
+                                            _goalWeight.length > 1 &&
+                                            _weight.length > 1
+                                        // int.parse(_weight) >= 15 &&
+                                        // int.parse(_weight) <= 19
+                                        ) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -105,6 +107,13 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                               focusNode: goalWeightField,
                               autofocus: true,
                               decoration: const InputDecoration(
+                                  // errorText: _weight.isNotEmpty && _weight.length >2
+                                  //     ? int.parse(_weight) >= 20
+                                  //         ? '만 19세 이상은 서비스 이용이 제한됩니다.'
+                                  //         : int.parse(_weight) < 15
+                                  //             ? '15세 미만은 서비스 이용이 제한됩니다.'
+                                  //             : null
+                                  //     : null,
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -116,16 +125,16 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                             ),
                           ),
                           Visibility(
-                            visible: isWeightFilled,
+                            visible: isHeightFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
-                                  _weight = val.toString();
+                                  _goalWeight = val.toString();
                                 });
                               },
                               validator: (val) {
                                 if (val != null) {
-                                  if (val.length < 2) {
+                                  if (val.length > 3) {
                                     return '올바른 몸무게를 입력해주세요';
                                   }
                                 } else {
@@ -135,22 +144,22 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                               },
                               autofocus: true,
                               focusNode: weightField,
-                              maxLength: 3,
+                              maxLength: 11,
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               onChanged: (text) {
                                 setState(() {
-                                  _weight = text;
+                                  _goalWeight = text;
                                   if (titleIndex == 1) {
                                     if (text.length > 1) {
                                       isButtonActive = true;
                                     }
-                                  } else if (titleIndex == 2) {
+                                  } else if (titleIndex > 2) {
                                     if (_height.isNotEmpty &&
-                                        _weight.length > 1 &&
-                                        _goalWeight.length > 1) {
+                                        _goalWeight.length > 2 &&
+                                        _weight.length > 2) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -170,6 +179,9 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                             ),
                           ),
                           TextFormField(
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             onSaved: (val) {
                               setState(() {
                                 _height = val.toString();
@@ -177,23 +189,22 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                             },
                             validator: (val) {
                               if (val != null) {
-                                _height = val;
+                                return null;
                               } else {
                                 return '키를 입력해주세요';
                               }
-                              return null;
                             },
-                            focusNode: heightField,
+                            focusNode: node1,
                             autofocus: true,
                             onChanged: (value) {
                               setState(() {
                                 _height = value;
                                 if (titleIndex == 0) {
                                   isButtonActive = value.isNotEmpty;
-                                } else if (titleIndex == 2) {
+                                } else if (titleIndex > 2) {
                                   if (_height.isNotEmpty &&
-                                      _goalWeight.length > 1 &&
-                                      _weight.length > 1) {
+                                      _goalWeight.length > 2 &&
+                                      _weight.length > 2) {
                                     isButtonActive = true;
                                   } else {
                                     isButtonActive = false;
@@ -208,10 +219,6 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                 labelText: "키",
                                 labelStyle: TextStyle(
                                     color: Color.fromARGB(255, 182, 183, 184))),
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            maxLength: 3,
                           ),
                           const Spacer(),
                           Visibility(
@@ -222,10 +229,10 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Palette.mainSkyBlue,
-                                        disabledForegroundColor: titleIndex == 2
+                                        disabledForegroundColor: titleIndex > 2
                                             ? Colors.white
                                             : null,
-                                        disabledBackgroundColor: titleIndex == 2
+                                        disabledBackgroundColor: titleIndex > 2
                                             ? Palette.mainSkyBlue
                                                 .withOpacity(0.12)
                                             : null),
@@ -241,7 +248,7 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                         setState(() {
                                           goalWeightField.requestFocus();
                                           isButtonActive = false;
-                                          isGoalWeightFilled = true;
+                                          isWeightFilled = true;
                                           titleIndex = 2;
                                         });
                                       } else {
@@ -252,12 +259,14 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                             formKey.currentState!.save();
                                             // User newUser = User(
                                             //   uid: args.uid,
-                                            //   height: _height,
+                                            //   name: _height,
                                             //   profileImage: args.profileImage,
 
                                             // );
-                                            // Navigator.pushheightd(context, 'school',
-                                            //     arguments: newUser);
+                                            // Navigator.pushNamed(
+                                            //   context,
+                                            //   'BodySignUp',
+                                            // );
                                           }
                                         }
                                       }

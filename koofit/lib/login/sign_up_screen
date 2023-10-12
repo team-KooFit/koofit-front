@@ -279,8 +279,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             //   profileImage: args.profileImage,
                                         
                                             // );
-                                            // Navigator.pushNamed(context, 'school',
-                                            //     arguments: newUser);
+                                            Navigator.pushNamed(context, 'BodySignUp',
+                                           );
                                           }
                                         }
                                       }

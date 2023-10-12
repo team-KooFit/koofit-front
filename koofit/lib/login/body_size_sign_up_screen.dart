@@ -91,8 +91,9 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                   _goalWeight = text;
                                   if (titleIndex == 2) {
                                     if (_height.isNotEmpty &&
-                                        _goalWeight.length <= 3 &&
-                                        _weight.length <= 3) {
+                                        _height.length > 2 &&
+                                        _goalWeight.length > 1 &&
+                                        _weight.length > 1) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -115,7 +116,7 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                             ),
                           ),
                           Visibility(
-                            visible: isHeightFilled,
+                            visible: isWeightFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
@@ -143,16 +144,13 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                 setState(() {
                                   _weight = text;
                                   if (titleIndex == 1) {
-                                    if (text.length < 4) {
+                                    if (text.length > 1) {
                                       isButtonActive = true;
-                                      // goalWeightField.requestFocus();
-                                      // isWeightFilled = true;
-                                      // titleIndex = 2;
                                     }
                                   } else if (titleIndex == 2) {
                                     if (_height.isNotEmpty &&
-                                        _weight.length <= 3 &&
-                                        _goalWeight.length <= 3) {
+                                        _weight.length > 1 &&
+                                        _goalWeight.length > 1) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -172,9 +170,6 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                             ),
                           ),
                           TextFormField(
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
                             onSaved: (val) {
                               setState(() {
                                 _height = val.toString();
@@ -197,8 +192,8 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                   isButtonActive = value.isNotEmpty;
                                 } else if (titleIndex == 2) {
                                   if (_height.isNotEmpty &&
-                                      _goalWeight.length <= 3 &&
-                                      _weight.length <= 3) {
+                                      _goalWeight.length > 1 &&
+                                      _weight.length > 1) {
                                     isButtonActive = true;
                                   } else {
                                     isButtonActive = false;
@@ -213,6 +208,10 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                 labelText: "키",
                                 labelStyle: TextStyle(
                                     color: Color.fromARGB(255, 182, 183, 184))),
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            maxLength: 3,
                           ),
                           const Spacer(),
                           Visibility(
@@ -231,8 +230,6 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                                 .withOpacity(0.12)
                                             : null),
                                     onPressed: () {
-                                      print(333333 + titleIndex);
-
                                       if (titleIndex == 0) {
                                         setState(() {
                                           weightField.requestFocus();
@@ -244,7 +241,7 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                                         setState(() {
                                           goalWeightField.requestFocus();
                                           isButtonActive = false;
-                                          isWeightFilled = true;
+                                          isGoalWeightFilled = true;
                                           titleIndex = 2;
                                         });
                                       } else {

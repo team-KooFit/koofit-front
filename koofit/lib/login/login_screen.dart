@@ -34,13 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        const SizedBox(height: 100),
                         const Text(
                           'KooFit',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 60,
                             // fontFamily: 'Pacifico',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
                             height: 0.01,
                           ),
                         ),

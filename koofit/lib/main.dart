@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:koofit/login/main_login_screen.dart';
+import 'package:koofit/login/login_screen.dart';
 import 'package:koofit/login/sign_up_screen';
 import 'package:koofit/login/body_size_sign_up_screen.dart';
 
@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) {
           return GetMaterialApp(
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'BodySignUp',
+              initialRoute: 'signUp',
               routes: {
                 // SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),

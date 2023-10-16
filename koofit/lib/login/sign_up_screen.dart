@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -51,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                 ),
-                backgroundColor: Color(0xFFffffff),
+                backgroundColor: const Color(0xFFffffff),
                 body: Container(
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 20).r,
@@ -65,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22.sp,
-                                color: Color.fromARGB(255, 51, 61, 75)),
+                                color: const Color.fromARGB(255, 51, 61, 75)),
                           ),
                           Visibility(
                             visible: isNumberFilled,
@@ -77,10 +76,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                               validator: (val) {
                                 if (val != null) {
-                                
                                 } else {
                                   return '나이를 입력해주세요';
                                 }
+                                return null;
                               },
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
@@ -92,8 +91,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   _age = text;
                                   if (titleIndex == 2) {
                                     if (_name.isNotEmpty &&
-                                        _number.length == 11 &&
-                                        _age.length == 2                                        
+                                            _number.length == 11 &&
+                                            _age.length == 2
                                         // int.parse(_age) >= 15 &&
                                         // int.parse(_age) <= 19
                                         ) {
@@ -107,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               maxLength: 2,
                               focusNode: ageField,
                               autofocus: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   // errorText: _age.isNotEmpty && _age.length == 2
                                   //     ? int.parse(_age) >= 20
                                   //         ? '만 19세 이상은 서비스 이용이 제한됩니다.'
@@ -167,8 +166,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   } else if (titleIndex == 2) {
                                     if (_name.isNotEmpty &&
                                         _number.length == 11 &&
-                                        _age.length == 2 
-                                       ) {
+                                        _age.length == 2) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -176,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   }
                                 });
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -204,9 +202,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 final vowelsPattern = RegExp(
                                     r'^[ㅏ-ㅣ]*$'); // 한글 모음을 정규표현식으로 나타낸 패턴
 
-                                for(var i=0; i<val.length; i++){
-                                  if(consonantsPattern.hasMatch(val[i]) ||
-                                      vowelsPattern.hasMatch(val[i])){
+                                for (var i = 0; i < val.length; i++) {
+                                  if (consonantsPattern.hasMatch(val[i]) ||
+                                      vowelsPattern.hasMatch(val[i])) {
                                     return '올바른 이름을 입력해주세요';
                                   }
                                 }
@@ -226,7 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 } else if (titleIndex == 2) {
                                   if (_name.isNotEmpty &&
                                       _number.length == 11 &&
-                                      _age.length == 2 ) {
+                                      _age.length == 2) {
                                     isButtonActive = true;
                                   } else {
                                     isButtonActive = false;
@@ -234,16 +232,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 }
                               });
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                        Palette.mainSkyBlue)),
+                                    borderSide:
+                                        BorderSide(color: Palette.mainSkyBlue)),
                                 labelText: "이름",
                                 labelStyle: TextStyle(
                                     color: Color.fromARGB(255, 182, 183, 184))),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Visibility(
                               visible: isButtonActive,
                               child: SizedBox(
@@ -259,7 +256,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             ? Palette.mainSkyBlue
                                                 .withOpacity(0.12)
                                             : null),
-                                    onPressed: (){
+                                    onPressed: () {
                                       if (titleIndex == 0) {
                                         setState(() {
                                           numberField.requestFocus();
@@ -277,10 +274,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             //   uid: args.uid,
                                             //   name: _name,
                                             //   profileImage: args.profileImage,
-                                        
+
                                             // );
-                                            Navigator.pushNamed(context, 'BodySignUp',
-                                           );
+                                            Navigator.pushNamed(
+                                              context,
+                                              'BodySignUp',
+                                            );
                                           }
                                         }
                                       }

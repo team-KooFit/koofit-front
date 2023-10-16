@@ -29,7 +29,7 @@ class WeekDays extends StatelessWidget {
           return DateBox(
             child: Text(
               weekNames[index],
-              style: TextStyle(fontWeight: FontWeight.w500),
+              style: const TextStyle(fontWeight: FontWeight.w500),
             ),
           );
         }),

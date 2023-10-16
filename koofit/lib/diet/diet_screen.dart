@@ -22,10 +22,6 @@ class _DietScreenState extends State<DietScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: Builder(builder: (context) {
         return Column(
           mainAxisSize: MainAxisSize.max,
@@ -47,7 +43,6 @@ class _DietScreenState extends State<DietScreen> {
                       fontSize: 12,
                       color: Colors.black87,
                       fontWeight: FontWeight.w200),
-                      
                 ),
                 // primaryColor: Palette.mainSkyBlue,
                 // highlightColor: const Color.fromARGB(255, 179, 124, 124),
@@ -70,7 +65,6 @@ class _DietScreenState extends State<DietScreen> {
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 21),
-                    
               ),
             ),
           ],

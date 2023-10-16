@@ -185,6 +185,7 @@ class _AdvancedCalendarState extends State<AdvancedCalendar>
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Padding(padding: EdgeInsets.all(15)),
                 ValueListenableBuilder<int>(
                   valueListenable: _monthViewCurrentPage,
                   builder: (_, value, __) {

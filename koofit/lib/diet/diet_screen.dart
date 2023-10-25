@@ -30,21 +30,18 @@ class _DietScreenState extends State<DietScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             advanced_calender(theme, thisController, recordedDay),
-            Text(
-                'Selected Date: ${_selectedDate != null ? DateFormat('yyyy-MM-dd').format(_selectedDate!) : 'No Date Selected'}'),
+            ValueListenableBuilder<DateTime>(
+              valueListenable: thisController,
+              builder: (context, selectedDate, child) {
+                return Text('Selected Day: ${DateFormat('yyyy-MM-dd').format(selectedDate)}');
+              },
+            ),
           ],
         );
       }),
     );
   }
 
-  void _handleDateChanged(DateTime date) {
-    setState(() {
-      // 선택된 날짜가 변경될 때마다 UI를 업데이트합니다.
-      _selectedDate = date;
-    });
-  }
-}
 
 Widget advanced_calender(ThemeData theme, controller, recordedDay) {
   return Theme(
@@ -83,4 +80,4 @@ Widget advanced_calender(ThemeData theme, controller, recordedDay) {
           color: Colors.white, fontWeight: FontWeight.w500, fontSize: 21),
     ),
   );
-}
+}}

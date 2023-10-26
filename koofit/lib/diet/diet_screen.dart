@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/widget/advanced_calender_lib/advanced_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:koofit/model/config/palette.dart';
+import 'univ_diet_card.dart';
+import 'daily_diet_view.dart';
 
 class DietScreen extends StatefulWidget {
   const DietScreen({super.key});
@@ -20,6 +24,13 @@ class _DietScreenState extends State<DietScreen> {
   DateTime? _selectedDate; // 선택된 날짜를 저장할 변수
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initializeDateFormatting('ko', null);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -33,7 +44,7 @@ class _DietScreenState extends State<DietScreen> {
             ValueListenableBuilder<DateTime>(
               valueListenable: thisController,
               builder: (context, selectedDate, child) {
-                return Text('Selected Day: ${DateFormat('yyyy-MM-dd').format(selectedDate)}');
+                return DailyDietView(selectedDate);
               },
             ),
           ],
@@ -81,3 +92,63 @@ Widget advanced_calender(ThemeData theme, controller, recordedDay) {
     ),
   );
 }}
+
+Widget DailyDietView(DateTime date){
+  return Padding(
+      padding: EdgeInsets.all(15),
+      child: Column(
+          children:[
+            Text(
+              formatDate(date), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)
+            ),
+            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+            Univ_Diet(date)
+          ]
+      )
+  );
+}
+Widget Univ_Diet(DateTime date) {
+  return SizedBox(
+    width: double.infinity,
+    child: Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      child: Column(
+        children: [
+          Padding(padding: EdgeInsets.symmetric(vertical: 7)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center, // 자식 위젯을 가로 방향으로 가운데 정렬
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset('assets/images/healthy_food.png'),
+              ),
+              const Text( "오늘의 학식", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            ],
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate( 10,
+                    (index) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 50,
+                    child: Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      child: Text('${index + 1}'),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
+String formatDate(DateTime orgin_date) {
+  var formatter = DateFormat('yyyy년 M월 d일 (E)', 'ko'); // 'ko'는 한국어로 표시하기 위한 로케일 코드입니다.
+  return formatter.format(orgin_date);
+}

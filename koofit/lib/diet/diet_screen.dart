@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/diet/today_calories_card.dart';
 import 'package:koofit/widget/advanced_calender_lib/advanced_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'univ_diet_card.dart';
-import 'daily_diet_view.dart';
 
 class DietScreen extends StatefulWidget {
   const DietScreen({super.key});
@@ -23,20 +23,11 @@ class _DietScreenState extends State<DietScreen> {
   ];
   DateTime? _selectedDate; // 선택된 날짜를 저장할 변수
 
-
-  List<bool> isSelected = [true, false, false]; // 초기 상태로 복지관 버튼을 눌러진 상태로 설정
-
-  List<String> bokjiMenu = ["김치찌개", "된장찌개", "제육볶음", "불고기", "비빔밥"];
-  List<String> beobgwanMenu = ["짜장면", "짬뽕", "볶음밥", "탕수육", "양장피"];
-  List<String> gyojeokwonMenu = ["카레라이스", "김치볶음밥", "떡볶이", "라면", "샐러드"];
-  List<String> selectedMenu = [];
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initializeDateFormatting('ko', null);
-    selectedMenu = bokjiMenu; // 초기에 복지관 메뉴를 선택함
 
   }
 
@@ -46,7 +37,8 @@ class _DietScreenState extends State<DietScreen> {
 
     return Scaffold(
       body: Builder(builder: (context) {
-        return Column(
+        return SingleChildScrollView(
+            child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,7 +50,7 @@ class _DietScreenState extends State<DietScreen> {
               },
             ),
           ],
-        );
+            ) );
       }),
     );
   }
@@ -105,7 +97,8 @@ class _DietScreenState extends State<DietScreen> {
 
 
   Widget DailyDietView(DateTime date) {
-    return Padding(
+    return
+      Padding(
         padding: EdgeInsets.all(15),
         child: Column(
             children: [
@@ -114,169 +107,15 @@ class _DietScreenState extends State<DietScreen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)
               ),
               Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-              univDiet(),
-              todayCalory(),
+              UnivDietCard(),
+              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+              TodayCalorieCard(),
             ]
         )
     );
   }
 
-  Widget univDiet() {
-    return SizedBox(
-      width: double.infinity,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        child: Column(
-          children: [
-            Padding(padding: EdgeInsets.symmetric(vertical: 7)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // 자식 위젯을 가로 방향으로 가운데 정렬
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('assets/images/healthy_food.png'),
-                ),
-                 Text("오늘의 학식",
-                  style: TextStyle(fontFamily: 'Poppins',
-    fontWeight: FontWeight.bold,
-    fontSize: 20),),
-              ],
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-              ToggleButtons(
-                children: [
-                  Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text('복지관')
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('법학관')
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('교직원')
-                  ),
-                ],
-                textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-                isSelected:    [ selectedMenu == bokjiMenu,
-                selectedMenu == beobgwanMenu,
-                selectedMenu == gyojeokwonMenu,],
-                borderRadius: BorderRadius.circular(20.0),
-                constraints: const BoxConstraints(
-                  minHeight: 30.0,
-                  minWidth: 25.0,
-                ),
-                selectedBorderColor: Palette.mid_dark_mainSkyBlue,
-                selectedColor: Colors.white,
-                fillColor:Palette.mid_dark_mainSkyBlue,
-                color: Colors.black54,
-                onPressed: (index) {
-                  setState(() {
-                    if (index == 0) {
-                      selectedMenu = bokjiMenu;
-                    } else if (index == 1) {
-                      selectedMenu = beobgwanMenu;
-                    } else {
-                      selectedMenu = gyojeokwonMenu;
-                    }
-                  });
-                },
-              ),
-                ]
-            ),
-            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
 
-        if (selectedMenu.isNotEmpty)
-    SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        children: selectedMenu
-            .map(
-              (menu) => Card(
-
-                color: Color(0xFFF2F3F3), // 카드의 배경색을 #F2F3F3으로 설정
-                elevation: 2, // 카드의 그림자 높이 설정
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // 모서리를 둥글게 만드는 값 설정
-                ),
-
-                child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Column(children: [
-                Text(menu),
-                SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: + 버튼 눌렀을 때 수행할 작업 추가
-                  },
-                  child: Text(
-                      '+',
-                      style:
-                        TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w800,
-                        )
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(70,20),
-                      backgroundColor: Palette.mainSkyBlue,
-                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2), // 내부 패딩 조절
-                      shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15))
-                  )),
-              ]),
-            ),
-          ),
-        )
-            .toList(),),),
-            Padding(padding: EdgeInsets.symmetric(vertical: 15.0)),
-
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget todayCalory(){
-
-    return SizedBox(
-        width: double.infinity,
-        child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-    child: 
-    Padding(
-      padding: EdgeInsets.all(20),
-      child:
-      Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text("식단",
-        style: TextStyle(
-          color: Color(0xA5222B45),
-          fontSize: 10,
-          fontFamily: 'Poppins',
-          fontWeight: FontWeight.w700,
-    ),),
-      SizedBox(height: 10,),
-      Text("0 Kal",
-        style: TextStyle(
-              color: Color(0xFF222B45),
-              fontSize: 15,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w700,
-        )
-        ,),
-
-    ]))
-    )
-    );  }
 
   String formatDate(DateTime orgin_date) {
     var formatter = DateFormat(
@@ -284,4 +123,4 @@ class _DietScreenState extends State<DietScreen> {
     return formatter.format(orgin_date);
   }
 
-}
+  }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/diet/add_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 
 class UnivDietCard extends StatefulWidget {
@@ -114,27 +115,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                           child: Column(children: [
                             Text(menu),
                             SizedBox(height: 8),
-                            ElevatedButton(
-                                onPressed: () {
-                                  // TODO: + 버튼 눌렀을 때 수행할 작업 추가
-                                },
-                                child: Text(
-                                    '+',
-                                    style:
-                                    TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w800,
-                                    )
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(70,20),
-                                    backgroundColor: Palette.mainSkyBlue,
-                                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2), // 내부 패딩 조절
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15))
-                                )),
+                            AddDietBtnScreen(where: "식당이름", menu: menu)
                           ]),
                         ),
                       ),

@@ -1,100 +1,82 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/diet/tab_menu.dart';
+import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/model/config/palette.dart';
-import 'package:easy_search_bar/easy_search_bar.dart';
 
-class AddDietScreen extends StatefulWidget {
+class AddDietBtnScreen extends StatefulWidget {
+  final String where;
+  final String menu;
+
+  // 생성자 정의
+  AddDietBtnScreen({Key? key, required this.where, required this.menu}) : super(key: key);
 
   @override
-  State<AddDietScreen> createState() => _AddDietScreenState();
+  State<AddDietBtnScreen> createState() => _AddDietBtnScreenState();
 }
 
-class _AddDietScreenState extends State<AddDietScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-  String searchValue = '';
-  final List<String> _suggestions = ['Afeganistan', 'Albania', 'Algeria', 'Australia', 'Brazil', 'German', 'Madagascar', 'Mozambique', 'Portugal', 'Zambia'];
+class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
+  // late var _defaultValue;
 
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
-      home:  Scaffold(
-          appBar: EasySearchBar(
-              title: const Text('Example'),
-              onSearch: (value) => setState(() => searchValue = value),
-              suggestions: _suggestions
-          ),
-          drawer: Drawer(
-              child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    const DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                      child: Text('Drawer Header'),
-                    ),
-                    ListTile(
-                        title: const Text('Item 1'),
-                        onTap: () => Navigator.pop(context)
-                    ),
-                    ListTile(
-                        title: const Text('Item 2'),
-                        onTap: () => Navigator.pop(context)
-                    )
-                  ]
-              )
-          ),
-          body: Center(
-              child:
-              TabMenu()
-
-          )
-      )
-
-      );
-
-  }
-
-  Widget searchBar() {
-    return Scaffold(
-        appBar: EasySearchBar(
-            title: const Text('음식명으로 검색'),
-            backgroundColor: Colors.transparent,
-
-            onSearch: (value) => setState(() => searchValue = value),
-            suggestions: _suggestions
-        ),
-        drawer: Drawer(
-            child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                    ),
-                    child: Text('Drawer Header'),
-                  ),
-                  ListTile(
-                      title: const Text('Item 1'),
-                      onTap: () => Navigator.pop(context)
-                  ),
-                  ListTile(
-                      title: const Text('Item 2'),
-                      onTap: () => Navigator.pop(context)
-                  )
-                ]
+    return ElevatedButton(
+      onPressed: () async {
+        await _showBottomSheet(context, widget.where, widget.menu);
+      },
+        child: Text(
+            '+',
+            style:
+            TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w800,
             )
         ),
-        body: Center(
-            child: Text('Value: $searchValue')
-        )
-    );
+        style: ElevatedButton.styleFrom(
+            minimumSize: Size(70,20),
+            backgroundColor: Palette.mainSkyBlue,
+            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2), // 내부 패딩 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15))
+        ));
   }
 
+  Future<void> _showBottomSheet(BuildContext context, String where, String menu) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      useSafeArea: true,
+      enableDrag: true,
+      isScrollControlled: true,
+      elevation: 50,
+      constraints: const BoxConstraints(
+        minWidth: double.infinity,
+        maxHeight: 695,
+      ),
+      builder: (BuildContext context) {
+        return ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 15),
+              Text("복지관", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+              SizedBox(height: 5),
+              Text(menu, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w300, color: Colors.black54),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

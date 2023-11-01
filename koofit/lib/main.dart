@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:koofit/diet/add_diet_screen.dart';
+import 'package:koofit/diet/search_diet_screen.dart';
 
 import 'package:koofit/login/login_screen.dart';
 import 'package:koofit/login/sign_up_screen.dart';
 import 'package:koofit/login/body_size_sign_up_screen.dart';
-import 'package:koofit/diet/diet_screen.dart';
-
+import 'package:koofit/diet/main_diet_screen/diet_screen.dart';
+import 'package:koofit/diet/search_diet_screen.dart';
+import 'package:koofit/diet/add_diet_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
                 'signUp': (context) => const SignUpScreen(),
                 'BodySignUp': (context) => const BodySignUpScreen(),
                 'diet': (context) => const DietScreen(),
-                'add_diet' : (context) => AddDietScreen(),
+                'search_diet' : (context) => SearchDietScreen(),
               });
         });
   }

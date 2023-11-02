@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:koofit/diet/search_diet_screen.dart';
+import 'package:koofit/diet/tab_menu/search_diet_screen.dart';
 
 import 'package:koofit/login/login_screen.dart';
 import 'package:koofit/login/sign_up_screen.dart';
 import 'package:koofit/login/body_size_sign_up_screen.dart';
 import 'package:koofit/diet/main_diet_screen/diet_screen.dart';
-import 'package:koofit/diet/search_diet_screen.dart';
+import 'package:koofit/diet/tab_menu/search_diet_screen.dart';
 import 'package:koofit/diet/add_diet_screen.dart';
+import 'package:koofit/login/welcome_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -30,13 +31,14 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) {
           return GetMaterialApp(
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'diet',
+              initialRoute: 'main_diet',
               routes: {
                 // SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),
                 'signUp': (context) => const SignUpScreen(),
                 'BodySignUp': (context) => const BodySignUpScreen(),
-                'diet': (context) => const DietScreen(),
+                'welcomeScreen' : (context) => const WelcomeScreen(),
+                'main_diet': (context) => const DietScreen(),
                 'search_diet' : (context) => SearchDietScreen(),
               });
         });

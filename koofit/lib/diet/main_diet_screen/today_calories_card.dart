@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/diet/search_diet_screen.dart';
+import 'package:koofit/diet/tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:get/get.dart';
 class TodayCalorieCard extends StatefulWidget {
@@ -29,19 +29,19 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child:
             Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child:
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
+                      SizedBox(height: 5),
                       Text("식단",
                         style: TextStyle(
                           color: Color(0xA5222B45),
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 5,),
                       Text("0 Kal",
                         style: TextStyle(
                           color: Color(0xFF222B45),

@@ -103,7 +103,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                   }
                                 });
                               },
-                              maxLength: 2,
+                              maxLength: 3,
                               focusNode: goalWeightField,
                               autofocus: true,
                               decoration: const InputDecoration(
@@ -134,7 +134,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                               },
                               validator: (val) {
                                 if (val != null) {
-                                  if (val.length > 3) {
+                                  if (val.length > 4) {
                                     return '올바른 몸무게를 입력해주세요';
                                   }
                                 } else {
@@ -263,10 +263,10 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                             //   profileImage: args.profileImage,
 
                                             // );
-                                            // Navigator.pushNamed(
-                                            //   context,
-                                            //   'BodySignUp',
-                                            // );
+                                            Navigator.pushNamed(
+                                              context,
+                                              'welcomeScreen',
+                                            );
                                           }
                                         }
                                       }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:koofit/diet/main_diet_screen/diet_screen.dart';
 import 'package:koofit/widget/loading_view.dart';
-
+import 'package:get/get.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -18,13 +19,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-
+    isLoading = false;
+    isSuccess = true;
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     //   _uploadUserToFirebase().then((value) {
     //     setState(() {
     //       isLoading = false;
     //     });
-    //     Future.delayed(Duration(seconds: 2)).then((value){
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      Get.offAll(DietScreen());
+    });
 
     //       if (isSuccess) {
     //         Get.offAll(TabPage(isLinkEntered: false,), arguments: newUserUid);

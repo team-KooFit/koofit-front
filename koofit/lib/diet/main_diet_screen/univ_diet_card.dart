@@ -103,7 +103,6 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     children: selectedMenu
                         .map(
                           (menu) => Card(
-
                         color: Color(0xFFF2F3F3), // 카드의 배경색을 #F2F3F3으로 설정
                         elevation: 2, // 카드의 그림자 높이 설정
                         shape: RoundedRectangleBorder(

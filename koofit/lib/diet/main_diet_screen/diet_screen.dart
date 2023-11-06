@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/diet/fitness_screen/fitness_card.dart';
 import 'package:koofit/diet/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/widget/advanced_calender_lib/advanced_calendar.dart';
 import 'package:intl/intl.dart';
@@ -110,6 +111,8 @@ class _DietScreenState extends State<DietScreen> {
               UnivDietCard(),
               Padding(padding: EdgeInsets.symmetric(vertical: 5)),
               TodayCalorieCard(),
+              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+              FitnessCard(),
             ]
         )
     );

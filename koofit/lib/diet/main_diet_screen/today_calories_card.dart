@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/diet/main_diet_screen/today_show.dart';
 import 'package:koofit/diet/tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:get/get.dart';
+import 'package:koofit/widget/circleText.dart';
+
 class TodayCalorieCard extends StatefulWidget {
 
   @override
@@ -10,6 +13,7 @@ class TodayCalorieCard extends StatefulWidget {
 
 class _TodayCalorieCardState extends State<TodayCalorieCard> {
 
+  bool isOuter = true;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +23,10 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
         ),
         child:
         InkWell(
-          onTap:(){ Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SearchDietScreen(), // 전달할 데이터를 포함하여 다음 스크린 생성
-            ),
-          );},
+    onTap: () async {
+    await showTodayDiet(context);
+    },
+
         child: Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child:
@@ -50,62 +52,15 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
                         )
                         ,),
                       SizedBox(height: 13,),
-                      circleText(Palette.tanSu),
-                      circleText(Palette.danBaek),
-                      circleText(Palette.jiBang)
+                      CircleText(Palette.tanSu, 61, isOuter),
+                      CircleText(Palette.danBaek, 100, isOuter ),
+                      CircleText(Palette.jiBang, 24, isOuter)
                     ]))
         )
         )
     );
 
 
-  }
-
-  Widget circleText(Color color){
-    String text = "";
-
-    if(color == Palette.tanSu){
-      text = "탄";
-    } else if(color == Palette.danBaek){
-      text = "단";
-    } else {
-      text = "지";
-    }
-
-    return Padding(padding: EdgeInsets.symmetric(vertical: 2),
-        child : Row(
-      children: [
-        Container(
-          width: 13,
-          height: 13,
-          decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle
-          ),
-        ),
-        Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-        Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xA5222B45),
-            fontSize: 13,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Padding(padding: EdgeInsets.symmetric(horizontal:3)),
-        Text(
-          '0 %',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xC6222B45),
-            fontSize: 13,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w700,
-          ),)
-      ],
-    ));
   }
 
   }

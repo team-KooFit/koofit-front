@@ -20,7 +20,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        await _showBottomSheet(context, widget.where, widget.menu);
+        await _showNutrientSheet(context, widget.where, widget.menu);
       },
         child: Text(
             '+',
@@ -42,7 +42,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
 
   }
 
-  Future<void> _showBottomSheet(BuildContext context, String where, String menu) async {
+  Future<void> _showNutrientSheet(BuildContext context, String where, String menu) async {
     await showModalBottomSheet<void>(
       context: context,
       shape: RoundedRectangleBorder(
@@ -158,7 +158,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                       },
-                    child: Text('확인',
+                    child: Text('수정하기',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20)),

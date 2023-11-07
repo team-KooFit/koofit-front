@@ -1,4 +1,4 @@
-import 'package:exercisemain/core/app_export.dart';
+import 'package:koofit/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigationScreen extends StatelessWidget {

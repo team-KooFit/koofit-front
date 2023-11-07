@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:exercisemain/theme/theme_helper.dart';
-import 'package:exercisemain/routes/app_routes.dart';
+import 'package:koofit/theme/theme_helper.dart';
+import 'package:koofit/routes/app_routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      title: 'exercisemain',
+      title: 'koofit',
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.k0Screen,
       routes: AppRoutes.routes,

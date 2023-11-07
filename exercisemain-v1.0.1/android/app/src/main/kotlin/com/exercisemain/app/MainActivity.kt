@@ -1,4 +1,4 @@
-package com.exercisemain.app
+package com.koofit.app
 
 import io.flutter.embedding.android.FlutterActivity
 

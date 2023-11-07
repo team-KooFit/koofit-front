@@ -10,6 +10,9 @@ import 'package:koofit/diet/main_diet_screen/diet_screen.dart';
 import 'package:koofit/diet/tab_menu/search_diet_screen.dart';
 import 'package:koofit/diet/add_diet_screen.dart';
 import 'package:koofit/login/welcome_screen.dart';
+import 'package:koofit/presentation/k0_screen/k0_screen.dart';
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -31,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) {
           return GetMaterialApp(
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'main_diet',
+              initialRoute: 'excercise',
               routes: {
                 // SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),
@@ -40,6 +43,7 @@ class _MyAppState extends State<MyApp> {
                 'welcomeScreen' : (context) => const WelcomeScreen(),
                 'main_diet': (context) => const DietScreen(),
                 'search_diet' : (context) => SearchDietScreen(),
+                'excercise' : (context) => K0Screen(),
               });
         });
   }

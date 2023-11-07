@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:exercisemain/core/app_export.dart';
+import 'package:koofit/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 /// A class that offers pre-defined button styles for customizing button appearance.

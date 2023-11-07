@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:exercisemain/presentation/k0_screen/k0_screen.dart';
-import 'package:exercisemain/presentation/k1_screen/k1_screen.dart';
-import 'package:exercisemain/presentation/app_navigation_screen/app_navigation_screen.dart';
+import 'package:koofit/presentation/k0_screen/k0_screen.dart';
+import 'package:koofit/presentation/k1_screen/k1_screen.dart';
+import 'package:koofit/presentation/app_navigation_screen/app_navigation_screen.dart';
 
 class AppRoutes {
   static const String k0Screen = '/k0_screen';

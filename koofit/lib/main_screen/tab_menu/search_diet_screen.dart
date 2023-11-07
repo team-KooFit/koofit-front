@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/diet/tab_menu/tab_menu.dart';
+import 'package:koofit/main_screen/tab_menu/tab_menu.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 

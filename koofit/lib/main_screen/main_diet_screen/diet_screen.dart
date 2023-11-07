@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/diet/fitness_screen/fitness_card.dart';
-import 'package:koofit/diet/main_diet_screen/today_calories_card.dart';
+import 'package:koofit/main_screen/fitness_screen/fitness_card.dart';
+import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/widget/advanced_calender_lib/advanced_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';

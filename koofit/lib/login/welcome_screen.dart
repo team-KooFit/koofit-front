@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:koofit/diet/main_diet_screen/diet_screen.dart';
+import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
 import 'package:koofit/widget/loading_view.dart';
 import 'package:get/get.dart';
 class WelcomeScreen extends StatefulWidget {

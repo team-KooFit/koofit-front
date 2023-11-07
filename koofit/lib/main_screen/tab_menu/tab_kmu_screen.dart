@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/diet/add_diet_screen.dart';
-import 'package:koofit/diet/tab_menu/search_diet_screen.dart';
+import 'package:koofit/main_screen/add_diet_screen.dart';
+import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 
 class TabKmuScreen extends StatefulWidget {

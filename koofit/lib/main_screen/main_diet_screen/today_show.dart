@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/diet/main_diet_screen/today_calories_card.dart';
+import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/widget/circleText.dart';
 

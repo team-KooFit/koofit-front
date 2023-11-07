@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/diet/add_diet_screen.dart';
+import 'package:koofit/main_screen/add_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 
 class UnivDietCard extends StatefulWidget {

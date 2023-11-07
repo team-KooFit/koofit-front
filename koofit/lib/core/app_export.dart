@@ -1,7 +1,7 @@
 export 'package:koofit/core/constants/constants.dart';
 export 'package:koofit/core/utils/image_constant.dart';
 export 'package:koofit/core/utils/size_utils.dart';
-export 'package:koofit/routes/app_routes.dart';
+export 'package:koofit/main_screen/fitness_screen//routes/app_routes.dart';
 export 'package:koofit/theme/app_decoration.dart';
 export 'package:koofit/theme/custom_text_style.dart';
 export 'package:koofit/theme/theme_helper.dart';

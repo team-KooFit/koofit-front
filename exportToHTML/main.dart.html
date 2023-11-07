@@ -1,0 +1,265 @@
+<html>
+<head>
+<title>main.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #6a8759;}
+.s2 { color: #cc7832;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s2">;</span>
+
+<span class="s2">void </span><span class="s0">main() =&gt; runApp(MyApp())</span><span class="s2">;</span>
+
+<span class="s2">class </span><span class="s0">MyApp </span><span class="s2">extends </span><span class="s0">StatelessWidget {</span>
+  <span class="s2">const </span><span class="s0">MyApp({Key? key}) : </span><span class="s2">super</span><span class="s0">(key: key)</span><span class="s2">;</span>
+
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">final </span><span class="s0">Size screenSize = MediaQuery.of(context).size</span><span class="s2">;</span>
+    <span class="s2">final </span><span class="s0">double screenWidth = screenSize.width</span><span class="s2">;</span>
+    <span class="s2">final </span><span class="s0">double screenHeight = screenSize.height</span><span class="s2">;</span>
+    <span class="s0">List&lt;List&lt;String&gt;&gt; li = [[</span><span class="s1">'전체'</span><span class="s2">, </span><span class="s1">'김민태'</span><span class="s2">, </span><span class="s1">'다이어트 하는중'</span><span class="s2">, </span><span class="s1">'32'</span><span class="s2">, </span><span class="s1">'42'</span><span class="s2">, </span><span class="s1">'41'</span><span class="s2">, </span><span class="s1">'30분 전'</span><span class="s0">]</span><span class="s2">, </span><span class="s0">[</span><span class="s1">'식단'</span><span class="s2">,</span><span class="s1">'송해원'</span><span class="s2">, </span><span class="s1">'유산소 했다'</span><span class="s2">, </span><span class="s1">'31'</span><span class="s2">, </span><span class="s1">'42'</span><span class="s2">, </span><span class="s1">'62'</span><span class="s2">, </span><span class="s1">'1시간 전'</span><span class="s0">]</span><span class="s2">,</span><span class="s0">[</span><span class="s1">'운동'</span><span class="s2">, </span><span class="s1">'송혜원'</span><span class="s2">, </span><span class="s1">'공복인데..'</span><span class="s2">, </span><span class="s1">'31'</span><span class="s2">, </span><span class="s1">'62'</span><span class="s2">,</span><span class="s1">'30'</span><span class="s2">, </span><span class="s1">'1시간 전'</span><span class="s0">]</span><span class="s2">, </span><span class="s0">[</span><span class="s1">'20대'</span><span class="s2">,</span><span class="s1">'송해원'</span><span class="s2">, </span><span class="s1">'대학생활'</span><span class="s2">, </span><span class="s1">'28'</span><span class="s2">, </span><span class="s1">'10'</span><span class="s2">, </span><span class="s1">'32'</span><span class="s2">, </span><span class="s1">'하루 전'</span><span class="s0">]</span><span class="s2">,</span><span class="s0">[</span><span class="s1">'10대'</span><span class="s2">,</span><span class="s1">'송해원'</span><span class="s2">, </span><span class="s1">'음료 맛있다'</span><span class="s2">, </span><span class="s1">'70'</span><span class="s2">, </span><span class="s1">'40'</span><span class="s2">, </span><span class="s1">'60'</span><span class="s2">, </span><span class="s1">'하루 전'</span><span class="s0">]]</span><span class="s2">;</span>
+    <span class="s2">return </span><span class="s0">MaterialApp(</span>
+        <span class="s0">home: Scaffold(</span>
+          <span class="s0">backgroundColor: Colors.white</span><span class="s2">,</span>
+          <span class="s0">body: SingleChildScrollView(</span>
+            <span class="s0">child : Column(</span>
+              <span class="s0">children: &lt;Widget&gt;[</span>
+
+                <span class="s0">Text(</span><span class="s1">'정보게시판'</span><span class="s2">, </span><span class="s0">style: TextStyle(fontSize: </span><span class="s3">24</span><span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">Row(</span>
+                  <span class="s0">mainAxisAlignment: MainAxisAlignment.spaceEvenly</span><span class="s2">,</span>
+                  <span class="s0">children: [</span>
+                      <span class="s0">Container(</span>
+                        <span class="s0">width: screenWidth * </span><span class="s3">0.15</span><span class="s2">,</span>
+                        <span class="s0">height: screenHeight * </span><span class="s3">0.03</span><span class="s2">,</span>
+                        <span class="s0">decoration : BoxDecoration(</span>
+                          <span class="s0">borderRadius : BorderRadius.circular(</span><span class="s3">10.0</span><span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">border : Border.all(</span>
+                            <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                            <span class="s0">width : </span><span class="s3">1.0</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">color: Color(</span><span class="s3">0xFFD9D9D9</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+
+                        <span class="s0">margin : EdgeInsets.only(left : screenWidth * </span><span class="s3">0.05</span><span class="s2">, </span><span class="s0">top : screenHeight * </span><span class="s3">0.05</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">alignment: Alignment.center</span><span class="s2">,</span>
+                        <span class="s0">child: Text(</span><span class="s1">'전체'</span><span class="s2">, </span><span class="s0">style: TextStyle(</span>
+                          <span class="s0">fontSize: </span><span class="s3">20</span><span class="s2">,</span>
+                          <span class="s0">color: Colors.black</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+
+                <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">Container(</span>
+                        <span class="s0">width: screenWidth * </span><span class="s3">0.15</span><span class="s2">,</span>
+                        <span class="s0">height: screenHeight * </span><span class="s3">0.03</span><span class="s2">,</span>
+                        <span class="s0">child : TextButton(</span>
+                          <span class="s0">style : TextButton.styleFrom(</span>
+                            <span class="s0">padding : EdgeInsets.all(</span><span class="s3">0</span><span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">shape : RoundedRectangleBorder(</span>
+                          <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10.0</span><span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">side : BorderSide(</span>
+                            <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                            <span class="s0">width : </span><span class="s3">1.0</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">backgroundColor: Color(</span><span class="s3">0xFFD9D9D9</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">onPressed : () {</span>
+
+                        <span class="s0">}</span><span class="s2">,</span>
+                          <span class="s0">child : Text(</span>
+                            <span class="s1">'전체'</span><span class="s2">,</span>
+                            <span class="s0">style : TextStyle(</span>
+                              <span class="s0">fontSize : </span><span class="s3">20</span><span class="s2">,</span>
+                              <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+
+                      <span class="s0">Container(</span>
+                        <span class="s0">width: screenWidth * </span><span class="s3">0.15</span><span class="s2">,</span>
+                        <span class="s0">height: screenHeight * </span><span class="s3">0.03</span><span class="s2">,</span>
+                        <span class="s0">decoration : BoxDecoration(</span>
+                          <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10.0</span><span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">border : Border.all(</span>
+                            <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                            <span class="s0">width : </span><span class="s3">1.0</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">color: Color(</span><span class="s3">0xFFD9D9D9</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">margin : EdgeInsets.only(left : screenWidth * </span><span class="s3">0.10</span><span class="s2">, </span><span class="s0">top : screenHeight * </span><span class="s3">0.05</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">alignment: Alignment.center</span><span class="s2">,</span>
+                        <span class="s0">child: Text(</span><span class="s1">'운동'</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                          <span class="s0">fontSize : </span><span class="s3">20</span><span class="s2">,</span>
+                          <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">Container(</span>
+                        <span class="s0">width: screenWidth * </span><span class="s3">0.15</span><span class="s2">,</span>
+                        <span class="s0">height: screenHeight * </span><span class="s3">0.03</span><span class="s2">,</span>
+                        <span class="s0">decoration: BoxDecoration(</span>
+                          <span class="s0">borderRadius : BorderRadius.circular(</span><span class="s3">10.0</span><span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">border : Border.all(</span>
+                            <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                            <span class="s0">width : </span><span class="s3">1.0</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">color: Color(</span><span class="s3">0xFFD9D9D9</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">margin : EdgeInsets.only(left : screenWidth * </span><span class="s3">0.10</span><span class="s2">, </span><span class="s0">top : screenHeight * </span><span class="s3">0.05</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">alignment: Alignment.center</span><span class="s2">,</span>
+                        <span class="s0">child: Text(</span><span class="s1">'20대'</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                          <span class="s0">fontSize : </span><span class="s3">20</span><span class="s2">,</span>
+                          <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">]</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+                <span class="s2">for </span><span class="s0">(int i = </span><span class="s3">0</span><span class="s2">; </span><span class="s0">i &lt; li.length</span><span class="s2">;</span><span class="s0">i++)</span>
+
+                <span class="s0">Container(</span>
+                  <span class="s0">width : screenWidth * </span><span class="s3">0.95</span><span class="s2">,</span>
+                  <span class="s0">height : screenHeight * </span><span class="s3">0.15</span><span class="s2">,</span>
+                  <span class="s0">margin : EdgeInsets.only( top : screenHeight * </span><span class="s3">0.05</span><span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">decoration : BoxDecoration(</span>
+                    <span class="s0">borderRadius : BorderRadius.circular(</span><span class="s3">10.0</span><span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">border : Border.all(</span>
+                      <span class="s0">color : Colors.black</span><span class="s2">,</span>
+                      <span class="s0">width : </span><span class="s3">1.0</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">color : Colors.white</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">child : Column(</span>
+                    <span class="s0">children : [</span>
+                      <span class="s0">Padding(</span>
+                        <span class="s0">padding : EdgeInsets.only(top: screenHeight * </span><span class="s3">0.01</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">child : Row(</span>
+                        <span class="s0">children : [</span>
+                          <span class="s0">Padding(</span>
+                          <span class="s0">padding : EdgeInsets.only(left : screenWidth * </span><span class="s3">0.03</span><span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">child : Text(li[i][</span><span class="s3">0</span><span class="s0">]</span><span class="s2">, </span><span class="s0">style : TextStyle(fontSize : </span><span class="s3">16</span><span class="s2">,</span>
+
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+
+                          <span class="s0">SizedBox(width : </span><span class="s3">30</span><span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">Text(li[i][</span><span class="s3">1</span><span class="s0">]</span><span class="s2">, </span><span class="s0">style : TextStyle(fontSize : </span><span class="s3">16</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">]</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">Center(</span>
+                      <span class="s0">child : Padding(</span>
+                      <span class="s0">padding : EdgeInsets.only(top : screenHeight * </span><span class="s3">0.025</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">child :Text(li[i][</span><span class="s3">2</span><span class="s0">]</span><span class="s2">,</span>
+                        <span class="s0">style : TextStyle(</span>
+                        <span class="s0">fontSize : </span><span class="s3">20</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">Padding(</span>
+                        <span class="s0">padding : EdgeInsets.only(top : screenHeight * </span><span class="s3">0.025</span><span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">child : Row(</span>
+                          <span class="s0">children : [</span>
+                            <span class="s0">Padding(</span>
+                              <span class="s0">padding : EdgeInsets.only(left : </span><span class="s3">20.0</span><span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">child : Icon(Icons.adb_rounded)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">SizedBox(width : </span><span class="s3">20</span><span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">Text(li[i][</span><span class="s3">3</span><span class="s0">]</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                              <span class="s0">fontSize: </span><span class="s3">15</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">SizedBox(width : </span><span class="s3">30</span><span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">Icon(Icons.account_box)</span><span class="s2">,</span>
+                            <span class="s0">SizedBox(width : </span><span class="s3">20</span><span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">Text(li[i][</span><span class="s3">4</span><span class="s0">]</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                              <span class="s0">fontSize : </span><span class="s3">15</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">SizedBox(width : </span><span class="s3">30</span><span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">Icon(Icons.adb_rounded)</span><span class="s2">,</span>
+                            <span class="s0">SizedBox(width : </span><span class="s3">20</span><span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">Text(li[i][</span><span class="s3">5</span><span class="s0">]</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                              <span class="s0">fontSize : </span><span class="s3">15</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">Padding(</span>
+                              <span class="s0">padding : EdgeInsets.only(left : screenWidth * </span><span class="s3">0.12</span><span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">child : Text(li[i][</span><span class="s3">6</span><span class="s0">]</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                                <span class="s0">fontSize : </span><span class="s3">15</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">]</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">)</span>
+                    <span class="s0">]</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+
+              <span class="s0">]</span>
+          <span class="s0">)</span><span class="s2">,</span>
+          <span class="s0">)</span><span class="s2">,</span>
+          <span class="s0">bottomNavigationBar : BottomAppBar(</span>
+            <span class="s0">child : Row(</span>
+              <span class="s0">mainAxisAlignment : MainAxisAlignment.spaceEvenly</span><span class="s2">,</span>
+              <span class="s0">children: [</span>
+                <span class="s0">TextButton(</span>
+                  <span class="s0">onPressed : () {</span>
+                  <span class="s0">}</span><span class="s2">,</span>
+                  <span class="s0">child : Text(</span><span class="s1">'홈'</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                    <span class="s0">color : Color(</span><span class="s3">0xFF767676</span><span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">fontSize: </span><span class="s3">20</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">TextButton(</span>
+                  <span class="s0">onPressed : () {</span>
+                  <span class="s0">}</span><span class="s2">,</span>
+                  <span class="s0">child : Text(</span><span class="s1">'식단'</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                    <span class="s0">color : Color(</span><span class="s3">0xFF767676</span><span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">fontSize : </span><span class="s3">20</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">TextButton(</span>
+                  <span class="s0">onPressed : () {</span>
+                  <span class="s0">}</span><span class="s2">,</span>
+                  <span class="s0">child : Text(</span><span class="s1">'운동'</span><span class="s2">, </span><span class="s0">style : TextStyle(</span>
+                      <span class="s0">color : Color(</span><span class="s3">0xFF767676</span><span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">fontSize : </span><span class="s3">20</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">IconButton(</span>
+                  <span class="s0">icon : Icon(Icons.person)</span><span class="s2">,</span>
+                  <span class="s0">onPressed : () {</span>
+                <span class="s0">}</span><span class="s2">,</span>
+                <span class="s0">)</span><span class="s2">,</span>
+              <span class="s0">]</span>
+            <span class="s0">)</span><span class="s2">,</span>
+
+          <span class="s0">)</span><span class="s2">,</span>
+        <span class="s0">)</span><span class="s2">,</span>
+    <span class="s0">)</span><span class="s2">;</span>
+  <span class="s0">}</span>
+<span class="s0">}</span></pre>
+</body>
+</html>

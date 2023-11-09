@@ -8,8 +8,6 @@ class Diet{
   int foodCaolory;
   Map<String, dynamic> nutrient; //영양성분 :{'탄수화물' : 24, '단백질' : 10, '지방':2}
 
-
-
   Diet({
     required this.uid,
     required this.stuNumber,
@@ -18,7 +16,6 @@ class Diet{
     required this.foodName,
     required this.foodCaolory,
     required this.nutrient
-
   });
 
   factory Diet.fromJson(Map<String, dynamic> json) {

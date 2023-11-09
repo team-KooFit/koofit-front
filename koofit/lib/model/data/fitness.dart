@@ -6,7 +6,6 @@ class Fitness {
   int burnedCalories;
   int time; //운동 몇분했는 지에 대한 시간
 
-
   Fitness({
     required this.uid,
     required this.stuNumber,
@@ -35,5 +34,4 @@ class Fitness {
       'time': time,
     };
   }
-
 }

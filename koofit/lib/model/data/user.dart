@@ -9,8 +9,8 @@ class User {
   String birthday;
   int curWeight;
   int goalWeight;
-  List<Map<String, dynamic>> todayNutrientList;
-  Map<String, dynamic> goalNutrient;
+  List<Map<String, dynamic>> todayNutrientList; //유저별 영양성분 리스트 [{'20231109' : {'아침' : dietData, '점심' : dietData, '저녁' : dietData}, {...} ]
+  Map<String, dynamic> goalNutrient; // 일일 권장 영양성분 {'탄수화물' : 22, '단백질' : 45, '지방' : 20}
   List<Map<String, dynamic>> fitnessList;
   List<Map<String, dynamic>> dietList;
   bool serviceNeedsAgreement;

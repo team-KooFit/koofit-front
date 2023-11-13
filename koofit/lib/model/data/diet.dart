@@ -4,17 +4,17 @@ class Diet{
   String stuNumber;
   String date; //등록한 날짜
   String keyTime; //등록한 시간대 (아침/점심/저녁/간식)
-  String foodName;
-  int foodCaolory;
-  Map<String, dynamic> nutrient; //영양성분 :{'탄수화물' : 24, '단백질' : 10, '지방':2}
+  String foodCode;
+  Map<String, dynamic> nutrient; //영양성분 :[{'포카칩' : {'탄수화물' : 24, '단백질' : 10, '지방':2, '칼로리' : 250}, {'주스' : {...} } ] 아니면 { 이름 : '포카칩', 식품코드: '100000' }
+
+
 
   Diet({
     required this.uid,
     required this.stuNumber,
     required this.date,
     required this.keyTime,
-    required this.foodName,
-    required this.foodCaolory,
+    required this.foodCode,
     required this.nutrient
   });
 
@@ -24,8 +24,7 @@ class Diet{
       stuNumber: json['stu_number'],
       date: json['date'],
       keyTime: json['keyTime'],
-      foodName: json['foodName'],
-      foodCaolory: json['foodCaolory'],
+      foodCode: json['foodCode'],
       nutrient: Map<String, dynamic> .from(json['goalNutrient']),
     );
   }
@@ -36,8 +35,7 @@ class Diet{
       'stuNumber': stuNumber,
       'date': date,
       'keyTime' : keyTime,
-      'foodName': foodName,
-      'foodCaolory': foodCaolory,
+      'foodCode': foodCode,
       'nutrient' : nutrient
     };
   }

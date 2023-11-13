@@ -3,16 +3,15 @@ class User {
   String uid;
   String name;
   int gender; // 0:남자 1:여자
-  String stuNumber;
-  String number;
+  String stuNumber; //학번
+  String number; //핸드폰번호
   String age; //int
   String birthday;
-  int curWeight;
-  int goalWeight;
-  List<Map<String, dynamic>> todayNutrientList; //유저별 영양성분 리스트 [{'20231109' : {'아침' : dietData, '점심' : dietData, '저녁' : dietData}, {...} ]
-  Map<String, dynamic> goalNutrient; // 일일 권장 영양성분 {'탄수화물' : 22, '단백질' : 45, '지방' : 20}
-  List<Map<String, dynamic>> fitnessList;
-  List<Map<String, dynamic>> dietList;
+  int curWeight; //현재 몸무게
+  int goalWeight; //목표 몸무게
+  Map<String, dynamic> goalNutrient; // 일일 권장 영양성분 {'탄수화물' : 22, '단백질' : 45, '지방' : 20, '목표 칼로리' : 2000}
+  List<Map<String, dynamic>> todayNutrientList; //유저별 식단data 리스트 [{'20231109' : {'아침' : dietData, '점심' : dietData, '저녁' : dietData}, {...} ]
+  List<Map<String, dynamic>> fitnessList; //유저 운동 데이터 리스트 [{'날짜' : Fitness.data, {..} ]
   bool serviceNeedsAgreement;
   bool privacyNeedsAgreement;
 
@@ -28,7 +27,6 @@ class User {
     required this.goalWeight,
     required this.todayNutrientList,
     required this.goalNutrient,
-    required this.dietList,
     required this.fitnessList,
     required this.serviceNeedsAgreement,
     required this.privacyNeedsAgreement,
@@ -48,7 +46,6 @@ class User {
         todayNutrientList: List<Map<String, dynamic>>.from(
             json['todayNutrient']),
         goalNutrient: Map<String, dynamic> .from(json['goalNutrient']),
-        dietList: List<Map<String, dynamic>> .from(json['dietList']),
         fitnessList: List<Map<String, dynamic>> .from(json['fitnessList']),
         serviceNeedsAgreement: json['serviceNeedsAgreement'],
         privacyNeedsAgreement: json['privacyNeedsAgreement']);
@@ -67,15 +64,10 @@ class User {
       'goalWeight': goalWeight,
       'todayNutrientList': todayNutrientList,
       'goalNutrient': goalNutrient,
-      'dietList': dietList,
       'fitnessList': fitnessList,
       'serviceNeedsAgreement': serviceNeedsAgreement,
       'privacyNeedsAgreement': privacyNeedsAgreement,
     };
-  }
-
-  void updateUserDietList(List<Map<String, dynamic>> dietList) {
-    this.dietList = dietList;
   }
 
   void updateUserFitnessList(List<Map<String, dynamic>> fitnessList) {
@@ -90,3 +82,4 @@ class User {
     this.curWeight = curWeight;
   }
 }
+

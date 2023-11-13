@@ -4,7 +4,7 @@ class Fitness {
   String stuNumber;
   String date; //운동한 날짜
   int burnedCalories;
-  int time; //운동 몇분했는 지에 대한 시간
+  int time; //운동 몇 분 했는 지에 대한 시간
 
   Fitness({
     required this.uid,

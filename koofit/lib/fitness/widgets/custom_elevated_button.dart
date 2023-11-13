@@ -1,5 +1,5 @@
-import 'package:koofit/core/app_export.dart';
-import 'package:koofit/widgets/base_button.dart';
+import 'package:koofit/fitness/core/app_export.dart';
+import 'package:koofit/fitness/widgets/base_button.dart';
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends BaseButton {

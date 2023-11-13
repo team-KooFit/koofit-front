@@ -1,4 +1,4 @@
-import 'package:koofit/core/app_export.dart';
+import 'package:koofit/fitness/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class BaseButton extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
 import 'package:koofit/main_screen/fitness_screen/k1_screen.dart';
 
@@ -11,10 +12,11 @@ import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
 import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
 import 'package:koofit/main_screen/add_diet_screen.dart';
 import 'package:koofit/login/welcome_screen.dart';
-import 'package:koofit/main_screen/fitness_screen//k0_screen.dart';
+import 'package:koofit/main_screen/fitness_screen/k0_screen.dart';
 
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
   runApp(const MyApp());
 }
 

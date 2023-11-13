@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/widget/circleText.dart';
-import 'package:koofit/core/app_export.dart';
-import 'package:koofit/widgets/custom_elevated_button.dart';
+import 'package:koofit/fitness/core/app_export.dart';
+import 'package:koofit/fitness/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 

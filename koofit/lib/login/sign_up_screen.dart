@@ -31,8 +31,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isNameFilled = false;
   bool isNumberFilled = false;
   bool isAgeFilled = false;
-
+  bool isGenderSelected = false;
+  bool isStuNumFilled = false;
   bool isButtonActive = false;
+
   int titleIndex = 0;
 
   String _name = '';
@@ -72,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 color: const Color.fromARGB(255, 51, 61, 75)),
                           ),
                           Visibility(  //학번 입력
-                            visible: isNumberFilled,
+                            visible: isAgeFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
@@ -94,13 +96,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (text) {
                                 setState(() {
                                   _stuNum = text;
-                                  if (titleIndex == 2) {
+                                  if (titleIndex == 4) {
                                     if (_name.isNotEmpty &&
                                         _number.length == 11 &&
                                         _age.length == 2 &&
                                         _stuNum.length == 8
-                                    // int.parse(_age) >= 15 &&
-                                    // int.parse(_age) <= 19
                                     ) {
                                       isButtonActive = true;
                                     } else {
@@ -123,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
-                          Visibility(
+                          Visibility( //나이 입력
                             visible: isNumberFilled,
                             child: TextFormField(
                               onSaved: (val) {
@@ -146,16 +146,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (text) {
                                 setState(() {
                                   _age = text;
-                                  if (titleIndex == 2) {
+                                  print("${titleIndex}");
+                                  if (titleIndex == 3) {
                                     if (_name.isNotEmpty &&
                                             _number.length == 11 &&
                                             _age.length == 2
-                                        // int.parse(_age) >= 15 &&
-                                        // int.parse(_age) <= 19
                                         ) {
-                                      isButtonActive = true;
+                                      titleIndex = 4;
+                                      isAgeFilled = true;
                                     } else {
-                                      isButtonActive = false;
                                     }
                                   }
                                 });
@@ -175,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           Visibility(
-                            visible: isNameFilled,
+                            visible: isGenderSelected,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
@@ -207,11 +206,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (text) {
                                 setState(() {
                                   _number = text;
-                                  if (titleIndex == 1) {
+                                  print("2222 ${titleIndex}");
+                                  if (titleIndex == 2) {
                                     if (text.length == 11) {
                                       ageField.requestFocus();
                                       isNumberFilled = true;
-                                      titleIndex = 2;
+                                      titleIndex = 3;
                                     }
                                   } else if (titleIndex == 2) {
                                     if (_name.isNotEmpty &&
@@ -235,16 +235,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
-                          Visibility(child:
-                          DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                            labelText: '성별',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              labelStyle: TextStyle(fontSize: 15, color: Palette.dark_mainSkyBlue)),
-                              onChanged:(String? newValue){
-                              print(newValue);
-                              _gender = newValue!;
-                              },
+                          Visibility(
+                            visible: isNameFilled,
+                              child:
+                              DropdownButtonFormField<String>(
+                                decoration: const InputDecoration(
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: Palette.mainSkyBlue)),
+                                    labelText: "성별",
+                                    labelStyle: TextStyle(
+                                        color: Color.fromARGB(255, 182, 183, 184))),
+                                onChanged: (text) {
+                                setState(() {
+                                _gender = text!;
+                                print("ㅇㅇㅇㅇ ${titleIndex}, ${_gender}");
+
+                                if (titleIndex == 1) {
+                                  if (_gender.length == 1) {
+                                    numberField.requestFocus();
+                                    isGenderSelected = true;
+                                    titleIndex = 2;
+                                  }
+                                }
+                              });},
                             items: ['M', 'F'].map<DropdownMenuItem<String>>((String i) {
                               return DropdownMenuItem<String> (
                                 value: i,
@@ -275,7 +289,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     return '올바른 이름을 한글로 입력해주세요';
                                   }
                                 }
-
                                 return null;
                               } else {
                                 return '이름을 입력해주세요';
@@ -316,14 +329,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Palette.mainSkyBlue,
-                                        disabledForegroundColor: titleIndex == 2
+                                        disabledForegroundColor: titleIndex == 4
                                             ? Colors.white
                                             : null,
-                                        disabledBackgroundColor: titleIndex == 2
+                                        disabledBackgroundColor: titleIndex == 4
                                             ? Palette.mainSkyBlue
                                                 .withOpacity(0.12)
                                             : null),
                                     onPressed: () {
+                                      print(titleIndex);
                                       if (titleIndex == 0) {
                                         setState(() {
                                           numberField.requestFocus();
@@ -331,7 +345,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           isNameFilled = true;
                                           titleIndex = 1;
                                         });
-                                      } else {
+                                      }
+                                      else if(titleIndex == 1){
+                                        isGenderSelected = true;
+                                      }
+                                      else {
                                         if (formKey.currentState != null) {
                                           // 만약, currentState 있다면
                                           if (formKey.currentState!

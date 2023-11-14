@@ -168,6 +168,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                     }
                                   }
                                 });
+                                print("ㅇㅇㅇㅇ ${titleIndex}, ${text}");
                               },
                               decoration: const InputDecoration(
                                   counterText: '',
@@ -201,8 +202,9 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                             onChanged: (value) {
                               setState(() {
                                 _height = value;
-                                if (titleIndex == 0) {
-                                  isButtonActive = value.isNotEmpty;
+                                if (titleIndex == 0 &&
+                                _height.length == 3) {
+                                  titleIndex = 1;
                                 } else if (titleIndex > 2) {
                                   if (_height.isNotEmpty &&
                                       _goalWeight.length > 2 &&

@@ -1,5 +1,6 @@
 //Palette.mainSkyBlue
-import 'dart:ffi';
+// import 'dart:ffi';
+// import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,12 +24,12 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
   ];
 
   FocusNode node1 = FocusNode();
-  FocusNode weightField = FocusNode();
+  FocusNode curWeightField = FocusNode();
   FocusNode goalWeightField = FocusNode();
 
   bool isHeightFilled = false;
-  bool isWeightFilled = false;
-  // bool isAgeFilled = false;
+  bool isCurWeightFilled = false;
+  bool isgoalWeightFilled = false;
 
   bool isButtonActive = false;
   int titleIndex = 0;
@@ -69,7 +70,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 color: const Color.fromARGB(255, 51, 61, 75)),
                           ),
                           Visibility(
-                            visible: isWeightFilled,
+                            visible: isCurWeightFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
@@ -92,7 +93,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 setState(() {
                                   _curWeight = text;
                                   if (titleIndex >= 2) {
-                                    if (_height.isNotEmpty &&
+                                    if (_height.length > 2&&
                                             _goalWeight.length > 1 &&
                                           _curWeight.length > 1
                                         // int.parse(_weight) >= 15 &&
@@ -145,7 +146,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 return null;
                               },
                               autofocus: true,
-                              focusNode: weightField,
+                              focusNode: curWeightField,
                               maxLength: 11,
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
@@ -156,7 +157,9 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                   _goalWeight = text;
                                   if (titleIndex == 1) {
                                     if (text.length > 1) {
-                                      isButtonActive = true;
+                                      goalWeightField.requestFocus();
+                                      titleIndex = 2;
+                                      isCurWeightFilled = true;
                                     }
                                   } else if (titleIndex > 2) {
                                     if (_height.isNotEmpty &&
@@ -202,9 +205,13 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                             onChanged: (value) {
                               setState(() {
                                 _height = value;
+                                print("_height : ${_height}, ${titleIndex}");
                                 if (titleIndex == 0 &&
                                 _height.length == 3) {
+                                  curWeightField.requestFocus();
+
                                   titleIndex = 1;
+                                  isHeightFilled = true;
                                 } else if (titleIndex > 2) {
                                   if (_height.isNotEmpty &&
                                       _goalWeight.length > 2 &&
@@ -243,7 +250,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                     onPressed: () {
                                       if (titleIndex == 0) {
                                         setState(() {
-                                          weightField.requestFocus();
+                                          curWeightField.requestFocus();
                                           isButtonActive = false;
                                           isHeightFilled = true;
                                           titleIndex = 1;
@@ -252,7 +259,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                         setState(() {
                                           goalWeightField.requestFocus();
                                           isButtonActive = false;
-                                          isWeightFilled = true;
+                                          isCurWeightFilled = true;
                                           titleIndex = 2;
                                         });
                                       } else {
@@ -264,8 +271,8 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                              args.goalWeight = int.parse(_goalWeight);
                                              args.height = int.parse(_height);
                                              args.curWeight = int.parse(_curWeight);
+                                          print("args : ${args}");
 
-                                          print(args);
                                             Navigator.pushNamed(
                                               context,
                                               'welcomeScreen', arguments: args

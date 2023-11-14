@@ -92,7 +92,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
-                              // focusNode: node1,
                               onChanged: (text) {
                                 setState(() {
                                   _stuNum = text;
@@ -110,8 +109,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 });
                               },
                               maxLength: 8,
-                              focusNode: stuNumField,
                               autofocus: true,
+                              focusNode: stuNumField,
                               decoration: const InputDecoration(
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
@@ -152,6 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             _number.length == 11 &&
                                             _age.length == 2
                                         ) {
+                                      stuNumField.requestFocus();
                                       titleIndex = 4;
                                       isAgeFilled = true;
                                     } else {
@@ -362,12 +362,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               number: _number,
                                               stuNumber: _stuNum,
                                               gender: _gender,
-                                              height: null,
-                                              curWeight: null,
-                                              goalNutrient: null,
-                                              goalWeight: null,
-                                              fitnessList: null,
-                                              todayNutrientList: null,
+                                              height: 0,
+                                              curWeight: 0,
+                                              goalNutrient: {},
+                                              goalWeight: 0,
+                                              fitnessList: [],
+                                              todayNutrientList: [],
                                               privacyNeedsAgreement: false,
                                               serviceNeedsAgreement: false
                                             );

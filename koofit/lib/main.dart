@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:koofit/login/splash_screen.dart';
 import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
 import 'package:koofit/main_screen/fitness_screen/k1_screen.dart';
 
@@ -13,13 +14,15 @@ import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
 import 'package:koofit/main_screen/add_diet_screen.dart';
 import 'package:koofit/login/welcome_screen.dart';
 import 'package:koofit/main_screen/fitness_screen/k0_screen.dart';
+import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/data/user.dart';
 
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
-  await Hive.box<User>;
+  await HiveUserHelper().openUserBox();
+
   runApp(const MyApp());
 }
 
@@ -40,9 +43,9 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) {
           return GetMaterialApp(
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'signUp',
+              initialRoute: SplashScreen.routeName,
               routes: {
-                // SplashScreen.routeName: (context) => SplashScreen(),
+                SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),
                 'signUp': (context) => const SignUpScreen(),
                 'BodySignUp': (context) => const BodySignUpScreen(),

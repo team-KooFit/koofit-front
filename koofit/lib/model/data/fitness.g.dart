@@ -8,7 +8,7 @@ part of 'fitness.dart';
 
 class FitnessAdapter extends TypeAdapter<Fitness> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
   Fitness read(BinaryReader reader) {

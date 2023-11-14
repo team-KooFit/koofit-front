@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'diet.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 3)
 class Diet{
 
   @HiveField(0)

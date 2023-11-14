@@ -1,9 +1,11 @@
 //Palette.mainSkyBlue
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
-
+import 'package:koofit/model/data/user.dart';
 class BodySignUpScreen extends StatefulWidget {
   const BodySignUpScreen({super.key});
 
@@ -32,12 +34,12 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
   int titleIndex = 0;
 
   String _height = '';
-  String _weight = '';
+  String _curWeight = '';
   String _goalWeight = '';
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as User;
+    final args = ModalRoute.of(context)!.settings.arguments as User;
 
     return WillPopScope(
         onWillPop: () async {
@@ -71,7 +73,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
-                                  _weight = val.toString();
+                                  _curWeight = val.toString();
                                 });
                               },
                               validator: (val) {
@@ -88,11 +90,11 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                               // focusNode: node1,
                               onChanged: (text) {
                                 setState(() {
-                                  _weight = text;
+                                  _curWeight = text;
                                   if (titleIndex >= 2) {
                                     if (_height.isNotEmpty &&
                                             _goalWeight.length > 1 &&
-                                            _weight.length > 1
+                                          _curWeight.length > 1
                                         // int.parse(_weight) >= 15 &&
                                         // int.parse(_weight) <= 19
                                         ) {
@@ -159,7 +161,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                   } else if (titleIndex > 2) {
                                     if (_height.isNotEmpty &&
                                         _goalWeight.length > 2 &&
-                                        _weight.length > 2) {
+                                        _curWeight.length > 2) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -204,7 +206,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 } else if (titleIndex > 2) {
                                   if (_height.isNotEmpty &&
                                       _goalWeight.length > 2 &&
-                                      _weight.length > 2) {
+                                      _curWeight.length > 2) {
                                     isButtonActive = true;
                                   } else {
                                     isButtonActive = false;
@@ -257,15 +259,14 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                           if (formKey.currentState!
                                               .validate()) {
                                             formKey.currentState!.save();
-                                            // User newUser = User(
-                                            //   uid: args.uid,
-                                            //   name: _height,
-                                            //   profileImage: args.profileImage,
+                                             args.goalWeight = int.parse(_goalWeight);
+                                             args.height = int.parse(_height);
+                                             args.curWeight = int.parse(_curWeight);
 
-                                            // );
+                                          print(args);
                                             Navigator.pushNamed(
                                               context,
-                                              'welcomeScreen',
+                                              'welcomeScreen', arguments: args
                                             );
                                           }
                                         }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/user.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,13 +17,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final List<String> _textList = [
     '이름을 입력해주세요.',
+    '성별을 선택해주세요.',
     '휴대폰 번호를 입력해주세요.',
-    '나이를 입력해주세요.'
+    '나이를 입력해주세요.',
+    '학번(8자리)를 입력해주세요.'
   ];
 
   FocusNode node1 = FocusNode();
   FocusNode numberField = FocusNode();
   FocusNode ageField = FocusNode();
+  FocusNode stuNumField = FocusNode();
 
   bool isNameFilled = false;
   bool isNumberFilled = false;
@@ -34,7 +38,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _name = '';
   String _age = '';
   String _number = '';
-
+  String _stuNum = '';
+  String _gender = '';
   @override
   Widget build(BuildContext context) {
     // final args = ModalRoute.of(context)!.settings.arguments as User;
@@ -65,6 +70,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22.sp,
                                 color: const Color.fromARGB(255, 51, 61, 75)),
+                          ),
+                          Visibility(  //학번 입력
+                            visible: isNumberFilled,
+                            child: TextFormField(
+                              onSaved: (val) {
+                                setState(() {
+                                  _stuNum = val.toString();
+                                });
+                              },
+                              validator: (val) {
+                                if (val != null) {
+                                } else {
+                                  return '학번을 입력해주세요';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              // focusNode: node1,
+                              onChanged: (text) {
+                                setState(() {
+                                  _stuNum = text;
+                                  if (titleIndex == 2) {
+                                    if (_name.isNotEmpty &&
+                                        _number.length == 11 &&
+                                        _age.length == 2 &&
+                                        _stuNum.length == 8
+                                    // int.parse(_age) >= 15 &&
+                                    // int.parse(_age) <= 19
+                                    ) {
+                                      isButtonActive = true;
+                                    } else {
+                                      isButtonActive = false;
+                                    }
+                                  }
+                                });
+                              },
+                              maxLength: 8,
+                              focusNode: stuNumField,
+                              autofocus: true,
+                              decoration: const InputDecoration(
+                                  counterText: '',
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Palette.mainSkyBlue)),
+                                  labelText: "학번",
+                                  labelStyle: TextStyle(
+                                      color:
+                                      Color.fromARGB(255, 182, 183, 184))),
+                            ),
                           ),
                           Visibility(
                             visible: isNumberFilled,
@@ -107,13 +164,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               focusNode: ageField,
                               autofocus: true,
                               decoration: const InputDecoration(
-                                  // errorText: _age.isNotEmpty && _age.length == 2
-                                  //     ? int.parse(_age) >= 20
-                                  //         ? '만 19세 이상은 서비스 이용이 제한됩니다.'
-                                  //         : int.parse(_age) < 15
-                                  //             ? '15세 미만은 서비스 이용이 제한됩니다.'
-                                  //             : null
-                                  //     : null,
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -185,6 +235,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
+                          Visibility(child:
+                          DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                            labelText: '성별',
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              labelStyle: TextStyle(fontSize: 15, color: Palette.dark_mainSkyBlue)),
+                              onChanged:(String? newValue){
+                              print(newValue);
+                              _gender = newValue!;
+                              },
+                            items: ['M', 'F'].map<DropdownMenuItem<String>>((String i) {
+                              return DropdownMenuItem<String> (
+                                value: i,
+                                child: Text({'M': '남성', 'F': '여성'}[i]!),
+                              );
+                            }).toList(),
+                          )),
                           TextFormField(
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
@@ -205,7 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 for (var i = 0; i < val.length; i++) {
                                   if (consonantsPattern.hasMatch(val[i]) ||
                                       vowelsPattern.hasMatch(val[i])) {
-                                    return '올바른 이름을 입력해주세요';
+                                    return '올바른 이름을 한글로 입력해주세요';
                                   }
                                 }
 
@@ -270,15 +337,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           if (formKey.currentState!
                                               .validate()) {
                                             formKey.currentState!.save();
-                                            // User newUser = User(
-                                            //   uid: args.uid,
-                                            //   name: _name,
-                                            //   profileImage: args.profileImage,
-
-                                            // );
+                                            User _userData = User(
+                                              uid: "임의의숫자2222",
+                                              name: _name,
+                                              age: _age,
+                                              number: _number,
+                                              stuNumber: _stuNum,
+                                              gender: _gender,
+                                              height: null,
+                                              curWeight: null,
+                                              goalNutrient: null,
+                                              goalWeight: null,
+                                              fitnessList: null,
+                                              todayNutrientList: null,
+                                              privacyNeedsAgreement: false,
+                                              serviceNeedsAgreement: false
+                                            );
                                             Navigator.pushNamed(
                                               context,
-                                              'BodySignUp',
+                                              'BodySignUp', arguments: _userData
                                             );
                                           }
                                         }

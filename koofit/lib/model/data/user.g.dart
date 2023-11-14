@@ -8,7 +8,7 @@ part of 'user.dart';
 
 class UserAdapter extends TypeAdapter<User> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   User read(BinaryReader reader) {
@@ -19,22 +19,22 @@ class UserAdapter extends TypeAdapter<User> {
     return User(
       uid: fields[0] as String,
       name: fields[1] as String,
-      gender: fields[2] as int,
+      gender: fields[2] as String,
       stuNumber: fields[3] as String,
       number: fields[4] as String,
       age: fields[5] as String,
-      birthday: fields[6] as String,
-      curWeight: fields[7] as int,
-      goalWeight: fields[8] as int,
-      todayNutrientList: (fields[10] as List)
-          .map((dynamic e) => (e as Map).cast<String, dynamic>())
+      height: fields[6] as int?,
+      curWeight: fields[7] as int?,
+      goalWeight: fields[8] as int?,
+      todayNutrientList: (fields[10] as List?)
+          ?.map((dynamic e) => (e as Map).cast<String, dynamic>())
           .toList(),
-      goalNutrient: (fields[9] as Map).cast<String, dynamic>(),
-      fitnessList: (fields[11] as List)
-          .map((dynamic e) => (e as Map).cast<String, dynamic>())
+      goalNutrient: (fields[9] as Map?)?.cast<String, dynamic>(),
+      fitnessList: (fields[11] as List?)
+          ?.map((dynamic e) => (e as Map).cast<String, dynamic>())
           .toList(),
-      serviceNeedsAgreement: fields[12] as bool,
-      privacyNeedsAgreement: fields[13] as bool,
+      serviceNeedsAgreement: fields[12] as bool?,
+      privacyNeedsAgreement: fields[13] as bool?,
     );
   }
 
@@ -55,7 +55,7 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(5)
       ..write(obj.age)
       ..writeByte(6)
-      ..write(obj.birthday)
+      ..write(obj.height)
       ..writeByte(7)
       ..write(obj.curWeight)
       ..writeByte(8)

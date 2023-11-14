@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:koofit/login/login_screen.dart';
 import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
+import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/loading_view.dart';
 import 'package:get/get.dart';
 class WelcomeScreen extends StatefulWidget {
@@ -26,22 +28,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     //     setState(() {
     //       isLoading = false;
     //     });
+
+    final args = ModalRoute.of(context)!.settings.arguments as User;
+
     Future.delayed(Duration(seconds: 2)).then((value) {
-      Get.offAll(DietScreen());
+      if (isSuccess) {
+        Get.offAll(DietScreen(), arguments: newUserUid);
+      } else {
+        Get.offAll(LoginScreen(), arguments: newUserUid);
+      }
     });
 
-    //       if (isSuccess) {
-    //         Get.offAll(TabPage(isLinkEntered: false,), arguments: newUserUid);
-    //       } else {
-    //         Get.offAll(LoginScreen(), arguments: newUserUid);
-    //       }
-    //     });
-    //   });
     // });
   }
 
   @override
   Widget build(BuildContext context) {
+
     return isLoading
         ? loadingView()
         : WillPopScope(
@@ -69,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                           ),
                           Text(
-                            isSuccess ? " {김성현}님," : "다시 한번",
+                            isSuccess ? " {args.name}님," : "다시 한번",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22.sp,

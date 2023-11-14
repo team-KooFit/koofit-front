@@ -13,10 +13,13 @@ import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
 import 'package:koofit/main_screen/add_diet_screen.dart';
 import 'package:koofit/login/welcome_screen.dart';
 import 'package:koofit/main_screen/fitness_screen/k0_screen.dart';
+import 'package:koofit/model/data/user.dart';
 
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(UserAdapter());
+  await Hive.box<User>;
   runApp(const MyApp());
 }
 
@@ -37,7 +40,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) {
           return GetMaterialApp(
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'main_diet',
+              initialRoute: 'signUp',
               routes: {
                 // SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),

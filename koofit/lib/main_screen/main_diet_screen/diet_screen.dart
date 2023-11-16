@@ -22,14 +22,14 @@ class _DietScreenState extends State<DietScreen> {
     DateTime(2023, 10, 12),
     DateTime(2023, 10, 14),
   ];
+
+  // Use ValueNotifier for selectedDate
   DateTime? _selectedDate; // 선택된 날짜를 저장할 변수
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initializeDateFormatting('ko', null);
-
   }
 
   @override
@@ -37,93 +37,99 @@ class _DietScreenState extends State<DietScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: Builder(builder: (context) {
-        return SingleChildScrollView(
+      body: Builder(
+        builder: (context) {
+          return SingleChildScrollView(
             child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            advanced_calender(theme, thisController, recordedDay),
-            ValueListenableBuilder<DateTime>(
-              valueListenable: thisController,
-              builder: (context, selectedDate, child) {
-                return DailyDietView(selectedDate);
-              },
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                advanced_calender(theme, thisController, recordedDay),
+                ValueListenableBuilder<DateTime>(
+                  valueListenable: thisController,
+                  builder: (context, selectedDate, child) {
+                    return DailyDietView(selectedDate);
+                  },
+                ),
+              ],
             ),
-          ],
-            ) );
-      }),
+          );
+        },
+      ),
     );
   }
-    Widget advanced_calender(ThemeData theme, controller, recordedDay) {
-      return Theme(
-        data: theme.copyWith(
-          textTheme: theme.textTheme.copyWith(
-            titleMedium: theme.textTheme.titleMedium!.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: const Color.fromARGB(255, 0, 0, 0),
-            ),
-            bodyLarge: theme.textTheme.bodyLarge!.copyWith(
-              fontSize: 14,
-              color: Colors.black54,
-            ),
-            bodyMedium: theme.textTheme.bodyMedium!.copyWith(
-                fontSize: 12,
-                color: Colors.black87,
-                fontWeight: FontWeight.w200),
-          ),
-          // primaryColor: Palette.mainSkyBlue,
-          // highlightColor: const Color.fromARGB(255, 179, 124, 124),
-          disabledColor: Colors.grey[60],
-        ),
-        child: AdvancedCalendar(
-          controller: controller,
-          events: recordedDay,
-          weekLineHeight: 45.0,
-          startWeekDay: 1,
-          innerDot: true,
-          keepLineSize: true,
-          calendarTextStyle: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-            height: 1.3125,
-            letterSpacing: 0,
-          ),
-          todayStyle: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 21),
-        ),
-      );
-    }
 
+  Widget advanced_calender(ThemeData theme, controller, recordedDay) {
+    return Theme(
+      data: theme.copyWith(
+        textTheme: theme.textTheme.copyWith(
+          titleMedium: theme.textTheme.titleMedium!.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: const Color.fromARGB(255, 0, 0, 0),
+          ),
+          bodyLarge: theme.textTheme.bodyLarge!.copyWith(
+            fontSize: 14,
+            color: Colors.black54,
+          ),
+          bodyMedium: theme.textTheme.bodyMedium!.copyWith(
+              fontSize: 12,
+              color: Colors.black87,
+              fontWeight: FontWeight.w200),
+        ),
+        disabledColor: Colors.grey[60],
+      ),
+      child: AdvancedCalendar(
+        controller: controller,
+        events: recordedDay,
+        weekLineHeight: 45.0,
+        startWeekDay: 1,
+        innerDot: true,
+        keepLineSize: true,
+        calendarTextStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w400,
+          height: 1.3125,
+          letterSpacing: 0,
+        ),
+        todayStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+          fontSize: 21,
+        ),
+      ),
+    );
+  }
 
   Widget DailyDietView(DateTime date) {
-    return
-      Padding(
-        padding: EdgeInsets.all(15),
-        child: Column(
-            children: [
-              Text(
-                  formatDate(date),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)
-              ),
-              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-              UnivDietCard(),
-              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              TodayCalorieCard(),
-              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              FitnessCard(),
-            ]
-        )
+    // DateTime 형식 변환 "2023-11-16 00:00:00.000" -> 2023-11-16
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String dateOnly = formatter.format(date);
+
+    return Padding(
+      padding: EdgeInsets.all(15),
+      child: Column(
+        children: [
+          Text(
+            formatDate(date),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          UnivDietCard(
+            selectedDate: dateOnly.toString(),
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+          TodayCalorieCard(),
+          Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+          FitnessCard(),
+        ],
+      ),
     );
   }
-
-
 
   String formatDate(DateTime orgin_date) {
     var formatter = DateFormat(
         'yyyy년 M월 d일 (E)', 'ko'); // 'ko'는 한국어로 표시하기 위한 로케일 코드입니다.
     return formatter.format(orgin_date);
   }
-
-  }
+}

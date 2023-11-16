@@ -21,23 +21,30 @@ class _UnivDietCardState extends State<UnivDietCard> {
   Map<String, dynamic> gyojeokwonMenu = {};
   Map<String, dynamic> selectedMenu = {};
 
-  final GlobalKey<_UnivDietCardState> _univDietCardKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
-    _initializeData().then((value) {
+    _updateData(widget.selectedDate);
+  }
+
+  @override
+  void didUpdateWidget(covariant UnivDietCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDate != widget.selectedDate) {
+      _updateData(widget.selectedDate);
+    }
+  }
+
+  void _updateData(String date) async {
+    DietSearcher dietSearcher = DietSearcher(date);
+    result = await dietSearcher.performDietSearch();
+    setState(() {
       bokjiMenu = result['학생식당(복지관 1층)'];
       beobgwanMenu = result['교직원식당(복지관 1층)'];
       gyojeokwonMenu = result['한울식당(법학관 지하1층)'];
+      // Set the initial selectedMenu to 복지관
+      selectedMenu = bokjiMenu;
     });
-
-
-  }
-
-  void updateData() {
-    _initializeData();
-    setState(() {});
   }
 
   @override
@@ -138,7 +145,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                       // Add widgets for key and value
                       keyValueWidgets.add(
                         Column(
-
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(key),
                             SizedBox(height: 8),
@@ -180,10 +187,11 @@ class _UnivDietCardState extends State<UnivDietCard> {
     );
   }
 
-  Future<void> _initializeData() async {
-    print(111111111111);
-    print(widget.selectedDate);
-    DietSearcher dietSearcher = DietSearcher(widget.selectedDate);
+  Future<void> _initializeData(String date) async {
+    DietSearcher dietSearcher = DietSearcher(date);
     result = await dietSearcher.performDietSearch();
   }
+
+
+
 }

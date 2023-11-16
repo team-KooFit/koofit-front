@@ -15,7 +15,7 @@ class DietScreen extends StatefulWidget {
 }
 
 class _DietScreenState extends State<DietScreen> {
-  final thisController = AdvancedCalendarController.today();
+  var thisController = AdvancedCalendarController.today();
   final recordedDay = <DateTime>[
     DateTime.now(),
     DateTime(2023, 10, 10),
@@ -24,7 +24,7 @@ class _DietScreenState extends State<DietScreen> {
   ];
 
   // Use ValueNotifier for selectedDate
-  DateTime? _selectedDate; // 선택된 날짜를 저장할 변수
+  DateTime _selectedDate = DateTime.now(); // Initialize with the current date
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _DietScreenState extends State<DietScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    var theme = Theme.of(context);
 
     return Scaffold(
       body: Builder(
@@ -48,7 +48,8 @@ class _DietScreenState extends State<DietScreen> {
                 ValueListenableBuilder<DateTime>(
                   valueListenable: thisController,
                   builder: (context, selectedDate, child) {
-                    return DailyDietView(selectedDate);
+                    _selectedDate = selectedDate;
+                    return DailyDietView(_selectedDate);
                   },
                 ),
               ],
@@ -104,7 +105,6 @@ class _DietScreenState extends State<DietScreen> {
   Widget DailyDietView(DateTime date) {
     // DateTime 형식 변환 "2023-11-16 00:00:00.000" -> 2023-11-16
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    String dateOnly = formatter.format(date);
 
     return Padding(
       padding: EdgeInsets.all(15),
@@ -116,7 +116,7 @@ class _DietScreenState extends State<DietScreen> {
           ),
           Padding(padding: EdgeInsets.symmetric(vertical: 10)),
           UnivDietCard(
-            selectedDate: dateOnly.toString(),
+            selectedDate: formatter.format(date).toString(),
           ),
           Padding(padding: EdgeInsets.symmetric(vertical: 5)),
           TodayCalorieCard(),

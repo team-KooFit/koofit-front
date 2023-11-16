@@ -45,7 +45,8 @@ class User {
         birthday: json['birthday'],
         curWeight: json['cur_weight'],
         goalWeight: json['goal_weight'],
-        todayNutrientList: List<Map<String, dynamic>>.from(json['todayNutrient']),
+        todayNutrientList: List<Map<String, dynamic>>.from(
+            json['todayNutrient']),
         goalNutrient: Map<String, dynamic> .from(json['goalNutrient']),
         dietList: List<Map<String, dynamic>> .from(json['dietList']),
         fitnessList: List<Map<String, dynamic>> .from(json['fitnessList']),
@@ -59,31 +60,33 @@ class User {
       'name': name,
       'gender': gender,
       'number': number,
-      'stuNumber' : stuNumber,
+      'stuNumber': stuNumber,
       'age': age,
       'birthday': birthday,
-      'curWeight' : curWeight,
-      'goalWeight' : goalWeight,
-      'todayNutrientList' : todayNutrientList,
-      'goalNutrient' : goalNutrient,
-      'dietList' : dietList,
-      'fitnessList' : fitnessList,
+      'curWeight': curWeight,
+      'goalWeight': goalWeight,
+      'todayNutrientList': todayNutrientList,
+      'goalNutrient': goalNutrient,
+      'dietList': dietList,
+      'fitnessList': fitnessList,
       'serviceNeedsAgreement': serviceNeedsAgreement,
       'privacyNeedsAgreement': privacyNeedsAgreement,
     };
   }
 
-  void updateUserDietList(List<Map<String, dynamic>>  dietList) {
+  void updateUserDietList(List<Map<String, dynamic>> dietList) {
     this.dietList = dietList;
   }
 
-  void updateUserFitnessList(List<Map<String, dynamic>>  fitnessList) {
+  void updateUserFitnessList(List<Map<String, dynamic>> fitnessList) {
     this.fitnessList = fitnessList;
   }
 
-  void updateTodayNutrientList(List<Map<String, dynamic>>  todayNutrientList) {
+  void updateTodayNutrientList(List<Map<String, dynamic>> todayNutrientList) {
     this.todayNutrientList = todayNutrientList;
   }
+
   void updateCurWeight(int curWeight) {
     this.curWeight = curWeight;
   }
+}

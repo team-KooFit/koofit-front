@@ -68,7 +68,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
              child : Column(
             children: <Widget>[
               SizedBox(height: 15),
-              Text("복지관", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+              Text("${widget.where}", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
               SizedBox(height: 5),
               Text(menu, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w300, color: Colors.black54),),
               SizedBox(height: 15),

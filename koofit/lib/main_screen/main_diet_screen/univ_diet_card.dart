@@ -21,6 +21,11 @@ class _UnivDietCardState extends State<UnivDietCard> {
   Map<String, dynamic> gyojeokwonMenu = {};
   Map<String, dynamic> selectedMenu = {};
 
+  int clickedBtnIndex = 0;
+  String btnText = '';
+  List<String> btnTxtList = ['복지관', '법학관', '교직원'];
+
+  String menuText = '';
   @override
   void initState() {
     super.initState();
@@ -108,6 +113,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                   color: Colors.black54,
                   onPressed: (index) {
                     setState(() {
+                      btnText = btnTxtList[index];
                       if (index == 0) {
                         selectedMenu = bokjiMenu;
                       } else if (index == 1) {
@@ -134,26 +140,20 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     String cleanedString = jsonString.replaceAll(r'\\r\\n', '\r\n');
                     // JSON 디코딩
                     Map<String, dynamic> MenuMap = json.decode(cleanedString);
-                    print(MenuMap);
                     // Create a list to store widgets for each key-value pair in menuValue
                     List<Widget> keyValueWidgets = [];
-
                     // Iterate through entries in menuValue
-                    for (var key in MenuMap.keys) {
-                      dynamic value = MenuMap[key];
-
-                      // Add widgets for key and value
-                      keyValueWidgets.add(
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(key),
-                            SizedBox(height: 8),
-                            Text('$value'),
-                          ],
+                    menuText = MenuMap['메뉴'];
+                    keyValueWidgets.add(
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 8),
+                          Text('${menuText}', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w400),),
+                        ],
                         ),
                       );
-                    }
+
                     return Card(
                       color: Color(0xFFF2F3F3),
                       elevation: 2,
@@ -164,14 +164,14 @@ class _UnivDietCardState extends State<UnivDietCard> {
                         padding: EdgeInsets.all(10.0),
                         child: Column(
                           children: [
-                            Text(menuKey),
+                            Text(menuKey, style: TextStyle(fontWeight: FontWeight.bold),),
                             SizedBox(height: 8),
                             // Display widgets for each key-value pair in menuValue
                             ...keyValueWidgets,
                             SizedBox(height: 8),
                             AddDietBtnScreen(
-                              where: "식당이름",
-                              menu: selectedMenu[menuKey],
+                              where: btnText,
+                              menu: menuText,
                             )
                           ],
                         ),
@@ -186,12 +186,5 @@ class _UnivDietCardState extends State<UnivDietCard> {
       ),
     );
   }
-
-  Future<void> _initializeData(String date) async {
-    DietSearcher dietSearcher = DietSearcher(date);
-    result = await dietSearcher.performDietSearch();
-  }
-
-
 
 }

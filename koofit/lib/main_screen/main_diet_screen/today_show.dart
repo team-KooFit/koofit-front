@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/widget/circleText.dart';
-
+import 'package:koofit/widget/calText.dart';
+import 'package:item_count_number_button/item_count_number_button.dart';
+import 'package:koofit/widget/RectangleText.dart';
 
 Future<void> showTodayDiet(BuildContext context) async {
   await showModalBottomSheet<void>(
@@ -47,7 +49,9 @@ Future<void> showTodayDiet(BuildContext context) async {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // 시작에 배치
                         children: [
-                          nutrientBox()
+                          nutrientBox(),
+                          todayBox()
+
 
                         ]
                     ),
@@ -73,7 +77,7 @@ Widget todayGraphCard(){
       child: Padding(
       padding: EdgeInsets.all(30.0),
   child: Column(
-  crossAxisAlignment: CrossAxisAlignment.center, // 시작에 배치
+      crossAxisAlignment: CrossAxisAlignment.center,// 시작에 배치
   children: [
   ]
   )
@@ -83,6 +87,7 @@ Widget todayGraphCard(){
 }
 
 Widget nutrientBox(){
+  int remainKol = 1388;
   return Padding(
     padding: EdgeInsets.all(15),
     child: Column(
@@ -90,8 +95,165 @@ Widget nutrientBox(){
         CircleText(Palette.tanSu, 61, false, realGram: 32, goalGram: 200,),
         CircleText(Palette.danBaek, 100, false, realGram: 120, goalGram: 120,),
         CircleText(Palette.jiBang, 24, false, realGram: 6, goalGram: 36,),
-      ],
-    ),
-  );
+        CalText(215, 1603),
+        Text('$remainKol kcal 더 먹을 수 있어요',
+        textAlign : TextAlign.left,
+        style : TextStyle(
+          color : Color(0xC6222B45),
+          fontSize : 14,
+          fontFamily : 'Poppins',
+          fontWeight : FontWeight.w700,
+        ),
+        ),
+        SizedBox(height:10),
+        ElevatedButton(
+          onPressed:() async {
 
+          },
+          child : Text(
+            '+',
+            style : TextStyle(
+              color : Colors.white,
+              fontSize : 18,
+              fontFamily:'Inter',
+              fontWeight:FontWeight.w800,
+            ),
+          ),
+          style : ElevatedButton.styleFrom(
+            minimumSize:Size(500,20),
+            backgroundColor:Palette.mainSkyBlue,
+            padding:EdgeInsets.symmetric(vertical:8, horizontal:2),
+            shape:RoundedRectangleBorder(
+              borderRadius:BorderRadius.circular(15))
+            ),
+          ),
+        ],
+    ),
+    );
+
+
+}
+
+Widget todayBox() {
+  int totalCal = 205;
+  int eggCal = 65;
+  int appleCal = 142;
+  return Row(
+    mainAxisAlignment : MainAxisAlignment.start,
+    children: [
+      Container(
+        width : 150,
+        height : 130,
+        decoration : BoxDecoration(
+          color : Palette.mainSkyBlue,
+          borderRadius : BorderRadius.circular(15),
+        ),
+        child : Column(
+          mainAxisAlignment : MainAxisAlignment.center,
+          children : [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset('assets/images/healthy_food.png'),
+            ),
+            Text("아침",
+              style: TextStyle(fontFamily: 'Poppins',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),),
+          ],
+        ),
+      ),
+      Container(
+        padding : EdgeInsets.symmetric(horizontal : 20, vertical : 15),
+        width: 260,
+        height: 130,
+        decoration : BoxDecoration(
+          color : Colors.grey,
+          borderRadius : BorderRadius.circular(15),
+        ),
+        child : Column(
+          children : [
+            Row(
+              children : [
+                SizedBox(height : 20),
+              Text("계란 외 한 개",
+                style : TextStyle(fontFamily: 'Poppins',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(width : 70),
+              Text('$totalCal kcal',
+                textAlign : TextAlign.right,
+                style : TextStyle(
+                  color : Color(0xC6222B45),
+                  fontSize : 14,
+                  fontFamily : 'Poppins',
+                  fontWeight : FontWeight.w700,
+                ),
+              ),
+            ],
+            ),
+            SizedBox(width : 30, height : 10),
+            Row(
+              children : [
+                Text('계란',
+                  textAlign : TextAlign.left,
+                  style : TextStyle(
+                  color : Color(0xC6222B45),
+                  fontSize : 9,
+                  fontFamily : 'Poppins',
+                  fontWeight : FontWeight.w700,
+                  ),
+                ),
+                SizedBox(width: 150),
+                Text('$eggCal kcal',
+                textAlign : TextAlign.right,
+                style : TextStyle(
+                  color : Color(0xc6222B45),
+                  fontSize : 9,
+                  fontFamily : 'Poppins',
+                  fontWeight : FontWeight.w700,
+                ),),
+              ],
+            ),
+            SizedBox(width : 30, height : 5),
+            Row(
+              children : [
+                Text('사과',
+                  textAlign : TextAlign.left,
+                  style : TextStyle(
+                    color : Color(0xC6222B45),
+                    fontSize : 9,
+                    fontFamily : 'Poppins',
+                    fontWeight : FontWeight.w700,
+                  ),
+                ),
+                SizedBox(width: 150),
+                Text('$appleCal kcal',
+                  textAlign : TextAlign.right,
+                  style : TextStyle(
+                    color : Color(0xc6222B45),
+                    fontSize : 9,
+                    fontFamily : 'Poppins',
+                    fontWeight : FontWeight.w700,
+                  ),),
+              ],
+            ),
+            SizedBox(width : 30, height : 10),
+            Row(
+              children : [
+                RectangleText(Palette.tanSu, realGram: 30.9,),
+                SizedBox(width : 10),
+                RectangleText(Palette.danBaek, realGram: 14,),
+                SizedBox(width : 10),
+                RectangleText(Palette.jiBang, realGram: 34,),
+              ],
+            ),
+            SizedBox(width : 10),
+
+          ],
+        ),
+      ),
+    ],
+  );
 }

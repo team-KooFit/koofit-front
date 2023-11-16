@@ -14,6 +14,9 @@
       <excludeFolder url="file://$MODULE_DIR$/koofit/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/koofit/build" />
       <excludeFolder url="file://$MODULE_DIR$/koofit/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/exercisemain-v1.0.1/build" />
+      <excludeFolder url="file://$MODULE_DIR$/exercisemain-v1.0.1/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/exercisemain-v1.0.1/.pub" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

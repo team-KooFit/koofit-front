@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, child) {
           return GetMaterialApp(
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'main_diet',
+              initialRoute: SplashScreen.routeName,
               routes: {
                 SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),

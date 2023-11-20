@@ -144,47 +144,60 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     List<Widget> keyValueWidgets = [];
                     // Iterate through entries in menuValue
                     menuText = MenuMap['메뉴'];
-                    keyValueWidgets.add(
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 8),
-                          Text('${menuText}', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w400),),
-                        ],
-                        ),
-                      );
 
-                    return Card(
-                      color: Color(0xFFF2F3F3),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Text(menuKey, style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 8),
-                            // Display widgets for each key-value pair in menuValue
-                            ...keyValueWidgets,
-                            SizedBox(height: 8),
-                            AddDietBtnScreen(
-                              where: btnText,
-                              menu: menuText,
-                            )
-                          ],
+                      keyValueWidgets.add(
+                       Container(
+                           width: 130,
+                           height: 100,
+                           decoration: BoxDecoration(
+                             color: Colors.white54,
+                             borderRadius: BorderRadius.circular(10.0), // 둥근 모서리 설정
+                           ),
+                           child: SingleChildScrollView(
+                              child:
+                              Text('${menuText}',
+                                  textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w400)
+                              )
+                              )
+                          )
+                      );
+                      if (menuText.isEmpty){
+                        return Container();
+                      }
+                      return  Card(
+                        color: Color(0xFFF2F3F3),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                      ),
+                        child:  Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                          children: [
+                            SizedBox(height: 15),
+                            Text(menuKey,
+                              style: TextStyle(
+                              fontWeight: FontWeight.bold),),
+                              SizedBox(height: 8),
+                                    ...keyValueWidgets,
+                              SizedBox(height: 8),
+                              AddDietBtnScreen(
+                                where: btnText,
+                                menu: menuText,
+                              ),
+                              SizedBox(height: 15),
+                            ],
+                    ) ),
                     );
                   }).toList(),
                 ),
               ),
-            Padding(padding: EdgeInsets.symmetric(vertical: 15.0)),
+            Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
           ],
         ),
       ),
     );
+
   }
 
 }

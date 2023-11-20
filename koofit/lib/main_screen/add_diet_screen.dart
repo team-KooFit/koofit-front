@@ -33,7 +33,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
             )
         ),
         style: ElevatedButton.styleFrom(
-            minimumSize: Size(70,20),
+            minimumSize: Size(90,20),
             backgroundColor: Palette.mainSkyBlue,
             padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2), // 내부 패딩 조절
             shape: RoundedRectangleBorder(

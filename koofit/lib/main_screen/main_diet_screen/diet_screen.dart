@@ -39,23 +39,19 @@ class _DietScreenState extends State<DietScreen> {
     return Scaffold(
       body: Builder(
         builder: (context) {
-          return SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                advanced_calender(theme, thisController, recordedDay),
-                ValueListenableBuilder<DateTime>(
+          return
+          Column(
+          children:
+          [
+            advanced_calender(theme, thisController, recordedDay),
+            ValueListenableBuilder<DateTime>(
                   valueListenable: thisController,
                   builder: (context, selectedDate, child) {
                     _selectedDate = selectedDate;
                     return DailyDietView(_selectedDate);
                   },
                 ),
-              ],
-            ),
-          );
-        },
+        ]);},
       ),
     );
   }
@@ -100,32 +96,35 @@ class _DietScreenState extends State<DietScreen> {
         ),
       ),
     );
-  }
-
-  Widget DailyDietView(DateTime date) {
-    // DateTime 형식 변환 "2023-11-16 00:00:00.000" -> 2023-11-16
+  }Widget DailyDietView(DateTime date) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
-    return Padding(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        children: [
-          Text(
-            formatDate(date),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Text(
+                formatDate(date),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              ),
+              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+              UnivDietCard(
+                selectedDate: formatter.format(date).toString(),
+              ),
+              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+              TodayCalorieCard(),
+              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+              FitnessCard(),
+            ],
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          UnivDietCard(
-            selectedDate: formatter.format(date).toString(),
-          ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-          TodayCalorieCard(),
-          Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-          FitnessCard(),
-        ],
+        ),
       ),
     );
   }
+
+
 
   String formatDate(DateTime orgin_date) {
     var formatter = DateFormat(

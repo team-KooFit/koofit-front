@@ -42,6 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _number = '';
   String _stuNum = '';
   String _gender = '';
+
   @override
   Widget build(BuildContext context) {
     // final args = ModalRoute.of(context)!.settings.arguments as User;
@@ -73,7 +74,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 fontSize: 22.sp,
                                 color: const Color.fromARGB(255, 51, 61, 75)),
                           ),
-                          Visibility(  //학번 입력
+                          Visibility(
+                            //학번 입력
                             visible: isAgeFilled,
                             child: TextFormField(
                               onSaved: (val) {
@@ -99,8 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     if (_name.isNotEmpty &&
                                         _number.length == 11 &&
                                         _age.length == 2 &&
-                                        _stuNum.length == 8
-                                    ) {
+                                        _stuNum.length == 8) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -119,10 +120,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   labelText: "학번",
                                   labelStyle: TextStyle(
                                       color:
-                                      Color.fromARGB(255, 182, 183, 184))),
+                                          Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
-                          Visibility( //나이 입력
+                          Visibility(
+                            //나이 입력
                             visible: isNumberFilled,
                             child: TextFormField(
                               onSaved: (val) {
@@ -148,14 +150,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   print("${titleIndex}");
                                   if (titleIndex == 3) {
                                     if (_name.isNotEmpty &&
-                                            _number.length == 11 &&
-                                            _age.length == 2
-                                        ) {
+                                        _number.length == 11 &&
+                                        _age.length == 2) {
                                       stuNumField.requestFocus();
                                       titleIndex = 4;
                                       isAgeFilled = true;
-                                    } else {
-                                    }
+                                    } else {}
                                   }
                                 });
                               },
@@ -236,36 +236,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           Visibility(
-                            visible: isNameFilled,
-                              child:
-                              DropdownButtonFormField<String>(
+                              visible: isNameFilled,
+                              child: DropdownButtonFormField<String>(
                                 decoration: const InputDecoration(
                                     focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Palette.mainSkyBlue)),
+                                        borderSide: BorderSide(
+                                            color: Palette.mainSkyBlue)),
                                     labelText: "성별",
                                     labelStyle: TextStyle(
-                                        color: Color.fromARGB(255, 182, 183, 184))),
+                                        color: Color.fromARGB(
+                                            255, 182, 183, 184))),
                                 onChanged: (text) {
-                                setState(() {
-                                _gender = text!;
-                                print("ㅇㅇㅇㅇ ${titleIndex}, ${_gender}");
+                                  setState(() {
+                                    _gender = text!;
+                                    print("ㅇㅇㅇㅇ ${titleIndex}, ${_gender}");
 
-                                if (titleIndex == 1) {
-                                  if (_gender.length == 1) {
-                                    numberField.requestFocus();
-                                    isGenderSelected = true;
-                                    titleIndex = 2;
-                                  }
-                                }
-                              });},
-                            items: ['M', 'F'].map<DropdownMenuItem<String>>((String i) {
-                              return DropdownMenuItem<String> (
-                                value: i,
-                                child: Text({'M': '남성', 'F': '여성'}[i]!),
-                              );
-                            }).toList(),
-                          )),
+                                    if (titleIndex == 1) {
+                                      if (_gender.length == 1) {
+                                        numberField.requestFocus();
+                                        isGenderSelected = true;
+                                        titleIndex = 2;
+                                      }
+                                    }
+                                  });
+                                },
+                                items: ['M', 'F']
+                                    .map<DropdownMenuItem<String>>((String i) {
+                                  return DropdownMenuItem<String>(
+                                    value: i,
+                                    child: Text({'M': '남성', 'F': '여성'}[i]!),
+                                  );
+                                }).toList(),
+                              )),
                           TextFormField(
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
@@ -345,36 +347,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           isNameFilled = true;
                                           titleIndex = 1;
                                         });
-                                      }
-                                      else if(titleIndex == 1){
+                                      } else if (titleIndex == 1) {
                                         isGenderSelected = true;
-                                      }
-                                      else {
+                                      } else {
                                         if (formKey.currentState != null) {
                                           // 만약, currentState 있다면
                                           if (formKey.currentState!
                                               .validate()) {
                                             formKey.currentState!.save();
                                             User _userData = User(
-                                              uid: "임의의숫자2222",
-                                              name: _name,
-                                              age: _age,
-                                              number: _number,
-                                              stuNumber: _stuNum,
-                                              gender: _gender,
-                                              height: 0,
-                                              curWeight: 0,
-                                              goalNutrient: {},
-                                              goalWeight: 0,
-                                              fitnessList: [],
-                                              todayNutrientList: [],
-                                              privacyNeedsAgreement: false,
-                                              serviceNeedsAgreement: false
-                                            );
+                                                uid: "임의의숫자2222",
+                                                name: _name,
+                                                age: _age,
+                                                number: _number,
+                                                stuNumber: _stuNum,
+                                                gender: _gender,
+                                                height: 0,
+                                                curWeight: 0,
+                                                goalNutrient: {},
+                                                goalWeight: 0,
+                                                fitnessList: [],
+                                                todayNutrientList: [],
+                                                privacyNeedsAgreement: false,
+                                                serviceNeedsAgreement: false);
                                             Navigator.pushNamed(
-                                              context,
-                                              'BodySignUp', arguments: _userData
-                                            );
+                                                context, 'BodySignUp',
+                                                arguments: _userData);
                                           }
                                         }
                                       }

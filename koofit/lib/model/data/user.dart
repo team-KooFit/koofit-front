@@ -32,13 +32,16 @@ class User {
   int? goalWeight; //목표 몸무게
 
   @HiveField(9)
-  Map<String, dynamic>? goalNutrient; // 일일 권장 영양성분 {'탄수화물' : 22, '단백질' : 45, '지방' : 20, '목표 칼로리' : 2000}
+  Map<String, dynamic>?
+      goalNutrient; // 일일 권장 영양성분 {'탄수화물' : 22, '단백질' : 45, '지방' : 20, '목표 칼로리' : 2000}
 
   @HiveField(10)
-  List<Map<String, dynamic>>? todayNutrientList; //유저별 식단data 리스트 [{'20231109' : {'아침' : dietData, '점심' : dietData, '저녁' : dietData}, {...} ]
+  List<Map<String, dynamic>>?
+      todayNutrientList; //유저별 식단data 리스트 [{'20231109' : {'아침' : dietData, '점심' : dietData, '저녁' : dietData}, {...} ]
 
   @HiveField(11)
-  List<Map<String, dynamic>>? fitnessList; //유저 운동 데이터 리스트 [{'날짜' : Fitness.data, {..} ]
+  List<Map<String, dynamic>>?
+      fitnessList; //유저 운동 데이터 리스트 [{'날짜' : Fitness.data, {..} ]
 
   @HiveField(12)
   bool? serviceNeedsAgreement;
@@ -74,10 +77,10 @@ class User {
         height: json['height'],
         curWeight: json['cur_weight'],
         goalWeight: json['goal_weight'],
-        todayNutrientList: List<Map<String, dynamic>>.from(
-            json['todayNutrient']),
-        goalNutrient: Map<String, dynamic> .from(json['goalNutrient']),
-        fitnessList: List<Map<String, dynamic>> .from(json['fitnessList']),
+        todayNutrientList:
+            List<Map<String, dynamic>>.from(json['todayNutrient']),
+        goalNutrient: Map<String, dynamic>.from(json['goalNutrient']),
+        fitnessList: List<Map<String, dynamic>>.from(json['fitnessList']),
         serviceNeedsAgreement: json['serviceNeedsAgreement'],
         privacyNeedsAgreement: json['privacyNeedsAgreement']);
   }
@@ -113,4 +116,3 @@ class User {
     this.curWeight = curWeight;
   }
 }
-

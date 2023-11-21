@@ -7,6 +7,7 @@ import 'package:koofit/model/DietSearcher.dart';
 
 class UnivDietCard extends StatefulWidget {
   String selectedDate;
+
   // 생성자를 통해 selectedDate를 초기화할 수 있도록 변경
   UnivDietCard({required this.selectedDate});
 
@@ -26,6 +27,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
   List<String> btnTxtList = ['복지관', '법학관', '교직원'];
 
   String menuText = '';
+
   @override
   void initState() {
     super.initState();
@@ -96,7 +98,8 @@ class _UnivDietCardState extends State<UnivDietCard> {
                       child: Text('교직원'),
                     ),
                   ],
-                  textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                  textStyle:
+                      TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                   isSelected: [
                     selectedMenu == bokjiMenu,
                     selectedMenu == beobgwanMenu,
@@ -127,7 +130,6 @@ class _UnivDietCardState extends State<UnivDietCard> {
               ],
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-
             if (selectedMenu.isNotEmpty)
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -137,7 +139,8 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     String menuKey = entry.key;
                     dynamic jsonString = entry.value;
                     // 백슬래시 이스케이프 처리 및 줄바꿈 문자(\n)로 치환
-                    String cleanedString = jsonString.replaceAll(r'\\r\\n', '\r\n');
+                    String cleanedString =
+                        jsonString.replaceAll(r'\\r\\n', '\r\n');
                     // JSON 디코딩
                     Map<String, dynamic> MenuMap = json.decode(cleanedString);
                     // Create a list to store widgets for each key-value pair in menuValue
@@ -145,41 +148,39 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     // Iterate through entries in menuValue
                     menuText = MenuMap['메뉴'];
 
-                      keyValueWidgets.add(
-                       Container(
-                           width: 130,
-                           height: 100,
-                           decoration: BoxDecoration(
-                             color: Colors.white54,
-                             borderRadius: BorderRadius.circular(10.0), // 둥근 모서리 설정
-                           ),
-                           child: SingleChildScrollView(
-                              child:
-                              Text('${menuText}',
-                                  textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w400)
-                              )
-                              )
-                          )
-                      );
-                      if (menuText.isEmpty){
-                        return Container();
-                      }
-                      return  Card(
-                        color: Color(0xFFF2F3F3),
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                    keyValueWidgets.add(Container(
+                        width: 130,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white54,
+                          borderRadius:
+                              BorderRadius.circular(10.0), // 둥근 모서리 설정
                         ),
-                        child:  Padding(
+                        child: SingleChildScrollView(
+                            child: Text('${menuText}',
+                                textAlign: TextAlign.center,
+                                style:
+                                    TextStyle(fontWeight: FontWeight.w400)))));
+                    if (menuText.isEmpty) {
+                      return Container();
+                    }
+                    return Card(
+                      color: Color(0xFFF2F3F3),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                          children: [
-                            SizedBox(height: 15),
-                            Text(menuKey,
-                              style: TextStyle(
-                              fontWeight: FontWeight.bold),),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 15),
+                              Text(
+                                menuKey,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                               SizedBox(height: 8),
-                                    ...keyValueWidgets,
+                              ...keyValueWidgets,
                               SizedBox(height: 8),
                               AddDietBtnScreen(
                                 where: btnText,
@@ -187,7 +188,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                               ),
                               SizedBox(height: 15),
                             ],
-                    ) ),
+                          )),
                     );
                   }).toList(),
                 ),
@@ -197,7 +198,5 @@ class _UnivDietCardState extends State<UnivDietCard> {
         ),
       ),
     );
-
   }
-
 }

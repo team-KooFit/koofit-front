@@ -27,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _routePage();
-
   }
 
   Future<void> _routePage() async {
@@ -77,6 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     image: DecorationImage(
                         alignment: Alignment.topCenter,
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/images/splash_image.png'))))));
+                        image:
+                            AssetImage('assets/images/splash_image.png'))))));
   }
 }

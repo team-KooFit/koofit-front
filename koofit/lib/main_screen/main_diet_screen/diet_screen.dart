@@ -39,19 +39,17 @@ class _DietScreenState extends State<DietScreen> {
     return Scaffold(
       body: Builder(
         builder: (context) {
-          return
-          Column(
-          children:
-          [
+          return Column(children: [
             advanced_calender(theme, thisController, recordedDay),
             ValueListenableBuilder<DateTime>(
-                  valueListenable: thisController,
-                  builder: (context, selectedDate, child) {
-                    _selectedDate = selectedDate;
-                    return DailyDietView(_selectedDate);
-                  },
-                ),
-        ]);},
+              valueListenable: thisController,
+              builder: (context, selectedDate, child) {
+                _selectedDate = selectedDate;
+                return DailyDietView(_selectedDate);
+              },
+            ),
+          ]);
+        },
       ),
     );
   }
@@ -70,9 +68,7 @@ class _DietScreenState extends State<DietScreen> {
             color: Colors.black54,
           ),
           bodyMedium: theme.textTheme.bodyMedium!.copyWith(
-              fontSize: 12,
-              color: Colors.black87,
-              fontWeight: FontWeight.w200),
+              fontSize: 12, color: Colors.black87, fontWeight: FontWeight.w200),
         ),
         disabledColor: Colors.grey[60],
       ),
@@ -96,7 +92,9 @@ class _DietScreenState extends State<DietScreen> {
         ),
       ),
     );
-  }Widget DailyDietView(DateTime date) {
+  }
+
+  Widget DailyDietView(DateTime date) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
     return Expanded(
@@ -124,11 +122,9 @@ class _DietScreenState extends State<DietScreen> {
     );
   }
 
-
-
   String formatDate(DateTime orgin_date) {
-    var formatter = DateFormat(
-        'yyyy년 M월 d일 (E)', 'ko'); // 'ko'는 한국어로 표시하기 위한 로케일 코드입니다.
+    var formatter =
+        DateFormat('yyyy년 M월 d일 (E)', 'ko'); // 'ko'는 한국어로 표시하기 위한 로케일 코드입니다.
     return formatter.format(orgin_date);
   }
 }

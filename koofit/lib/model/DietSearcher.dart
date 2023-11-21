@@ -37,16 +37,12 @@ class DietSearcher {
     DateTime lastDayOfMonth = DateTime(today.year, today.month + 1, 0);
 
     String formattedFirstDay =
-        '${firstDayOfMonth.year}-${firstDayOfMonth.month.toString().padLeft(
-        2, '0')}-${firstDayOfMonth.day.toString().padLeft(2, '0')}';
+        '${firstDayOfMonth.year}-${firstDayOfMonth.month.toString().padLeft(2, '0')}-${firstDayOfMonth.day.toString().padLeft(2, '0')}';
     String formattedLastDay =
-        '${lastDayOfMonth.year}-${lastDayOfMonth.month.toString().padLeft(
-        2, '0')}-${lastDayOfMonth.day.toString().padLeft(2, '0')}';
+        '${lastDayOfMonth.year}-${lastDayOfMonth.month.toString().padLeft(2, '0')}-${lastDayOfMonth.day.toString().padLeft(2, '0')}';
 
     String url =
-        'https://kmucoop.kookmin.ac.kr/menu/menujson.php?callback=jQuery112408319456905698375_1699929495522&sdate=$formattedFirstDay&edate=$formattedLastDay&today=$todayDate&_=${DateTime
-        .now()
-        .millisecondsSinceEpoch}';
+        'https://kmucoop.kookmin.ac.kr/menu/menujson.php?callback=jQuery112408319456905698375_1699929495522&sdate=$formattedFirstDay&edate=$formattedLastDay&today=$todayDate&_=${DateTime.now().millisecondsSinceEpoch}';
 
     try {
       HttpClientRequest request = await HttpClient().getUrl(Uri.parse(url));
@@ -66,7 +62,8 @@ class DietSearcher {
             transformedData.putIfAbsent(date, () => {});
             transformedData[date]!.putIfAbsent(restaurant, () => {});
 
-            Map<String, dynamic> currentMap = transformedData[date]![restaurant]!;
+            Map<String, dynamic> currentMap =
+                transformedData[date]![restaurant]!;
 
             cornerMenu.forEach((key, value) {
               if (value is String) {
@@ -81,7 +78,6 @@ class DietSearcher {
         });
 
         return searchMenuByDate(transformedData, searchDate);
-
       } else {
         print("JSON 데이터를 찾을 수 없습니다.");
       }

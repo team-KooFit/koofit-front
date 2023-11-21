@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/user.dart';
+
 class BodySignUpScreen extends StatefulWidget {
   const BodySignUpScreen({super.key});
 
@@ -93,9 +94,9 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 setState(() {
                                   _curWeight = text;
                                   if (titleIndex >= 2) {
-                                    if (_height.length > 2&&
+                                    if (_height.length > 2 &&
                                             _goalWeight.length > 1 &&
-                                          _curWeight.length > 1
+                                            _curWeight.length > 1
                                         // int.parse(_weight) >= 15 &&
                                         // int.parse(_weight) <= 19
                                         ) {
@@ -206,8 +207,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                               setState(() {
                                 _height = value;
                                 print("_height : ${_height}, ${titleIndex}");
-                                if (titleIndex == 0 &&
-                                _height.length == 3) {
+                                if (titleIndex == 0 && _height.length == 3) {
                                   curWeightField.requestFocus();
 
                                   titleIndex = 1;
@@ -268,15 +268,16 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                           if (formKey.currentState!
                                               .validate()) {
                                             formKey.currentState!.save();
-                                             args.goalWeight = int.parse(_goalWeight);
-                                             args.height = int.parse(_height);
-                                             args.curWeight = int.parse(_curWeight);
-                                          print("args : ${args}");
+                                            args.goalWeight =
+                                                int.parse(_goalWeight);
+                                            args.height = int.parse(_height);
+                                            args.curWeight =
+                                                int.parse(_curWeight);
+                                            print("args : ${args}");
 
                                             Navigator.pushNamed(
-                                              context,
-                                              'welcomeScreen', arguments: args
-                                            );
+                                                context, 'welcomeScreen',
+                                                arguments: args);
                                           }
                                         }
                                       }

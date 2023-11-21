@@ -35,5 +35,4 @@ class HiveUserHelper {
   Future deleteUser(int index) async {
     userBox!.deleteAt(index);
   }
-
 }

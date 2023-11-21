@@ -4,7 +4,6 @@ part 'fitness.g.dart';
 
 @HiveType(typeId: 2)
 class Fitness {
-
   @HiveField(0)
   String uid;
 
@@ -26,7 +25,6 @@ class Fitness {
     required this.date,
     required this.burnedCalories,
     required this.time,
-
   });
 
   factory Fitness.fromJson(Map<String, dynamic> json) {

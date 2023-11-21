@@ -56,7 +56,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ))));
   }
 
-
 // UI: 카카오 로그인 버튼
   Widget _kakaoLoginButton() {
     return GestureDetector(
@@ -82,11 +81,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               )
             : GestureDetector(
-          onTap:(){
-            User newUser = User(uid: "", name: "", gender: "", stuNumber: "", number: "", age: "", height: 0, curWeight: 0, goalWeight: 0, todayNutrientList: [], goalNutrient: {}, fitnessList: [], serviceNeedsAgreement: false, privacyNeedsAgreement: false);
+                onTap: () {
+                  User newUser = User(
+                      uid: "",
+                      name: "",
+                      gender: "",
+                      stuNumber: "",
+                      number: "",
+                      age: "",
+                      height: 0,
+                      curWeight: 0,
+                      goalWeight: 0,
+                      todayNutrientList: [],
+                      goalNutrient: {},
+                      fitnessList: [],
+                      serviceNeedsAgreement: false,
+                      privacyNeedsAgreement: false);
 
-            Navigator.pushNamed(scaffoldContext, 'signUp', arguments: newUser);}
-          ,
+                  Navigator.pushNamed(scaffoldContext, 'signUp',
+                      arguments: newUser);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

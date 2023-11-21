@@ -26,7 +26,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
         child: Text('+',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18,
+              fontSize: 21,
               fontFamily: 'Inter',
               fontWeight: FontWeight.w800,
             )),
@@ -55,13 +55,15 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
         maxHeight: 730,
       ),
       builder: (BuildContext context) {
+        menu = menu.replaceAll('\n', '');
+
         return ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
             child: Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 35),
+              padding: const EdgeInsets.only(left: 30, right: 30, bottom: 35),
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 15),
@@ -69,13 +71,15 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                     "${widget.where}",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 15),
                   Text(
                     menu,
                     style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w300,
-                        color: Colors.black54),
+                        color: Colors.black54,
+                    ),
+                    textAlign: TextAlign.left,
                   ),
                   SizedBox(height: 15),
                   Row(

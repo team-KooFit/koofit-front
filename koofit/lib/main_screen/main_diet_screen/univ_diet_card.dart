@@ -28,6 +28,14 @@ class _UnivDietCardState extends State<UnivDietCard> {
 
   String menuText = '';
 
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollToTop() {
+    _scrollController.jumpTo(1);
+  }
+
+
+
   @override
   void initState() {
     super.initState();
@@ -45,12 +53,15 @@ class _UnivDietCardState extends State<UnivDietCard> {
   void _updateData(String date) async {
     DietSearcher dietSearcher = DietSearcher(date);
     result = await dietSearcher.performDietSearch();
+    print(result['학생식당(복지관 1층)']);
     setState(() {
-      bokjiMenu = result['학생식당(복지관 1층)'];
-      beobgwanMenu = result['교직원식당(복지관 1층)'];
-      gyojeokwonMenu = result['한울식당(법학관 지하1층)'];
+      bokjiMenu = result['학생식당(복지관 1층)'] ?? { '' :  {"메뉴" : "\r\n식당 운영 안함" , "가격" : "없음"}} ;
+      beobgwanMenu = result['교직원식당(복지관 1층)'] ?? { '' :  {"메뉴" : "\r\n식당 운영 안함" , "가격" : "없음"}};
+      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ?? { '' : {"메뉴" : "\r\n식당 운영 안함" , "가격" : "없음"}};
       // Set the initial selectedMenu to 복지관
       selectedMenu = bokjiMenu;
+
+
     });
   }
 
@@ -99,7 +110,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     ),
                   ],
                   textStyle:
-                      TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                      TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                   isSelected: [
                     selectedMenu == bokjiMenu,
                     selectedMenu == beobgwanMenu,
@@ -124,6 +135,9 @@ class _UnivDietCardState extends State<UnivDietCard> {
                       } else {
                         selectedMenu = gyojeokwonMenu;
                       }
+
+                      _scrollToTop(); // Reset scroll position
+
                     });
                   },
                 ),
@@ -132,36 +146,43 @@ class _UnivDietCardState extends State<UnivDietCard> {
             Padding(padding: EdgeInsets.symmetric(vertical: 10)),
             if (selectedMenu.isNotEmpty)
               SingleChildScrollView(
+                controller: _scrollController,
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: selectedMenu.entries.map((entry) {
-                    String menuKey = entry.key;
+                    String menuKey = entry.key.replaceAll(RegExp(r'<br>', caseSensitive: false), '-');
                     dynamic jsonString = entry.value;
                     // 백슬래시 이스케이프 처리 및 줄바꿈 문자(\n)로 치환
-                    String cleanedString =
-                        jsonString.replaceAll(r'\\r\\n', '\r\n');
-                    // JSON 디코딩
-                    Map<String, dynamic> MenuMap = json.decode(cleanedString);
+
+                    String cleanedString =  jsonString.replaceAll('\\r\n', '\r\n') ;
+                    Map<String, dynamic> menuMap = json.decode(cleanedString);
+                    String menuText = menuMap['메뉴'] ?? '';
                     // Create a list to store widgets for each key-value pair in menuValue
                     List<Widget> keyValueWidgets = [];
                     // Iterate through entries in menuValue
-                    menuText = MenuMap['메뉴'];
 
-                    keyValueWidgets.add(Container(
-                        width: 130,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.white54,
-                          borderRadius:
-                              BorderRadius.circular(10.0), // 둥근 모서리 설정
-                        ),
-                        child: SingleChildScrollView(
-                            child: Text('${menuText}',
-                                textAlign: TextAlign.center,
-                                style:
-                                    TextStyle(fontWeight: FontWeight.w400)))));
-                    if (menuText.isEmpty) {
+                    keyValueWidgets.add(
+                        Container(
+                            padding: EdgeInsets.all(8),
+                            width: 130,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.white54,
+                              borderRadius:
+                                  BorderRadius.circular(10.0), // 둥근 모서리 설정
+                            ),
+                            child:
+                              SingleChildScrollView(
+                                child: Text('${menuText}',
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w400)))
+                        )
+                    );
+
+
+                    if (menuText == '') {
                       return Container();
                     }
                     return Card(
@@ -177,7 +198,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                               SizedBox(height: 15),
                               Text(
                                 menuKey,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                               ),
                               SizedBox(height: 8),
                               ...keyValueWidgets,

@@ -81,6 +81,12 @@ class User {
             List<Map<String, dynamic>>.from(json['todayNutrient']),
         goalNutrient: Map<String, dynamic>.from(json['goalNutrient']),
         fitnessList: List<Map<String, dynamic>>.from(json['fitnessList']),
+        todayNutrientList: List<Map<String, dynamic>>.from(
+            json['todayNutrient']),
+        goalNutrient: Map<String, dynamic> .from(json['goalNutrient']),
+        dietList: List<Map<String, dynamic>> .from(json['dietList']),
+        fitnessList: List<Map<String, dynamic>> .from(json['fitnessList']),
+        feature-branch
         serviceNeedsAgreement: json['serviceNeedsAgreement'],
         privacyNeedsAgreement: json['privacyNeedsAgreement']);
   }
@@ -94,14 +100,20 @@ class User {
       'stuNumber': stuNumber,
       'age': age,
       'height': height,
+      'birthday': birthday,
       'curWeight': curWeight,
       'goalWeight': goalWeight,
       'todayNutrientList': todayNutrientList,
       'goalNutrient': goalNutrient,
+      'dietList': dietList,
       'fitnessList': fitnessList,
       'serviceNeedsAgreement': serviceNeedsAgreement,
       'privacyNeedsAgreement': privacyNeedsAgreement,
     };
+  }
+
+  void updateUserDietList(List<Map<String, dynamic>> dietList) {
+    this.dietList = dietList;
   }
 
   void updateUserFitnessList(List<Map<String, dynamic>> fitnessList) {
@@ -115,4 +127,5 @@ class User {
   void updateCurWeight(int curWeight) {
     this.curWeight = curWeight;
   }
+}
 }

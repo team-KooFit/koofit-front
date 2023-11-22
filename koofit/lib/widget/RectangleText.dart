@@ -25,8 +25,8 @@ class RectangleText extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 12,
-            height: 12,
+            width: 10,
+            height: 10,
             decoration: BoxDecoration(
               color: color,
             ),
@@ -37,22 +37,20 @@ class RectangleText extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(0xA5222B45),
-              fontSize: 13,
-              fontFamily: 'Poppins',
+              fontSize: 10,
               fontWeight: FontWeight.w700,
             ),
           ),
           Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
           Row(
             children: [
-              Text('$realGram', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),
+              Text('$realGram', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),),
               Text(
                 'g',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xC6222B45),
-                  fontSize: 13,
-                  fontFamily: 'Poppins',
+                  fontSize: 10,
                   fontWeight: FontWeight.w700,
                 ),
               ),],

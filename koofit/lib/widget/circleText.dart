@@ -28,8 +28,8 @@ class CircleText extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 13,
-            height: 13,
+            width: 10,
+            height: 10,
             decoration: BoxDecoration(
               color: color,
               shape: BoxShape.circle,
@@ -41,7 +41,7 @@ class CircleText extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(0xA5222B45),
-              fontSize: 13,
+              fontSize: 10,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
             ),
@@ -53,7 +53,7 @@ class CircleText extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(0xC6222B45),
-              fontSize: 13,
+              fontSize: 10,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
             ),
@@ -68,7 +68,7 @@ class CircleText extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xC6222B45),
-                  fontSize: 13,
+                  fontSize: 10,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
                 ),

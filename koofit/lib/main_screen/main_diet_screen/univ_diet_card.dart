@@ -55,9 +55,9 @@ class _UnivDietCardState extends State<UnivDietCard> {
     result = await dietSearcher.performDietSearch();
     print(result['학생식당(복지관 1층)']);
     setState(() {
-      bokjiMenu = result['학생식당(복지관 1층)'] ?? { '' :  {"메뉴" : "\r\n식당 운영 안함" , "가격" : "없음"}} ;
-      beobgwanMenu = result['교직원식당(복지관 1층)'] ?? { '' :  {"메뉴" : "\r\n식당 운영 안함" , "가격" : "없음"}};
-      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ?? { '' : {"메뉴" : "\r\n식당 운영 안함" , "가격" : "없음"}};
+      bokjiMenu = result['학생식당(복지관 1층)'] ?? {'식당' :  {"메뉴" : "운영 안함" , "가격" : "없음"}} ;
+      beobgwanMenu = result['교직원식당(복지관 1층)'] ?? {'식당' :  {"메뉴" : "운영 안함" , "가격" : "없음"}};
+      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ?? {'식당' : {"메뉴" : "운영 안함" , "가격" : "없음"}};
       // Set the initial selectedMenu to 복지관
       selectedMenu = bokjiMenu;
 
@@ -177,7 +177,8 @@ class _UnivDietCardState extends State<UnivDietCard> {
                                 child: Text('${menuText}',
                                     textAlign: TextAlign.center,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.w400)))
+                                        TextStyle(fontWeight: FontWeight.w400,
+                                        fontSize: 12)))
                         )
                     );
 
@@ -198,7 +199,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                               SizedBox(height: 15),
                               Text(
                                 menuKey,
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.black54),
                               ),
                               SizedBox(height: 8),
                               ...keyValueWidgets,

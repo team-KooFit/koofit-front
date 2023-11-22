@@ -42,15 +42,18 @@ class Header extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
                 vertical: 4.0,
               ),
-              child: Text(
-                'Today',
-                style: todayStyle ?? theme.textTheme.titleMedium,
-              ),
+              child: IconButton(
+                icon: Icon(Icons.account_circle),
+                iconSize: 32,
+                onPressed:  (){Navigator.pushNamed(
+                    context, 'userPage'
+                );}
+                )
+              )
             ),
-          ),
+
         ],
       ),
     );

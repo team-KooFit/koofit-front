@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -50,56 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        _appleLoginButton()
                         // if (!Platform.isAndroid) _appleLoginButton(),
                       ]),
                 ))));
-  }
-
-// UI: 애플 로그인 버튼
-  Widget _appleLoginButton() {
-    return GestureDetector(
-      onTap: () {
-        // if(!isLoading){
-        //   signInWithApple();
-        // }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        height: 60,
-        decoration: BoxDecoration(
-            color: const Color(0XFF000000),
-            borderRadius: BorderRadius.circular(12)),
-        child: isLoading == true && isKakaoClicked == false
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 3,
-                ),
-              )
-            : GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/apple_symbol.png',
-                      height: 20,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'Apple로 로그인 ',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-      ),
-    );
   }
 
 // UI: 카카오 로그인 버튼
@@ -127,6 +81,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               )
             : GestureDetector(
+                onTap: () {
+                  User newUser = User(
+                      uid: "",
+                      name: "",
+                      gender: "",
+                      stuNumber: "",
+                      number: "",
+                      age: "",
+                      height: 0,
+                      curWeight: 0,
+                      goalWeight: 0,
+                      todayNutrientList: [],
+                      goalNutrient: {},
+                      fitnessList: [],
+                      serviceNeedsAgreement: false,
+                      privacyNeedsAgreement: false);
+
+                  Navigator.pushNamed(scaffoldContext, 'signUp',
+                      arguments: newUser);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

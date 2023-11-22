@@ -1,8 +1,12 @@
 //Palette.mainSkyBlue
+// import 'dart:ffi';
+// import 'dart:ui_web';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/user.dart';
 
 class BodySignUpScreen extends StatefulWidget {
   const BodySignUpScreen({super.key});
@@ -21,23 +25,23 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
   ];
 
   FocusNode node1 = FocusNode();
-  FocusNode weightField = FocusNode();
+  FocusNode curWeightField = FocusNode();
   FocusNode goalWeightField = FocusNode();
 
   bool isHeightFilled = false;
-  bool isWeightFilled = false;
-  // bool isAgeFilled = false;
+  bool isCurWeightFilled = false;
+  bool isgoalWeightFilled = false;
 
   bool isButtonActive = false;
   int titleIndex = 0;
 
   String _height = '';
-  String _weight = '';
+  String _curWeight = '';
   String _goalWeight = '';
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as User;
+    final args = ModalRoute.of(context)!.settings.arguments as User;
 
     return WillPopScope(
         onWillPop: () async {
@@ -67,11 +71,11 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 color: const Color.fromARGB(255, 51, 61, 75)),
                           ),
                           Visibility(
-                            visible: isWeightFilled,
+                            visible: isCurWeightFilled,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
-                                  _weight = val.toString();
+                                  _curWeight = val.toString();
                                 });
                               },
                               validator: (val) {
@@ -88,11 +92,11 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                               // focusNode: node1,
                               onChanged: (text) {
                                 setState(() {
-                                  _weight = text;
+                                  _curWeight = text;
                                   if (titleIndex >= 2) {
-                                    if (_height.isNotEmpty &&
+                                    if (_height.length > 2 &&
                                             _goalWeight.length > 1 &&
-                                            _weight.length > 1
+                                            _curWeight.length > 1
                                         // int.parse(_weight) >= 15 &&
                                         // int.parse(_weight) <= 19
                                         ) {
@@ -143,7 +147,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 return null;
                               },
                               autofocus: true,
-                              focusNode: weightField,
+                              focusNode: curWeightField,
                               maxLength: 11,
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
@@ -154,18 +158,21 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                   _goalWeight = text;
                                   if (titleIndex == 1) {
                                     if (text.length > 1) {
-                                      isButtonActive = true;
+                                      goalWeightField.requestFocus();
+                                      titleIndex = 2;
+                                      isCurWeightFilled = true;
                                     }
                                   } else if (titleIndex > 2) {
                                     if (_height.isNotEmpty &&
                                         _goalWeight.length > 2 &&
-                                        _weight.length > 2) {
+                                        _curWeight.length > 2) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
                                     }
                                   }
                                 });
+                                print("ㅇㅇㅇㅇ ${titleIndex}, ${text}");
                               },
                               decoration: const InputDecoration(
                                   counterText: '',
@@ -199,12 +206,16 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                             onChanged: (value) {
                               setState(() {
                                 _height = value;
-                                if (titleIndex == 0) {
-                                  isButtonActive = value.isNotEmpty;
+                                print("_height : ${_height}, ${titleIndex}");
+                                if (titleIndex == 0 && _height.length == 3) {
+                                  curWeightField.requestFocus();
+
+                                  titleIndex = 1;
+                                  isHeightFilled = true;
                                 } else if (titleIndex > 2) {
                                   if (_height.isNotEmpty &&
                                       _goalWeight.length > 2 &&
-                                      _weight.length > 2) {
+                                      _curWeight.length > 2) {
                                     isButtonActive = true;
                                   } else {
                                     isButtonActive = false;
@@ -239,7 +250,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                     onPressed: () {
                                       if (titleIndex == 0) {
                                         setState(() {
-                                          weightField.requestFocus();
+                                          curWeightField.requestFocus();
                                           isButtonActive = false;
                                           isHeightFilled = true;
                                           titleIndex = 1;
@@ -248,7 +259,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                         setState(() {
                                           goalWeightField.requestFocus();
                                           isButtonActive = false;
-                                          isWeightFilled = true;
+                                          isCurWeightFilled = true;
                                           titleIndex = 2;
                                         });
                                       } else {
@@ -257,16 +268,16 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                           if (formKey.currentState!
                                               .validate()) {
                                             formKey.currentState!.save();
-                                            // User newUser = User(
-                                            //   uid: args.uid,
-                                            //   name: _height,
-                                            //   profileImage: args.profileImage,
+                                            args.goalWeight =
+                                                int.parse(_goalWeight);
+                                            args.height = int.parse(_height);
+                                            args.curWeight =
+                                                int.parse(_curWeight);
+                                            print("args : ${args}");
 
-                                            // );
                                             Navigator.pushNamed(
-                                              context,
-                                              'welcomeScreen',
-                                            );
+                                                context, 'welcomeScreen',
+                                                arguments: args);
                                           }
                                         }
                                       }

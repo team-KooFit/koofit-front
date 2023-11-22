@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/user.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,24 +17,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final List<String> _textList = [
     '이름을 입력해주세요.',
+    '성별을 선택해주세요.',
     '휴대폰 번호를 입력해주세요.',
-    '나이를 입력해주세요.'
+    '나이를 입력해주세요.',
+    '학번(8자리)를 입력해주세요.'
   ];
 
   FocusNode node1 = FocusNode();
   FocusNode numberField = FocusNode();
   FocusNode ageField = FocusNode();
+  FocusNode stuNumField = FocusNode();
 
   bool isNameFilled = false;
   bool isNumberFilled = false;
   bool isAgeFilled = false;
-
+  bool isGenderSelected = false;
+  bool isStuNumFilled = false;
   bool isButtonActive = false;
+
   int titleIndex = 0;
 
   String _name = '';
   String _age = '';
   String _number = '';
+  String _stuNum = '';
+  String _gender = '';
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +75,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 color: const Color.fromARGB(255, 51, 61, 75)),
                           ),
                           Visibility(
+                            //학번 입력
+                            visible: isAgeFilled,
+                            child: TextFormField(
+                              onSaved: (val) {
+                                setState(() {
+                                  _stuNum = val.toString();
+                                });
+                              },
+                              validator: (val) {
+                                if (val != null) {
+                                } else {
+                                  return '학번을 입력해주세요';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              onChanged: (text) {
+                                setState(() {
+                                  _stuNum = text;
+                                  if (titleIndex == 4) {
+                                    if (_name.isNotEmpty &&
+                                        _number.length == 11 &&
+                                        _age.length == 2 &&
+                                        _stuNum.length == 8) {
+                                      isButtonActive = true;
+                                    } else {
+                                      isButtonActive = false;
+                                    }
+                                  }
+                                });
+                              },
+                              maxLength: 8,
+                              autofocus: true,
+                              focusNode: stuNumField,
+                              decoration: const InputDecoration(
+                                  counterText: '',
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Palette.mainSkyBlue)),
+                                  labelText: "학번",
+                                  labelStyle: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 182, 183, 184))),
+                            ),
+                          ),
+                          Visibility(
+                            //나이 입력
                             visible: isNumberFilled,
                             child: TextFormField(
                               onSaved: (val) {
@@ -89,17 +147,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (text) {
                                 setState(() {
                                   _age = text;
-                                  if (titleIndex == 2) {
+                                  print("${titleIndex}");
+                                  if (titleIndex == 3) {
                                     if (_name.isNotEmpty &&
-                                            _number.length == 11 &&
-                                            _age.length == 2
-                                        // int.parse(_age) >= 15 &&
-                                        // int.parse(_age) <= 19
-                                        ) {
-                                      isButtonActive = true;
-                                    } else {
-                                      isButtonActive = false;
-                                    }
+                                        _number.length == 11 &&
+                                        _age.length == 2) {
+                                      stuNumField.requestFocus();
+                                      titleIndex = 4;
+                                      isAgeFilled = true;
+                                    } else {}
                                   }
                                 });
                               },
@@ -107,13 +163,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               focusNode: ageField,
                               autofocus: true,
                               decoration: const InputDecoration(
-                                  // errorText: _age.isNotEmpty && _age.length == 2
-                                  //     ? int.parse(_age) >= 20
-                                  //         ? '만 19세 이상은 서비스 이용이 제한됩니다.'
-                                  //         : int.parse(_age) < 15
-                                  //             ? '15세 미만은 서비스 이용이 제한됩니다.'
-                                  //             : null
-                                  //     : null,
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -125,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           Visibility(
-                            visible: isNameFilled,
+                            visible: isGenderSelected,
                             child: TextFormField(
                               onSaved: (val) {
                                 setState(() {
@@ -157,11 +206,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (text) {
                                 setState(() {
                                   _number = text;
-                                  if (titleIndex == 1) {
+                                  print("2222 ${titleIndex}");
+                                  if (titleIndex == 2) {
                                     if (text.length == 11) {
                                       ageField.requestFocus();
                                       isNumberFilled = true;
-                                      titleIndex = 2;
+                                      titleIndex = 3;
                                     }
                                   } else if (titleIndex == 2) {
                                     if (_name.isNotEmpty &&
@@ -185,6 +235,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
+                          Visibility(
+                              visible: isNameFilled,
+                              child: DropdownButtonFormField<String>(
+                                decoration: const InputDecoration(
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Palette.mainSkyBlue)),
+                                    labelText: "성별",
+                                    labelStyle: TextStyle(
+                                        color: Color.fromARGB(
+                                            255, 182, 183, 184))),
+                                onChanged: (text) {
+                                  setState(() {
+                                    _gender = text!;
+                                    print("ㅇㅇㅇㅇ ${titleIndex}, ${_gender}");
+
+                                    if (titleIndex == 1) {
+                                      if (_gender.length == 1) {
+                                        numberField.requestFocus();
+                                        isGenderSelected = true;
+                                        titleIndex = 2;
+                                      }
+                                    }
+                                  });
+                                },
+                                items: ['M', 'F']
+                                    .map<DropdownMenuItem<String>>((String i) {
+                                  return DropdownMenuItem<String>(
+                                    value: i,
+                                    child: Text({'M': '남성', 'F': '여성'}[i]!),
+                                  );
+                                }).toList(),
+                              )),
                           TextFormField(
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
@@ -205,10 +288,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 for (var i = 0; i < val.length; i++) {
                                   if (consonantsPattern.hasMatch(val[i]) ||
                                       vowelsPattern.hasMatch(val[i])) {
-                                    return '올바른 이름을 입력해주세요';
+                                    return '올바른 이름을 한글로 입력해주세요';
                                   }
                                 }
-
                                 return null;
                               } else {
                                 return '이름을 입력해주세요';
@@ -249,14 +331,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Palette.mainSkyBlue,
-                                        disabledForegroundColor: titleIndex == 2
+                                        disabledForegroundColor: titleIndex == 4
                                             ? Colors.white
                                             : null,
-                                        disabledBackgroundColor: titleIndex == 2
+                                        disabledBackgroundColor: titleIndex == 4
                                             ? Palette.mainSkyBlue
                                                 .withOpacity(0.12)
                                             : null),
                                     onPressed: () {
+                                      print(titleIndex);
                                       if (titleIndex == 0) {
                                         setState(() {
                                           numberField.requestFocus();
@@ -264,22 +347,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           isNameFilled = true;
                                           titleIndex = 1;
                                         });
+                                      } else if (titleIndex == 1) {
+                                        isGenderSelected = true;
                                       } else {
                                         if (formKey.currentState != null) {
                                           // 만약, currentState 있다면
                                           if (formKey.currentState!
                                               .validate()) {
                                             formKey.currentState!.save();
-                                            // User newUser = User(
-                                            //   uid: args.uid,
-                                            //   name: _name,
-                                            //   profileImage: args.profileImage,
-
-                                            // );
+                                            User _userData = User(
+                                                uid: "임의의숫자2222",
+                                                name: _name,
+                                                age: _age,
+                                                number: _number,
+                                                stuNumber: _stuNum,
+                                                gender: _gender,
+                                                height: 0,
+                                                curWeight: 0,
+                                                goalNutrient: {},
+                                                goalWeight: 0,
+                                                fitnessList: [],
+                                                todayNutrientList: [],
+                                                privacyNeedsAgreement: false,
+                                                serviceNeedsAgreement: false);
                                             Navigator.pushNamed(
-                                              context,
-                                              'BodySignUp',
-                                            );
+                                                context, 'BodySignUp',
+                                                arguments: _userData);
                                           }
                                         }
                                       }

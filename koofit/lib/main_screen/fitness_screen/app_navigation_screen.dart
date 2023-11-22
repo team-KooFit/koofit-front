@@ -1,4 +1,4 @@
-import 'package:koofit/core/app_export.dart';
+import 'package:koofit/fitness/core/app_export.dart';
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/fitness_screen//routes/app_routes.dart';
 

@@ -32,9 +32,11 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
             itemCount: _selectedMenuItems.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                title: Text(_selectedMenuItems[index]),
-                trailing: AddDietBtnScreen(where: "식당이름", menu: _selectedMenuItems[index],)
-              );
+                  title: Text(_selectedMenuItems[index]),
+                  trailing: AddDietBtnScreen(
+                    where: "식당이름",
+                    menu: _selectedMenuItems[index],
+                  ));
             },
           ),
         ),
@@ -42,57 +44,50 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
     );
   }
 
-
-  Widget WhereBtn(){
-    return
-      Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 10,),
-            ToggleButtons(
-              children: [
-                Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('복지관')
-                ),
-                Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('법학관')
-                ),
-                Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('교직원')
-                ),
-              ],
-              textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-              isSelected:    [
-                _selectedMenuItems == bokjiMenu,
-                _selectedMenuItems == beobgwanMenu,
-                _selectedMenuItems == gyojeokwonMenu,],
-              borderRadius: BorderRadius.circular(20.0),
-              constraints: const BoxConstraints(
-                minHeight: 25.0,
-                minWidth: 40.0,
-              ),
-              selectedBorderColor: Palette.mid_dark_mainSkyBlue,
-              selectedColor: Colors.white,
-              fillColor:Palette.mid_dark_mainSkyBlue,
-              color: Colors.black38,
-              onPressed: (index) {
-                setState(() {
-                  if (index == 0) {
-                    _selectedMenuItems = bokjiMenu;
-                  } else if (index == 1) {
-                    _selectedMenuItems = beobgwanMenu;
-                  } else {
-                    _selectedMenuItems = gyojeokwonMenu;
-                  }
-                });
-              },
-            ),
-          ]
-      );
-
+  Widget WhereBtn() {
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      SizedBox(
+        width: 10,
+      ),
+      ToggleButtons(
+        children: [
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text('복지관')),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text('법학관')),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text('교직원')),
+        ],
+        textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        isSelected: [
+          _selectedMenuItems == bokjiMenu,
+          _selectedMenuItems == beobgwanMenu,
+          _selectedMenuItems == gyojeokwonMenu,
+        ],
+        borderRadius: BorderRadius.circular(20.0),
+        constraints: const BoxConstraints(
+          minHeight: 25.0,
+          minWidth: 40.0,
+        ),
+        selectedBorderColor: Palette.mid_dark_mainSkyBlue,
+        selectedColor: Colors.white,
+        fillColor: Palette.mid_dark_mainSkyBlue,
+        color: Colors.black38,
+        onPressed: (index) {
+          setState(() {
+            if (index == 0) {
+              _selectedMenuItems = bokjiMenu;
+            } else if (index == 1) {
+              _selectedMenuItems = beobgwanMenu;
+            } else {
+              _selectedMenuItems = gyojeokwonMenu;
+            }
+          });
+        },
+      ),
+    ]);
   }
-
 }

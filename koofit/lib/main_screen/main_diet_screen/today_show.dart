@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/widget/circleText.dart';
+
 import 'package:koofit/widget/calText.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/widget/RectangleText.dart';
@@ -32,18 +33,21 @@ Future<void> showTodayDiet(BuildContext context) async {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 35),
             child : Column(
               children: <Widget>[
-                Text("오늘의 식단을 기록해볼까요?", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                Text(
+                  "오늘의 식단을 기록해볼까요?",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 35),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [ ],
+                  children: [],
                 ),
                 Card(
 
                   color: Color(0xFFEFEFEF),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // 모서리를 둥글게 만드는 값 설정
+                    borderRadius:
+                        BorderRadius.circular(30), // 모서리를 둥글게 만드는 값 설정
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
@@ -59,16 +63,14 @@ Future<void> showTodayDiet(BuildContext context) async {
                   ),
                 ),
                 const Spacer(),
-
-
               ],
-            ),)
-      );
+            ),
+          ));
     },
   );
 }
 
-Widget todayGraphCard(){
+Widget todayGraphCard() {
   return Card(
       color: Color(0xFFEFEFEF),
       shape: RoundedRectangleBorder(

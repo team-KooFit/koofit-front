@@ -1,5 +1,5 @@
-import 'package:koofit/core/app_export.dart';
-import 'package:koofit/widgets/custom_elevated_button.dart';
+import 'package:koofit/fitness/core/app_export.dart';
+import 'package:koofit/fitness/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 class K1Screen extends StatelessWidget {

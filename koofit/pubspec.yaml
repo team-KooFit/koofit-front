@@ -39,6 +39,13 @@ dependencies:
   item_count_number_button: ^1.0.0
   cached_network_image: ^3.2.1
   flutter_svg: ^1.1.6
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.6
+  flutter_secure_storage: ^9.0.0
+  provider: ^6.1.1
+  http: ^1.1.0
   
 dev_dependencies:
   flutter_test:

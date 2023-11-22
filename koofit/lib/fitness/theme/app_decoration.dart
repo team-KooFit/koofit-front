@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/core/app_export.dart';
+import 'package:koofit/fitness/core/app_export.dart';
 
 class AppDecoration {
   // Fill decorations

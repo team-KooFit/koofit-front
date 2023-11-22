@@ -3,10 +3,7 @@ import 'package:koofit/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 class K0Screen extends StatelessWidget {
-  const K0Screen({Key? key})
-      : super(
-          key: key,
-        );
+  const K0Screen({super.key});
 
   @override
   Widget build(BuildContext context) {

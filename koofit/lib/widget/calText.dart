@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/model/config/palette.dart';
 
 class CalText extends StatelessWidget {
   final int? realKol;
   final int? goalKol;
 
-  CalText(this.realKol, this.goalKol);
+  const CalText(this.realKol, this.goalKol, {super.key});
 
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           Text('$realKol',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-          Text(' / $goalKol', style: TextStyle(
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+          Text(' / $goalKol', style: const TextStyle(
               fontWeight: FontWeight.w500, color: Colors.black38)),
-          SizedBox(width: 10),
-          Text(
+          const SizedBox(width: 10),
+          const Text(
             'kcal',
             textAlign: TextAlign.center,
             style: TextStyle(

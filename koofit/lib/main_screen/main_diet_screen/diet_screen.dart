@@ -4,7 +4,6 @@ import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/widget/advanced_calender_lib/advanced_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:koofit/model/config/palette.dart';
 import 'univ_diet_card.dart';
 
 class DietScreen extends StatefulWidget {
@@ -100,19 +99,19 @@ class _DietScreenState extends State<DietScreen> {
   Widget DailyDietView(DateTime date) {
     return
       Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
             children: [
               Text(
                   formatDate(date),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)
               ),
-              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-              UnivDietCard(),
-              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              TodayCalorieCard(),
-              Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              FitnessCard(),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+              const UnivDietCard(),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+              const TodayCalorieCard(),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+              const FitnessCard(),
             ]
         )
     );
@@ -120,10 +119,10 @@ class _DietScreenState extends State<DietScreen> {
 
 
 
-  String formatDate(DateTime orgin_date) {
+  String formatDate(DateTime orginDate) {
     var formatter = DateFormat(
         'yyyy년 M월 d일 (E)', 'ko'); // 'ko'는 한국어로 표시하기 위한 로케일 코드입니다.
-    return formatter.format(orgin_date);
+    return formatter.format(orginDate);
   }
 
   }

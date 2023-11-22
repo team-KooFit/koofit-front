@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/model/config/palette.dart';
 
 class AddDietBtnScreen extends StatefulWidget {
@@ -7,7 +6,7 @@ class AddDietBtnScreen extends StatefulWidget {
   final String menu;
 
   // 생성자 정의
-  AddDietBtnScreen({Key? key, required this.where, required this.menu}) : super(key: key);
+  const AddDietBtnScreen({super.key, required this.where, required this.menu});
 
   @override
   State<AddDietBtnScreen> createState() => _AddDietBtnScreenState();
@@ -22,7 +21,14 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
       onPressed: () async {
         await _showNutrientSheet(context, widget.where, widget.menu);
       },
-        child: Text(
+        style: ElevatedButton.styleFrom(
+            minimumSize: const Size(70,20),
+            backgroundColor: Palette.mainSkyBlue,
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2), // 내부 패딩 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15))
+        ),
+        child: const Text(
             '+',
             style:
             TextStyle(
@@ -31,13 +37,6 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
               fontFamily: 'Inter',
               fontWeight: FontWeight.w800,
             )
-        ),
-        style: ElevatedButton.styleFrom(
-            minimumSize: Size(70,20),
-            backgroundColor: Palette.mainSkyBlue,
-            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2), // 내부 패딩 조절
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15))
         ));
 
   }
@@ -58,7 +57,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
       ),
       builder: (BuildContext context) {
         return ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
@@ -67,23 +66,23 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 35),
              child : Column(
             children: <Widget>[
-              SizedBox(height: 15),
-              Text("복지관", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-              SizedBox(height: 5),
-              Text(menu, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w300, color: Colors.black54),),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
+              const Text("복지관", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+              const SizedBox(height: 5),
+              Text(menu, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300, color: Colors.black54),),
+              const SizedBox(height: 15),
 
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [ ],
               ),
                 Card(
-                  color: Color(0xFFEFEFEF),
+                  color: const Color(0xFFEFEFEF),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30), // 모서리를 둥글게 만드는 값 설정
                   ),
 
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(30.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // 시작에 배치
@@ -158,7 +157,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                       },
-                    child: Text('수정하기',
+                    child: const Text('수정하기',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20)),

@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.koofit.app-mergeDebugResources-9:/values-ja/values-ja.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\ysm00\\.gradle\\caches\\transforms-3\\aaab9055df4bcc213684bd8c9a4ce85d\\transformed\\core-1.6.0\\res\\values-ja\\values-ja.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

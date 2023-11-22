@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "exercisemain-v1.0.1",
+            "cwd": "exercisemain-v1.0.1",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "exercisemain-v1.0.1 (profile mode)",
+            "cwd": "exercisemain-v1.0.1",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "exercisemain-v1.0.1 (release mode)",
+            "cwd": "exercisemain-v1.0.1",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "koofit",
+            "cwd": "koofit",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "koofit (profile mode)",
+            "cwd": "koofit",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "koofit (release mode)",
+            "cwd": "koofit",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

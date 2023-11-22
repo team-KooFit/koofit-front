@@ -2,7 +2,7 @@ part of 'widget.dart';
 
 class WeekView extends StatelessWidget {
   WeekView({
-    Key? key,
+    super.key,
     required this.dates,
     required this.selectedDate,
     required this.lineHeight,
@@ -12,7 +12,7 @@ class WeekView extends StatelessWidget {
     required this.innerDot,
     required this.keepLineSize,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   final DateTime todayDate = DateTime.now().toZeroTime();
   final List<DateTime> dates;

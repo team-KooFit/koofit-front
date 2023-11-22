@@ -3,10 +3,7 @@ import 'package:koofit/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 class K1Screen extends StatelessWidget {
-  const K1Screen({Key? key})
-      : super(
-          key: key,
-        );
+  const K1Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +22,7 @@ class K1Screen extends StatelessWidget {
               _buildFourSection(context),
               SizedBox(height: 60.v),
               Text(
-                "예상 소모 칼로리",
+                "예상 소모 ",
                 style: theme.textTheme.headlineMedium,
               ),
               SizedBox(height: 33.v),

@@ -11,8 +11,8 @@ class AppRoutes {
   static const String appNavigationScreen = '/app_navigation_screen';
 
   static Map<String, WidgetBuilder> routes = {
-    k0Screen: (context) => K0Screen(),
-    k1Screen: (context) => K1Screen(),
-    appNavigationScreen: (context) => AppNavigationScreen()
+    k0Screen: (context) => const K0Screen(),
+    k1Screen: (context) => const K1Screen(),
+    appNavigationScreen: (context) => const AppNavigationScreen()
   };
 }

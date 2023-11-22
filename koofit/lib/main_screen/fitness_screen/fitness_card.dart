@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/fitness_screen/show_fitness_screen.dart';
-import 'package:koofit/main_screen/main_diet_screen/today_show.dart';
-import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
-import 'package:koofit/model/config/palette.dart';
-import 'package:get/get.dart';
-import 'package:koofit/widget/circleText.dart';
 
 class FitnessCard extends StatefulWidget {
+  const FitnessCard({super.key});
+
 
   @override
   State<FitnessCard> createState() => _FitnessCardState();
@@ -32,7 +29,7 @@ class _FitnessCardState extends State<FitnessCard> {
             child: Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 child:
-                Padding(
+                const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     child:
                     Column(

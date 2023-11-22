@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_show.dart';
-import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
-import 'package:get/get.dart';
 import 'package:koofit/widget/circleText.dart';
 
 class TodayCalorieCard extends StatefulWidget {
+  const TodayCalorieCard({super.key});
+
 
   @override
   State<TodayCalorieCard> createState() => _TodayCalorieCardState();
@@ -31,27 +31,27 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child:
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child:
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 5),
-                      Text("식단",
+                      const SizedBox(height: 5),
+                      const Text("식단",
                         style: TextStyle(
                           color: Color(0xA5222B45),
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),),
-                      SizedBox(height: 5,),
-                      Text("0 Kal",
+                      const SizedBox(height: 5,),
+                      const Text("0 Kal",
                         style: TextStyle(
                           color: Color(0xFF222B45),
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                         )
                         ,),
-                      SizedBox(height: 13,),
+                      const SizedBox(height: 13,),
                       CircleText(Palette.tanSu, 61, isOuter),
                       CircleText(Palette.danBaek, 100, isOuter ),
                       CircleText(Palette.jiBang, 24, isOuter)

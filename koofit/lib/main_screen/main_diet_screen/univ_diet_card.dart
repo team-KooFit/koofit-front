@@ -3,6 +3,8 @@ import 'package:koofit/main_screen/add_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 
 class UnivDietCard extends StatefulWidget {
+  const UnivDietCard({super.key});
+
 
   @override
   State<UnivDietCard> createState() => _UnivDietCardState();
@@ -33,7 +35,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(padding: EdgeInsets.symmetric(vertical: 7)),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 7)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 // 자식 위젯을 가로 방향으로 가운데 정렬
@@ -42,7 +44,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset('assets/images/healthy_food.png'),
                   ),
-                  Text("오늘의 학식",
+                  const Text("오늘의 학식",
                     style: TextStyle(fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
                         fontSize: 18),),
@@ -52,21 +54,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ToggleButtons(
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 13),
-                            child: Text('복지관')
-                        ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 13),
-                            child: Text('법학관')
-                        ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 13),
-                            child: Text('교직원')
-                        ),
-                      ],
-                      textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                      textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                       isSelected:    [ selectedMenu == bokjiMenu,
                         selectedMenu == beobgwanMenu,
                         selectedMenu == gyojeokwonMenu,],
@@ -90,37 +78,51 @@ class _UnivDietCardState extends State<UnivDietCard> {
                           }
                         });
                       },
+                      children: const [
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 13),
+                            child: Text('복지관')
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 13),
+                            child: Text('법학관')
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 13),
+                            child: Text('교직원')
+                        ),
+                      ],
                     ),
                   ]
               ),
-              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
 
               if (selectedMenu.isNotEmpty)
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     children: selectedMenu
                         .map(
                           (menu) => Card(
-                        color: Color(0xFFF2F3F3), // 카드의 배경색을 #F2F3F3으로 설정
+                        color: const Color(0xFFF2F3F3), // 카드의 배경색을 #F2F3F3으로 설정
                         elevation: 2, // 카드의 그림자 높이 설정
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15), // 모서리를 둥글게 만드는 값 설정
                         ),
 
                         child: Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Column(children: [
                             Text(menu),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             AddDietBtnScreen(where: "식당이름", menu: menu)
                           ]),
                         ),
                       ),
                     )
                         .toList(),),),
-              Padding(padding: EdgeInsets.symmetric(vertical: 15.0)),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 15.0)),
 
             ],
           ),

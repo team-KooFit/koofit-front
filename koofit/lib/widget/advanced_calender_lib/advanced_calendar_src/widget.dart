@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'controller.dart';
@@ -16,7 +15,7 @@ part 'week_view.dart';
 /// Advanced Calendar widget.
 class AdvancedCalendar extends StatefulWidget {
   const AdvancedCalendar({
-    Key? key,
+    super.key,
     this.controller,
     this.startWeekDay,
     this.events,
@@ -35,8 +34,7 @@ class AdvancedCalendar extends StatefulWidget {
               innerDot && !keepLineSize ||
               !innerDot && !keepLineSize,
           'keepLineSize should be used only when innerDot is true',
-        ),
-        super(key: key);
+        );
 
   /// Calendar selection date controller.
   final AdvancedCalendarController? controller;

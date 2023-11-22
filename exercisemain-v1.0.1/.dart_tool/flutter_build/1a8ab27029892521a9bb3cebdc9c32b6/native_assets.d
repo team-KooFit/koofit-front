@@ -1,0 +1,1 @@
+ C:\\Users\\ysm00\\OneDrive\\Documents\\GitHub\\koofit-front\\exercisemain-v1.0.1\\.dart_tool\\flutter_build\\1a8ab27029892521a9bb3cebdc9c32b6\\native_assets.yaml: 

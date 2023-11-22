@@ -2,7 +2,7 @@ part of 'widget.dart';
 
 class MonthView extends StatelessWidget {
   const MonthView({
-    Key? key,
+    super.key,
     required this.monthView,
     required this.todayDate,
     required this.selectedDate,
@@ -13,7 +13,7 @@ class MonthView extends StatelessWidget {
     this.events,
     required this.keepLineSize,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   final ViewRange monthView;
   final DateTime? todayDate;

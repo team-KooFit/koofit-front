@@ -21,6 +21,10 @@ class CustomTextStyles {
         fontSize: 20.fSize,
         fontWeight: FontWeight.w700,
       );
+  //exercise style
+  static get bodySmallOnPrimaryContainer => theme.textTheme.bodySmall!.copyWith(
+        color: theme.colorScheme.onPrimaryContainer,
+      );
 }
 
 extension on TextStyle {

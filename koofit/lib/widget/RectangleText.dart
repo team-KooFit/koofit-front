@@ -6,7 +6,7 @@ class RectangleText extends StatelessWidget {
   final Color color;
   final double? realGram;
 
-  RectangleText(this.color, {this.realGram});
+  const RectangleText(this.color, {super.key, this.realGram});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class RectangleText extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           Container(
@@ -31,22 +31,22 @@ class RectangleText extends StatelessWidget {
               color: color,
             ),
           ),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 2)),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: 2)),
           Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xA5222B45),
               fontSize: 13,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
             ),
           ),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
           Row(
             children: [
-              Text('$realGram', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),
-              Text(
+              Text('$realGram', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),
+              const Text(
                 'g',
                 textAlign: TextAlign.center,
                 style: TextStyle(

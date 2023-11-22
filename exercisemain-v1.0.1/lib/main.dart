@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:koofit/theme/theme_helper.dart';
 import 'package:koofit/routes/app_routes.dart';
 

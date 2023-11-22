@@ -4,7 +4,7 @@ import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
 import 'package:koofit/widget/loading_view.dart';
 import 'package:get/get.dart';
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -26,8 +26,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     //     setState(() {
     //       isLoading = false;
     //     });
-    Future.delayed(Duration(seconds: 2)).then((value) {
-      Get.offAll(DietScreen());
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      Get.offAll(const DietScreen());
     });
 
     //       if (isSuccess) {

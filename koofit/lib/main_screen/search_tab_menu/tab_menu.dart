@@ -13,13 +13,13 @@ class _TabMenuState extends State<TabMenu> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3, // Number of tabs
+        length: 2, // Number of tabs
         child: Column(children: [
           TabBar(
             tabs: [
               Tab(text: "KMU"),
               Tab(text: '즐겨찾기'),
-              Tab(text: '직접 입력'),
+              // Tab(text: '직접 입력'),
             ],
             labelColor: Colors.black87,
             labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
@@ -36,7 +36,7 @@ class _TabMenuState extends State<TabMenu> {
                 // Content for Tab 2
                 Text('Tab 2 Content'),
                 // Content for Tab 3
-                Text('Tab 3 Content')
+                // Text('Tab 3 Content')
               ],
             ),
           )

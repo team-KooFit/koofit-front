@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
+import 'package:koofit/model/DietSearcher.dart';
 import 'package:koofit/model/config/palette.dart';
 
 class TabKmuScreen extends StatefulWidget {
@@ -11,35 +14,126 @@ class TabKmuScreen extends StatefulWidget {
 }
 
 class _TabKmuScreenState extends State<TabKmuScreen> {
-  List<String> bokjiMenu = ["김치찌개", "된장찌개", "제육볶음", "불고기", "비빔밥"];
-  List<String> beobgwanMenu = ["짜장면", "짬뽕", "볶음밥", "탕수육", "양장피"];
-  List<String> gyojeokwonMenu = ["카레라이스", "김치볶음밥", "떡볶이", "라면", "샐러드"];
-  List<String> _selectedMenuItems = [];
+  Map<String, dynamic> bokjiMenu = {};
+  Map<String, dynamic> beobgwanMenu = {};
+  Map<String, dynamic> gyojeokwonMenu = {};
+  Map<String, dynamic> selectedMenu = {};
+  late Map<String, dynamic> result;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _selectedMenuItems = bokjiMenu; // 초기에 복지관 메뉴를 선택함
+    _updateData();
+
+
   }
 
+  void _scrollToTop() {
+    _scrollController.jumpTo(1);
+  }
+
+  void _updateData() async {
+    DateTime today = DateTime.now();
+    String todayDate = today.toLocal().toString().split(' ')[0];
+    DietSearcher dietSearcher = DietSearcher(todayDate);
+    result = await dietSearcher.performDietSearch();
+    print(result['학생식당(복지관 1층)']);
+    setState(() {
+      bokjiMenu = result['학생식당(복지관 1층)'] ??
+          {
+            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+          };
+      beobgwanMenu = result['교직원식당(복지관 1층)'] ??
+          {
+            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+          };
+      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ??
+          {
+            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+          };
+      // Set the initial selectedMenu to 복지관
+      selectedMenu = bokjiMenu;
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         WhereBtn(),
-        Expanded(
-          child: ListView.builder(
-            itemCount: _selectedMenuItems.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                  title: Text(_selectedMenuItems[index]),
-                  trailing: AddDietBtnScreen(
-                    where: "식당이름",
-                    menu: _selectedMenuItems[index],
-                  ));
-            },
-          ),
-        ),
+        Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+        if (selectedMenu.isNotEmpty)
+          Expanded(
+              child:SingleChildScrollView(
+            controller: _scrollController,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: selectedMenu.entries.map((entry) {
+                String menuKey = entry.key
+                    .replaceAll(RegExp(r'<br>', caseSensitive: false), '\n');
+                dynamic jsonString = entry.value;
+                // 백슬래시 이스케이프 처리 및 줄바꿈 문자(\n)로 치환
+
+                String cleanedString =
+                jsonString.replaceAll('\\r\n', '');
+                Map<String, dynamic> menuMap = json.decode(cleanedString);
+                String menuText = menuMap['메뉴'] ?? '';
+                // Create a list to store widgets for each key-value pair in menuValue
+                List<Widget> keyValueWidgets = [];
+                // Iterate through entries in menuValue
+
+                keyValueWidgets.add(Container(
+                    padding: EdgeInsets.all(10),
+                    width: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.white54,
+                      borderRadius:
+                      BorderRadius.circular(10.0), // 둥근 모서리 설정
+                    ),
+                    child: SingleChildScrollView(
+                        child: Text('${menuText}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12)))));
+
+                if (menuText == '') {
+                  return Container();
+                }
+                return Card(
+                  color: Color(0xFFF2F3F3),
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 70,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Text(
+                            menuKey,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                            ))),
+                          SizedBox(width: 15),
+                          ...keyValueWidgets,
+                          SizedBox(width: 15),
+                          AddDietBtnScreen(
+                            where: menuKey,
+                            menu: menuText,
+                          ),
+                        ],
+                      )),
+                );
+              }).toList(),
+            ),
+          )),
       ],
     );
   }
@@ -63,9 +157,9 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
         ],
         textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
         isSelected: [
-          _selectedMenuItems == bokjiMenu,
-          _selectedMenuItems == beobgwanMenu,
-          _selectedMenuItems == gyojeokwonMenu,
+          selectedMenu == bokjiMenu,
+          selectedMenu == beobgwanMenu,
+          selectedMenu == gyojeokwonMenu,
         ],
         borderRadius: BorderRadius.circular(20.0),
         constraints: const BoxConstraints(
@@ -79,11 +173,11 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
         onPressed: (index) {
           setState(() {
             if (index == 0) {
-              _selectedMenuItems = bokjiMenu;
+              selectedMenu = bokjiMenu;
             } else if (index == 1) {
-              _selectedMenuItems = beobgwanMenu;
+              selectedMenu = beobgwanMenu;
             } else {
-              _selectedMenuItems = gyojeokwonMenu;
+              selectedMenu = gyojeokwonMenu;
             }
           });
         },

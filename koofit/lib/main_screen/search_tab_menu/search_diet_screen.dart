@@ -46,6 +46,7 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: true, // Set this to false to avoid resizing when the keyboard is displayed
         appBar: EasySearchBar(
             backgroundColor: Palette.mainSkyBlue,
             title: const Text(

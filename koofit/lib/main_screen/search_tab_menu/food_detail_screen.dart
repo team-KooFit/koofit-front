@@ -19,6 +19,9 @@ class DetailsPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: rowData.length,
         itemBuilder: (context, index) {
+          if (rowData[index] ==''){
+            rowData[index] = '정보 없음';
+          }
           switch (index) {
             case 1:
               return _buildCard('식품명 :', rowData[index]);
@@ -29,7 +32,7 @@ class DetailsPage extends StatelessWidget {
               break;
 
             case 14:
-              return _buildCard('식품중량 :', rowData[index]);
+              return _buildCard('식품 중량 :', rowData[index]);
               break;
 
             case 16:

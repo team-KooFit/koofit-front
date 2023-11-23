@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:koofit/main_screen/add_diet_screen.dart';
+import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/DietSearcher.dart';
 

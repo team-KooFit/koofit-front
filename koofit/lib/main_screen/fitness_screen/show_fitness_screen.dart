@@ -300,14 +300,15 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
         height: 50.h,
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 backgroundColor: Palette.mainSkyBlue,
                 disabledBackgroundColor: Palette.mainSkyBlue.withOpacity(0.12)),
             onPressed: () {},
-            child: Text('확인',
+            child: Text('추가',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.black38))));
+                    color: Colors.white))));
   }
 }
 

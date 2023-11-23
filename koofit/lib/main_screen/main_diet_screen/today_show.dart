@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
+import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
+import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/calText.dart';
@@ -50,7 +52,7 @@ Future<void> showTodayDiet(BuildContext context) async {
                     child:  Column(
                         crossAxisAlignment: CrossAxisAlignment.center, // 시작에 배치
                         children: [
-                          nutrientBox(),
+                          nutrientBox(context),
                           todayBox()
 
 
@@ -87,7 +89,7 @@ Widget todayGraphCard(){
 
 }
 
-Widget nutrientBox(){
+Widget nutrientBox(BuildContext context){
   int remainKol = 1388;
   return Padding(
     padding: EdgeInsets.all(15),
@@ -109,7 +111,12 @@ Widget nutrientBox(){
         SizedBox(height:10),
         ElevatedButton(
           onPressed:() async {
-
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchDietScreen(),
+              ),
+            );
           },
           child : Text(
             '+',

@@ -72,7 +72,8 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
               children: selectedMenu.entries.map((entry) {
                 String menuKey = entry.key
                     .replaceAll(RegExp(r'<br>', caseSensitive: false), '\n');
-                dynamic jsonString = entry.value;
+
+               dynamic jsonString = entry.value;
                 // 백슬래시 이스케이프 처리 및 줄바꿈 문자(\n)로 치환
 
                 String cleanedString =
@@ -82,21 +83,20 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
                 // Create a list to store widgets for each key-value pair in menuValue
                 List<Widget> keyValueWidgets = [];
                 // Iterate through entries in menuValue
-
+  print(menuText);
                 keyValueWidgets.add(Container(
-                    padding: EdgeInsets.all(10),
-                    width: 150,
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    width: 170,
                     decoration: BoxDecoration(
                       color: Colors.white54,
                       borderRadius:
                       BorderRadius.circular(10.0), // 둥근 모서리 설정
                     ),
-                    child: SingleChildScrollView(
-                        child: Text('${menuText}',
+                    child: Text('${menuText}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12)))));
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12))));
 
                 if (menuText == '') {
                   return Container();
@@ -108,12 +108,11 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                       child: Row(
                         children: [
                           Container(
-                            width: 70,
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            width: 80,
                             child: Text(
                             menuKey,
                             textAlign: TextAlign.center,
@@ -123,10 +122,11 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
                             ))),
                           SizedBox(width: 15),
                           ...keyValueWidgets,
-                          SizedBox(width: 15),
+                          SizedBox(width: 20),
                           AddDietBtnScreen(
-                            where: menuKey,
+                            where: menuKey.replaceAll('\n', ' '),
                             menu: menuText,
+                            fromScreen: 'add',
                           ),
                         ],
                       )),

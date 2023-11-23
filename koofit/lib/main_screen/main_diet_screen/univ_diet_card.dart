@@ -211,6 +211,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                               AddDietBtnScreen(
                                 where: btnText,
                                 menu: menuText,
+                                fromScreen: 'main',
                               ),
                               SizedBox(height: 15),
                             ],

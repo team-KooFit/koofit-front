@@ -5,9 +5,9 @@ import 'package:koofit/model/config/palette.dart';
 class AddDietBtnScreen extends StatefulWidget {
   final String where;
   final String menu;
-
+  final String fromScreen;
   // 생성자 정의
-  AddDietBtnScreen({Key? key, required this.where, required this.menu})
+  AddDietBtnScreen({Key? key, required this.where, required this.menu, required this.fromScreen})
       : super(key: key);
 
   @override
@@ -30,13 +30,22 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
               fontFamily: 'Inter',
               fontWeight: FontWeight.w800,
             )),
-        style: ElevatedButton.styleFrom(
+        style: widget.fromScreen == 'main'
+        ? ElevatedButton.styleFrom(
             minimumSize: Size(80, 20),
             backgroundColor: Palette.mainSkyBlue,
             padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
             // 내부 패딩 조절
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15))));
+                borderRadius: BorderRadius.circular(15)))
+    : ElevatedButton.styleFrom(
+            minimumSize: Size(40, 80),
+            backgroundColor: Palette.mainSkyBlue,
+            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+            // 내부 패딩 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)))
+    );
   }
 
   Future<void> _showNutrientSheet(

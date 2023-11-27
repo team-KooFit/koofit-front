@@ -32,9 +32,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         });
         Future.delayed(Duration(seconds: 2)).then((value) {
           if (isSuccess) {
-            Get.offAll(DietScreen(), arguments: newUserUid);
+            Get.offAll(() => DietScreen(), arguments: newUserUid);
           } else {
-            Get.offAll(LoginScreen(), arguments: newUserUid);
+            Get.offAll(() => LoginScreen(), arguments: newUserUid);
           }
         });
       });
@@ -110,7 +110,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       args.uid = "uid";
       newUserUid = "uid";
 
-      await HiveUserHelper().createUser(args);
+      HiveUserHelper().createUser(args).then((value) => print(value));
       //
       print('카카오 회원가입 성공 👋');
       isSuccess = true;

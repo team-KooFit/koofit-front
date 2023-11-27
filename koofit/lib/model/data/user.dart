@@ -114,6 +114,10 @@ class User {
   // void updateUserDietList(List<Map<String, dynamic>> dietList) {
   //   this.dietList = dietList;
   // }
+  @override
+  String toString() {
+    return '\nUser{uid: $uid, name: $name, gender: $gender, stuNumber: $stuNumber, number: $number, age: $age, height: $height, curWeight: $curWeight, goalWeight: $goalWeight, todayNutrientList: $todayNutrientList, goalNutrient: $goalNutrient, fitnessList: $fitnessList, serviceNeedsAgreement: $serviceNeedsAgreement, privacyNeedsAgreement: $privacyNeedsAgreement}';
+  }
 
   void updateUserFitnessList(List<Map<String, dynamic>> fitnessList) {
     this.fitnessList = fitnessList;

@@ -52,4 +52,10 @@ class Diet {
       'nutrient': nutrient
     };
   }
+
+  @override
+  String toString() {
+    return '\nDiet{uid: $uid, stuNumber: $stuNumber, date: $date, keyTime: $keyTime, foodCode: $foodCode, nutrient: $nutrient}';
+  }
+
 }

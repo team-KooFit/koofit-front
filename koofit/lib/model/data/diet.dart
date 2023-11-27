@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-
+import 'food.dart';
 part 'diet.g.dart';
 
 @HiveType(typeId: 3)
@@ -20,8 +20,7 @@ class Diet {
   String foodCode;
 
   @HiveField(5)
-  Map<String, dynamic>
-      nutrient; //영양성분 :[{'포카칩' : {'탄수화물' : 24, '단백질' : 10, '지방':2, '칼로리' : 250}, {'주스' : {...} } ] 아니면 { 이름 : '포카칩', 식품코드: '100000' }
+  Food nutrient; //영양성분 :[{'포카칩' : foodData, {'주스' : {...} } ] 아니면 { 이름 : '포카칩', 식품코드: '100000' }
 
   Diet(
       {required this.uid,
@@ -38,7 +37,7 @@ class Diet {
       date: json['date'],
       keyTime: json['keyTime'],
       foodCode: json['foodCode'],
-      nutrient: Map<String, dynamic>.from(json['goalNutrient']),
+      nutrient: Food.fromJson(Map<String, dynamic>.from(json['nutrient'])),
     );
   }
 

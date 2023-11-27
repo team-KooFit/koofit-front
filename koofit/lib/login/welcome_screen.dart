@@ -110,10 +110,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       args.uid = "uid";
       newUserUid = "uid";
 
-      HiveUserHelper().createUser(args).then((value) => print(value));
-      //
-      print('카카오 회원가입 성공 👋');
+      HiveUserHelper().createUser(args).then((value) {
       isSuccess = true;
+      });
+
+      HiveUserHelper().readUser().then((value){
+      });
+
+      print('카카오 회원가입 성공 👋');
+
     }
     // } on kakao.KakaoAuthException catch (e) {
     //   print('카카오 로그인 에러 - E: ${e.toString()}');

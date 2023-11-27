@@ -25,6 +25,7 @@ class HiveUserHelper {
   }
 
   Future readUser() async {
+    print(userBox!.values);
     return userBox!.values;
   }
 

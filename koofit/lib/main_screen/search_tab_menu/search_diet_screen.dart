@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/food_detail_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/tab_menu.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
+import 'package:get/get.dart';
 
 class SearchDietScreen extends StatefulWidget {
   @override
@@ -49,6 +51,7 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
         resizeToAvoidBottomInset: true,
         // Set this to false to avoid resizing when the keyboard is displayed
         appBar: EasySearchBar(
+
             backgroundColor: Palette.mainSkyBlue,
             searchCursorColor: Palette.mid_dark_mainSkyBlue,
             title: const Text(

@@ -1,15 +1,36 @@
+import 'package:hive/hive.dart';
+
+part 'food.g.dart';
+
+@HiveType(typeId: 0)
 class Food {
+  @HiveField(0)
   String foodName;
+
+  @HiveField(1)
   String manufacturer;
+
+  @HiveField(2)
   String foodCode;
+
+  @HiveField(3)
   String? foodWeight;
+
+  @HiveField(4)
   double? carbo;
+
+  @HiveField(5)
   double? protein;
+
+  @HiveField(6)
   double? fat;
+
+  @HiveField(7)
   double? sugar;
+
+  @HiveField(8)
   double? calories;
 
-  // 생성자
   Food({
     required this.foodCode,
     required this.foodName,
@@ -22,7 +43,6 @@ class Food {
     required this.sugar,
   });
 
-  // fromJson factory method
   factory Food.fromJson(Map<String, dynamic> json) {
     return Food(
       foodName: json['foodName'],
@@ -37,7 +57,6 @@ class Food {
     );
   }
 
-  // toJson method
   Map<String, dynamic> toJson() {
     return {
       'foodName': foodName,
@@ -52,10 +71,10 @@ class Food {
     };
   }
 
-  // toString method
   @override
   String toString() {
-    return 'Food{foodName: $foodName, manufacturer: $manufacturer, foodCode: $foodCode, '
-        'foodWeight: $foodWeight, carbo: $carbo, protein: $protein, fat: $fat, sugar: $sugar, calories: $calories}';
+    return 'Food{foodName: $foodName, manufacturer: $manufacturer, '
+        'foodCode: $foodCode, foodWeight: $foodWeight, carbo: $carbo, '
+        'protein: $protein, fat: $fat, sugar: $sugar, calories: $calories}';
   }
 }

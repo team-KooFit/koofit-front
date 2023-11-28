@@ -2,7 +2,7 @@ class Food {
   String foodName;
   String manufacturer;
   String foodCode;
-  double? foodWeight;
+  String? foodWeight;
   double? carbo;
   double? protein;
   double? fat;

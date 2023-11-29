@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/model/config/palette.dart';
 
-class HorizontalBarGraph extends StatelessWidget {
+class MacroNutrientGraph extends StatelessWidget {
     final double carbPercentage;
     final double fatPercentage;
     final double proteinPercentage;
@@ -19,15 +20,16 @@ class HorizontalBarGraph extends StatelessWidget {
                     color : Palette.tanSu,
                     label : '탄수화물',
                     ),
-                SizedBox(width : 10),
+
                 MacroBar(
                     percentage : proteinPercentage,
                     color : Palette.danBaek,
                     label : '단백질',
                     ),
+
                 MacroBar(
                     percentage : fatPercentage,
-                    color : Palette.JiBang,
+                    color : Palette.jiBang,
                     label : '지방',
                     ),
                 ],
@@ -42,16 +44,16 @@ class HorizontalBarGraph extends StatelessWidget {
     final String label;
 
     MacroBar({
-        required this.percentage,
-        reauired this.color,
-        required this.label,
+         required this.percentage,
+         required this.color,
+         required this.label,
     });
     Widget build(BuildContext context) {
     return Column(
         children : [
             Container(
-                width : percentage,
-                height : 20,
+                width : percentage * 2,
+                height : 15,
                 color : color,
                 alignment : Alignment.center,
                 child : Text(
@@ -59,10 +61,8 @@ class HorizontalBarGraph extends StatelessWidget {
                     style : TextStyle(color : Colors.white),
                     ),
                     ),
-                    Text(label),
+
                     ],
                     );
                     }
                     }
-    }
-    }

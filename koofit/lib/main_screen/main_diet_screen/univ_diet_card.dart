@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:koofit/main_screen/add_diet_screen.dart';
+import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/DietSearcher.dart';
 
@@ -34,8 +34,6 @@ class _UnivDietCardState extends State<UnivDietCard> {
     _scrollController.jumpTo(1);
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -55,13 +53,20 @@ class _UnivDietCardState extends State<UnivDietCard> {
     result = await dietSearcher.performDietSearch();
     print(result['학생식당(복지관 1층)']);
     setState(() {
-      bokjiMenu = result['학생식당(복지관 1층)'] ?? {'식당' :  {"메뉴" : "운영 안함" , "가격" : "없음"}} ;
-      beobgwanMenu = result['교직원식당(복지관 1층)'] ?? {'식당' :  {"메뉴" : "운영 안함" , "가격" : "없음"}};
-      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ?? {'식당' : {"메뉴" : "운영 안함" , "가격" : "없음"}};
+      bokjiMenu = result['학생식당(복지관 1층)'] ??
+          {
+            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+          };
+      beobgwanMenu = result['교직원식당(복지관 1층)'] ??
+          {
+            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+          };
+      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ??
+          {
+            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+          };
       // Set the initial selectedMenu to 복지관
       selectedMenu = bokjiMenu;
-
-
     });
   }
 
@@ -137,7 +142,6 @@ class _UnivDietCardState extends State<UnivDietCard> {
                       }
 
                       _scrollToTop(); // Reset scroll position
-
                     });
                   },
                 ),
@@ -151,37 +155,34 @@ class _UnivDietCardState extends State<UnivDietCard> {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: selectedMenu.entries.map((entry) {
-                    String menuKey = entry.key.replaceAll(RegExp(r'<br>', caseSensitive: false), '-');
+                    String menuKey = entry.key
+                        .replaceAll(RegExp(r'<br>', caseSensitive: false), '-');
                     dynamic jsonString = entry.value;
                     // 백슬래시 이스케이프 처리 및 줄바꿈 문자(\n)로 치환
 
-                    String cleanedString =  jsonString.replaceAll('\\r\n', '\r\n') ;
+                    String cleanedString =
+                        jsonString.replaceAll('\\r\n', '\r\n');
                     Map<String, dynamic> menuMap = json.decode(cleanedString);
                     String menuText = menuMap['메뉴'] ?? '';
                     // Create a list to store widgets for each key-value pair in menuValue
                     List<Widget> keyValueWidgets = [];
                     // Iterate through entries in menuValue
 
-                    keyValueWidgets.add(
-                        Container(
-                            padding: EdgeInsets.all(8),
-                            width: 130,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: Colors.white54,
-                              borderRadius:
-                                  BorderRadius.circular(10.0), // 둥근 모서리 설정
-                            ),
-                            child:
-                              SingleChildScrollView(
-                                child: Text('${menuText}',
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w400,
-                                        fontSize: 12)))
-                        )
-                    );
-
+                    keyValueWidgets.add(Container(
+                        padding: EdgeInsets.all(8),
+                        width: 130,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white54,
+                          borderRadius:
+                              BorderRadius.circular(10.0), // 둥근 모서리 설정
+                        ),
+                        child: SingleChildScrollView(
+                            child: Text('${menuText}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12)))));
 
                     if (menuText == '') {
                       return Container();
@@ -199,7 +200,10 @@ class _UnivDietCardState extends State<UnivDietCard> {
                               SizedBox(height: 15),
                               Text(
                                 menuKey,
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.black54),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.black54),
                               ),
                               SizedBox(height: 8),
                               ...keyValueWidgets,
@@ -207,6 +211,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                               AddDietBtnScreen(
                                 where: btnText,
                                 menu: menuText,
+                                fromScreen: 'main',
                               ),
                               SizedBox(height: 15),
                             ],

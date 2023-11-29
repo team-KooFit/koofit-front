@@ -16,9 +16,16 @@ class FitnessModalBottomSheet extends StatefulWidget {
 class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
   late List<bool> isSelected;
   String result = '';
+
   bool isWeak = true;
   bool isMiddle = false;
   bool isStrong = false;
+
+  bool _isCheckCardio = false;
+  bool _isCheckWeight = false;
+  bool _isCheckStretch = false;
+  List<String> fitnessCheckList = [];
+
   TextStyle selectedTextStyle = TextStyle(fontWeight: FontWeight.bold);
   TextStyle unselectedTextStyle = TextStyle();
   FocusNode timeField = FocusNode();
@@ -64,10 +71,11 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
             padding: EdgeInsets.all(10.0),
             child: Column(
               children: [
+                nameSection(),
                 SizedBox(height: 34.v),
-                buildFiveSection(),
+                timeSection(),
                 SizedBox(height: 35.v),
-                buildFourSection(),
+                StrongSection(),
                 SizedBox(height: 60.v),
               ],
             ),
@@ -79,8 +87,86 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
     ); // Your existing build method content
   }
 
+  Widget nameSection() {
+    return Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.h,
+          vertical: 10.v,
+        ),
+        decoration: AppDecoration.outlineBlack.copyWith(
+          color: Colors.white,
+          borderRadius: BorderRadiusStyle.roundedBorder30,
+        ),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("운동 종류",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 20,
+                        child: Row(children: [
+                      Checkbox(
+                        value: _isCheckCardio,
+                        onChanged: (value) {
+                          setState(() {
+                            _isCheckCardio = value!;
+                          });
+                        },
+                        checkColor: Colors.white, // Set the color when the checkbox is checked
+                        activeColor: Palette.mid_dark_mainSkyBlue,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(width: 1, color: Colors.grey), // Set the border thickness and color
+                          borderRadius: BorderRadius.circular(5), // Adjust border radius if needed
+                        ),// Set the color of the checkbox itself
+                      ),
+                      Text("유산소"),
+                      Checkbox(
+                        value: _isCheckWeight,
+                        onChanged: (value) {
+                          setState(() {
+                            _isCheckWeight = value!;
+                          });
+                        },
+                        checkColor: Colors.white, // Set the color when the checkbox is checked
+                        activeColor: Palette.mid_dark_mainSkyBlue,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(width: 1, color: Colors.grey), // Set the border thickness and color
+                          borderRadius: BorderRadius.circular(5), // Adjust border radius if needed
+                        ),
+                      ),
+                      Text("무산소"),
+                    ])),
+                    SizedBox(height: 8),
+                    Container(
+                      height: 20,
+                        child: Row(children: [
+                      Checkbox(
+                        value: _isCheckStretch,
+                        onChanged: (value) {
+                          setState(() {
+                            _isCheckStretch = value!;
+                          });
+                        },
+                        checkColor: Colors.white, // Set the color when the checkbox is checked
+                        activeColor: Palette.mid_dark_mainSkyBlue,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(width: 1, color: Colors.grey), // Set the border thickness and color
+                          borderRadius: BorderRadius.circular(5), // Adjust border radius if needed
+                        ),
+                      ),
+                      Text("스트레칭"),
+                    ]))
+                  ])
+            ]));
+  }
+
   /// Section Widget
-  Widget buildFiveSection() {
+  Widget timeSection() {
     return Container(
         padding: EdgeInsets.symmetric(
           horizontal: 20.h,
@@ -135,12 +221,14 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
                       // focusNode: timeField,
                       decoration: const InputDecoration(
                           counterText: '',
-                          labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize:12),
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12),
                           focusedBorder: UnderlineInputBorder(
                               borderSide:
                                   BorderSide(color: Palette.mainSkyBlue))))),
               Padding(
-                padding: EdgeInsets.only(top: 3.v, bottom: 4.v, right: 10.v, left: 10.v),
+                padding: EdgeInsets.only(
+                    top: 3.v, bottom: 4.v, right: 10.v, left: 10.v),
                 child: Text(
                   "분",
                   style: TextStyle(color: Colors.black87, fontSize: 17),
@@ -150,7 +238,7 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
   }
 
   /// Section Widget
-  Widget buildFourSection() {
+  Widget StrongSection() {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 20.h,
@@ -212,11 +300,15 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
         height: 50.h,
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 backgroundColor: Palette.mainSkyBlue,
                 disabledBackgroundColor: Palette.mainSkyBlue.withOpacity(0.12)),
             onPressed: () {},
-            child: Text('확인',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black38))));
+            child: Text('추가',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white))));
   }
 }
 

@@ -46,4 +46,9 @@ class Fitness {
       'time': time,
     };
   }
+
+  @override
+  String toString() {
+    return '\nFitness{uid: $uid, stuNumber: $stuNumber, date: $date, burnedCalories: $burnedCalories, time: $time}';
+  }
 }

@@ -5,15 +5,8 @@ import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/calText.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/widget/RectangleText.dart';
-import 'package:koofit/widget/MacroNutrientGraph';
-import 'package:koofit/widget/oneGraph';
 
 Future<void> showTodayDiet(BuildContext context) async {
-  final ScrollController _scrollController = ScrollController();
-
-  void _scrollToTop() {
-    _scrollController.jumpTo(1);
-  }
   await showModalBottomSheet<void>(
     context: context,
     shape: RoundedRectangleBorder(
@@ -25,75 +18,71 @@ Future<void> showTodayDiet(BuildContext context) async {
     elevation: 50,
     constraints: const BoxConstraints(
       minWidth: double.infinity,
-      maxHeight: 600,
+      maxHeight: 670,
     ),
     builder: (BuildContext context) {
       return ClipRRect(
-              borderRadius : BorderRadius.only(
-                topLeft : Radius.circular(20),
-                topRight : Radius.circular(20),
-              ),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 35),
-                child : Column(
-                  children: <Widget>[
-                    Text("오늘의 식단을 기록해볼까요?", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 35),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child:
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 35),
+            child : Column(
+              children: <Widget>[
+                Text("오늘의 식단을 기록해볼까요?", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                SizedBox(height: 35),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [],
-                    ),
-                    Card(
-
-                      color: Color(0xFFEFEFEF),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30), // 모서리를 둥글게 만드는 값 설정
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child:  Column(
-                          crossAxisAlignment: CrossAxisAlignment.center, // 시작에 배치
-                          children: [
-                            nutrientBox(),
-                            todayBox(),
-
-                          ],
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [ ],
                 ),
-              ),
-      );
+                Card(
 
+                  color: Color(0xFFEFEFEF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30), // 모서리를 둥글게 만드는 값 설정
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child:  Column(
+                        crossAxisAlignment: CrossAxisAlignment.center, // 시작에 배치
+                        children: [
+                          nutrientBox(),
+                          todayBox()
+
+
+                        ]
+                    ),
+                  ),
+                ),
+                const Spacer(),
+
+
+              ],
+            ),)
+      );
     },
   );
 }
 
 Widget todayGraphCard(){
   return Card(
-    color: Color(0xFFEFEFEF),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10), // 모서리를 둥글게 만드는 값 설정
-    ),
-
-    child: Padding(
-      padding: EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,// 시작에 배치
-        children: [
-          oneGraph(
-            carbPercentage : 50.0,
-            fatPercentage : 30.0,
-            proteinPercentage : 20.0,
-          ),
-        ],
+      color: Color(0xFFEFEFEF),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10), // 모서리를 둥글게 만드는 값 설정
       ),
-    ),
+
+      child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,// 시작에 배치
+              children: [
+              ]
+          )
+      )
   );
 
 }
@@ -132,12 +121,11 @@ Widget nutrientBox(){
             ),
           ),
           style : ElevatedButton.styleFrom(
-            minimumSize:Size(500,20),
-            backgroundColor:Palette.mainSkyBlue,
-            padding:EdgeInsets.symmetric(vertical:8, horizontal:2),
-            shape:RoundedRectangleBorder(
-              borderRadius:BorderRadius.circular(15),
-            ),
+              minimumSize:Size(500,20),
+              backgroundColor:Palette.mainSkyBlue,
+              padding:EdgeInsets.symmetric(vertical:8, horizontal:2),
+              shape:RoundedRectangleBorder(
+                  borderRadius:BorderRadius.circular(15))
           ),
         ),
       ],
@@ -153,6 +141,7 @@ Widget todayBox() {
   int appleCal = 142;
   return
     Container(
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         width: double.infinity,
         height: 140,
         child: Row(
@@ -182,12 +171,13 @@ Widget todayBox() {
               ),
             ),
             Container(
+              width: 230,
               padding : EdgeInsets.symmetric(horizontal : 10, vertical : 10),
-              decoration : BoxDecoration(
+              decoration: BoxDecoration(
                 color : Color(0xEFCFCFAEE),
                 borderRadius : BorderRadius.only(
-                  topRight: Radius.circular(20.0),
-                  bottomRight: Radius.circular(20.0),
+                  topRight: Radius.circular(15.0),
+                  bottomRight: Radius.circular(15.0),
                 ),
               ),
               child :
@@ -201,37 +191,35 @@ Widget todayBox() {
                       Text("계란 외 한 개",
                         style : TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 15,
                         ),
                       ),
-                      SizedBox(width: 75),
                       Text('$totalCal kcal',
                         style : TextStyle(
                           color : Color(0xC6222B45),
-                          fontSize : 14,
+                          fontSize : 12,
                           fontWeight : FontWeight.w700,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 3),
-
+                  SizedBox(height: 10),
                   Row(
                     children : [
                       Text('계란',
                         textAlign : TextAlign.left,
                         style : TextStyle(
                           color : Color(0xC6222B45),
-                          fontSize : 15,
+                          fontSize : 13,
                           fontWeight : FontWeight.w500,
                         ),
                       ),
-                      SizedBox(width: 77),
+                      SizedBox(width: 135),
                       Text('$eggCal kcal',
                         textAlign : TextAlign.right,
                         style : TextStyle(
                           color : Color(0xc6222B45),
-                          fontSize : 15,
+                          fontSize : 13,
                           fontWeight : FontWeight.w500,
                         ),),
                     ],
@@ -242,20 +230,20 @@ Widget todayBox() {
                       Text('사과',
                         style : TextStyle(
                           color : Color(0xC6222B45),
-                          fontSize : 15,
+                          fontSize : 13,
                           fontWeight : FontWeight.w500,
                         ),
                       ),
-                      SizedBox(width: 70),
+                      SizedBox(width: 130),
                       Text('$appleCal kcal',
                         style : TextStyle(
                           color : Color(0xc6222B45),
-                          fontSize : 15,
+                          fontSize : 13,
                           fontWeight : FontWeight.w500,
                         ),),
                     ],
                   ),
-                  SizedBox(height: 3),
+                  SizedBox(height: 10),
                   Row(
                     children : [
                       RectangleText(Palette.tanSu, realGram: 30.9,),
@@ -264,11 +252,6 @@ Widget todayBox() {
                       SizedBox(width: 10),
                       RectangleText(Palette.jiBang, realGram: 34,),
                     ],
-                  ),
-                  MacroNutrientGraph(
-                    carbPercentage : 50.0,
-                    fatPercentage : 30.0,
-                    proteinPercentage : 20.0,
                   ),
 
                 ],

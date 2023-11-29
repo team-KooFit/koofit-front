@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'univ_diet_card.dart';
-
+import 'package:koofit/model/HiveUserHelper.dart';
 class DietScreen extends StatefulWidget {
   const DietScreen({super.key});
 
@@ -30,6 +30,7 @@ class _DietScreenState extends State<DietScreen> {
   void initState() {
     super.initState();
     initializeDateFormatting('ko', null);
+    HiveUserHelper().openUserBox();
   }
 
   @override

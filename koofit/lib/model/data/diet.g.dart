@@ -22,7 +22,7 @@ class DietAdapter extends TypeAdapter<Diet> {
       date: fields[2] as String,
       keyTime: fields[3] as String,
       foodCode: fields[4] as String,
-      nutrient: (fields[5] as Map).cast<String, dynamic>(),
+      nutrient: fields[5] as Food,
     );
   }
 

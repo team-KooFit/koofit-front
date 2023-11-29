@@ -3,17 +3,13 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:koofit/login/splash_screen.dart';
-import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
-import 'package:koofit/main_screen/fitness_screen/k1_screen.dart';
-
 import 'package:koofit/login/login_screen.dart';
 import 'package:koofit/login/sign_up_screen.dart';
 import 'package:koofit/login/body_size_sign_up_screen.dart';
 import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
-import 'package:koofit/main_screen/tab_menu/search_diet_screen.dart';
-import 'package:koofit/main_screen/add_diet_screen.dart';
+import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
+import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/login/welcome_screen.dart';
-import 'package:koofit/main_screen/fitness_screen/k0_screen.dart';
 import 'package:koofit/main_screen/user_screen.dart';
 import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/data/user.dart';
@@ -54,8 +50,6 @@ class _MyAppState extends State<MyApp> {
                 'main_diet': (context) => const DietScreen(),
                 'search_diet' : (context) => SearchDietScreen(),
                 'userPage' : (context) => UserPage(),
-                'excercise' : (context) => K0Screen(),
-                'excercise2' : (context) => K1Screen(),
 
               });
         });

@@ -6,8 +6,13 @@ class AddDietBtnScreen extends StatefulWidget {
   final String where;
   final String menu;
   final String fromScreen;
+
   // 생성자 정의
-  AddDietBtnScreen({Key? key, required this.where, required this.menu, required this.fromScreen})
+  AddDietBtnScreen(
+      {Key? key,
+      required this.where,
+      required this.menu,
+      required this.fromScreen})
       : super(key: key);
 
   @override
@@ -31,21 +36,20 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
               fontWeight: FontWeight.w800,
             )),
         style: widget.fromScreen == 'main'
-        ? ElevatedButton.styleFrom(
-            minimumSize: Size(80, 20),
-            backgroundColor: Palette.mainSkyBlue,
-            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-            // 내부 패딩 조절
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)))
-    : ElevatedButton.styleFrom(
-            minimumSize: Size(40, 80),
-            backgroundColor: Palette.mainSkyBlue,
-            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-            // 내부 패딩 조절
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)))
-    );
+            ? ElevatedButton.styleFrom(
+                minimumSize: Size(80, 20),
+                backgroundColor: Palette.mainSkyBlue,
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                // 내부 패딩 조절
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)))
+            : ElevatedButton.styleFrom(
+                minimumSize: Size(40, 80),
+                backgroundColor: Palette.mainSkyBlue,
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                // 내부 패딩 조절
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))));
   }
 
   Future<void> _showNutrientSheet(
@@ -65,28 +69,31 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
       ),
       builder: (BuildContext context) {
         menu = menu.replaceAll('\n', '');
-
+print(widget.where);
         return ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
             child: Container(
+              color: Colors.white,
               padding: const EdgeInsets.only(left: 30, right: 30, bottom: 35),
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 15),
                   Text(
                     "${widget.where}",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 15),
                   Text(
                     menu,
                     style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black54,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black54,
                     ),
                     textAlign: TextAlign.left,
                   ),
@@ -249,6 +256,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                         },
                         child: Text('수정하기',
                             style: TextStyle(
+                              color: Colors.white,
                                 fontWeight: FontWeight.bold, fontSize: 20)),
                       ))
                 ],

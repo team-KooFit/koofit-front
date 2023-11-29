@@ -23,10 +23,10 @@ class _UnivDietCardState extends State<UnivDietCard> {
   Map<String, dynamic> selectedMenu = {};
 
   int clickedBtnIndex = 0;
-  String btnText = '';
+  String btnText = '복지관';
   List<String> btnTxtList = ['복지관', '법학관', '교직원'];
 
-  String menuText = '';
+  String menuText = '복지관';
 
   final ScrollController _scrollController = ScrollController();
 
@@ -51,7 +51,6 @@ class _UnivDietCardState extends State<UnivDietCard> {
   void _updateData(String date) async {
     DietSearcher dietSearcher = DietSearcher(date);
     result = await dietSearcher.performDietSearch();
-    print(result['학생식당(복지관 1층)']);
     setState(() {
       bokjiMenu = result['학생식당(복지관 1층)'] ??
           {
@@ -75,7 +74,10 @@ class _UnivDietCardState extends State<UnivDietCard> {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        color: Color(0xffFFFFFF),
+        shape:  RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+        side: BorderSide(color: Colors.white24, width: 5.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -140,7 +142,6 @@ class _UnivDietCardState extends State<UnivDietCard> {
                       } else {
                         selectedMenu = gyojeokwonMenu;
                       }
-
                       _scrollToTop(); // Reset scroll position
                     });
                   },
@@ -173,7 +174,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                         width: 130,
                         height: 100,
                         decoration: BoxDecoration(
-                          color: Colors.white54,
+                          color: Colors.white,
                           borderRadius:
                               BorderRadius.circular(10.0), // 둥근 모서리 설정
                         ),
@@ -188,7 +189,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                       return Container();
                     }
                     return Card(
-                      color: Color(0xFFF2F3F3),
+                      color: Color(0xFFF1F1F1),
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -203,7 +204,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
-                                    color: Colors.black54),
+                                    color: Colors.black87),
                               ),
                               SizedBox(height: 8),
                               ...keyValueWidgets,

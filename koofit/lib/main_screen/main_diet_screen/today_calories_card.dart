@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koofit/main_screen/main_diet_screen/today_show.dart';
+import 'package:koofit/main_screen/main_diet_screen/show_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/HiveDietHelper.dart';
 import 'package:koofit/model/config/palette.dart';
@@ -67,6 +67,7 @@ print(todayDate);
               await showTodayDiet(context);
             },
             child: Card(
+              color: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 child: Padding(

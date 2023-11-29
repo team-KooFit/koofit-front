@@ -23,10 +23,11 @@ class _TabMenuState extends State<TabMenu> {
             ],
             labelColor: Colors.black87,
             labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            dividerColor: Palette.mainSkyBlue,
+            dividerHeight: 0,
+            indicatorWeight: 3,
             indicatorColor: Palette.mainSkyBlue,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicatorPadding: EdgeInsets.all(5), // 인디케이터 패딩 설정 (원하는 크기로 조절)
+            indicatorPadding: EdgeInsets.all(5),
           ),
           Expanded(
             child: TabBarView(

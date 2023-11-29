@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:koofit/main_screen/fitness_screen/fitnessView.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/widget/circleText.dart';
@@ -59,6 +58,7 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 35),
       child: Column(
         children: <Widget>[

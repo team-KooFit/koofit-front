@@ -39,7 +39,6 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
     String todayDate = today.toLocal().toString().split(' ')[0];
     DietSearcher dietSearcher = DietSearcher(todayDate);
     result = await dietSearcher.performDietSearch();
-    print(result['학생식당(복지관 1층)']);
     setState(() {
       bokjiMenu = result['학생식당(복지관 1층)'] ??
           {
@@ -86,7 +85,6 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
                 // Create a list to store widgets for each key-value pair in menuValue
                 List<Widget> keyValueWidgets = [];
                 // Iterate through entries in menuValue
-  print(menuText);
                 keyValueWidgets.add(Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                     width: 170,

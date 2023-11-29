@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/fitness_screen/show_fitness_screen.dart';
-import 'package:koofit/main_screen/main_diet_screen/today_show.dart';
+import 'package:koofit/main_screen/main_diet_screen/show_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:get/get.dart';
@@ -30,6 +30,7 @@ class _FitnessCardState extends State<FitnessCard> {
             },
 
             child: Card(
+              color: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 child:
                 Padding(

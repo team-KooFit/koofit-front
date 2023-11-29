@@ -87,7 +87,7 @@ print(todayDate);
                             height: 5,
                           ),
                           Text(
-                            "${totalCalories} Kal",
+                            "${totalCalories}Kal",
                             style: TextStyle(
                               color: Color(0xFF222B45),
                               fontSize: 18,

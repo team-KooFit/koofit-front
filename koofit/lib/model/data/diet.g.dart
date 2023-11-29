@@ -17,30 +17,27 @@ class DietAdapter extends TypeAdapter<Diet> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Diet(
-      uid: fields[0] as String,
-      stuNumber: fields[1] as String,
-      date: fields[2] as String,
-      keyTime: fields[3] as String,
-      foodCode: fields[4] as String,
-      nutrient: fields[5] as Food,
+      stuNumber: fields[0] as String,
+      date: fields[1] as String,
+      keyTime: fields[2] as String,
+      foodName: fields[3] as String,
+      nutrient: fields[4] as Food,
     );
   }
 
   @override
   void write(BinaryWriter writer, Diet obj) {
     writer
-      ..writeByte(6)
-      ..writeByte(0)
-      ..write(obj.uid)
-      ..writeByte(1)
-      ..write(obj.stuNumber)
-      ..writeByte(2)
-      ..write(obj.date)
-      ..writeByte(3)
-      ..write(obj.keyTime)
-      ..writeByte(4)
-      ..write(obj.foodCode)
       ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.stuNumber)
+      ..writeByte(1)
+      ..write(obj.date)
+      ..writeByte(2)
+      ..write(obj.keyTime)
+      ..writeByte(3)
+      ..write(obj.foodName)
+      ..writeByte(4)
       ..write(obj.nutrient);
   }
 

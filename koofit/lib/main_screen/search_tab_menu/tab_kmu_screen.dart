@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:koofit/widget/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
@@ -20,17 +20,18 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
   Map<String, dynamic> selectedMenu = {};
   late Map<String, dynamic> result;
   final ScrollController _scrollController = ScrollController();
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _updateData();
+     _updateData();
+      setState(() {
+        isLoading = false;
+      });
 
 
-  }
 
-  void _scrollToTop() {
-    _scrollController.jumpTo(1);
   }
 
   void _updateData() async {
@@ -54,12 +55,14 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
           };
       // Set the initial selectedMenu to 복지관
       selectedMenu = bokjiMenu;
-
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return  isLoading
+        ? loadingView()
+        : Column(
       children: [
         WhereBtn(),
         Padding(padding: EdgeInsets.symmetric(vertical: 5)),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/model/HiveDietHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/food.dart';
+import 'package:koofit/model/data/diet.dart';
 
 class DetailsPage extends StatefulWidget {
   final List<String> rowData;
@@ -12,7 +14,9 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  Food? food;
+  late Food food;
+  late Diet diet;
+  bool isSuccess = false;
 
   @override
   void didChangeDependencies() {
@@ -22,7 +26,7 @@ class _DetailsPageState extends State<DetailsPage> {
         foodCode: widget.rowData[0],
         foodName: widget.rowData[1],
         manufacturer: widget.rowData[2],
-        foodWeight: double.tryParse(widget.rowData[14]),
+        foodWeight: widget.rowData[14],
         calories: double.tryParse(widget.rowData[16]),
         protein: double.tryParse(widget.rowData[17]),
         fat: double.tryParse(widget.rowData[18]),
@@ -49,10 +53,9 @@ class _DetailsPageState extends State<DetailsPage> {
               Icons.add,
               size: 29,
             ),
-            onPressed: () {
-              print(widget.rowData);
-              // 아이콘 버튼이 눌렸을 때 수행할 동작 추가
+            onPressed: () async {
               print('Settings button pressed');
+              await saveFoodToHiveBox(food);
             },
           ),
         ],
@@ -63,8 +66,8 @@ class _DetailsPageState extends State<DetailsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 5),
-            _buildTile('식품명', '${food!.foodName }'),
-            _buildTile('식품 중량(g)', '${food?.foodWeight?? '정보없음'}'),
+            _buildTile('식품명', '${food!.foodName}'),
+            _buildTile('식품 중량(g)', '${food?.foodWeight ?? '정보없음'}'),
             _buildTile('에너지(kcal)', '${food!.calories ?? '정보없음'}'),
             _buildTile('탄수화물(g)', '${food?.carbo ?? '정보없음'}'),
             _buildTile('당류(g)', '${food?.sugar ?? '정보없음'}'),
@@ -87,7 +90,33 @@ class _DetailsPageState extends State<DetailsPage> {
                 title: Row(children: [
               Text('${title}  : ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              Text(value, style: TextStyle(fontSize: 15))
+              Text(
+                value,
+                style: TextStyle(fontSize: 15),
+                overflow: TextOverflow.fade,
+              )
             ]))));
+  }
+
+  Future<void> saveFoodToHiveBox(Food food) async {
+    diet = Diet(
+        stuNumber: '111',
+        date:   DateTime.now().toLocal().toString().split(' ')[0],
+        keyTime: "breakfast",
+        foodName: food.foodName,
+        nutrient: food);
+
+    if (food != null) {
+      // Get or open the Hive box (replace 'foodBox' with your desired box name)
+
+      // Save the Food object to the box
+
+      HiveDietHelper().createDiet(diet).then((value) {
+        isSuccess = true;
+      });
+
+      HiveDietHelper().readDiet().then((value){
+      });
+    }
   }
 }

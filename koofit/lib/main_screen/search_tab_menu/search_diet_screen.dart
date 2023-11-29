@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/food_detail_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/tab_menu.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
+import 'package:get/get.dart';
 
 class SearchDietScreen extends StatefulWidget {
   @override
@@ -46,15 +48,18 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: true, // Set this to false to avoid resizing when the keyboard is displayed
+        resizeToAvoidBottomInset: true,
+        // Set this to false to avoid resizing when the keyboard is displayed
         appBar: EasySearchBar(
+
             backgroundColor: Palette.mainSkyBlue,
+            searchCursorColor: Palette.mid_dark_mainSkyBlue,
             title: const Text(
               '식단 추가하기',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             onSearch: _filterData,
-            suggestions: dataToDisplayList,
+            asyncSuggestions: (value) async => await _filterData(value),
             onSuggestionTap: (String tappedSuggestion) {
               // Assuming rowData is a List<String> related to the tapped suggestion
               List<String> rowData = _filteredData.firstWhere(
@@ -77,7 +82,9 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
     }
   }
 
-  void _filterData(String query) {
+  Future<List<String>> _filterData(String query) async {
+    await Future.delayed(const Duration(milliseconds: 10));
+
     setState(() {
       searchText = query.toLowerCase();
       _filteredData = _data
@@ -93,6 +100,9 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
       // Print or use dataToDisplayList as needed
       print(dataToDisplayList);
     });
+
+    // Return the result outside the setState block
+    return dataToDisplayList;
   }
 
   void _onRowTap(List<String> rowData) {

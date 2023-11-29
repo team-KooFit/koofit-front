@@ -11,14 +11,20 @@ import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/login/welcome_screen.dart';
 import 'package:koofit/main_screen/user_screen.dart';
+import 'package:koofit/model/HiveDietHelper.dart';
 import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/data/user.dart';
-
-
+import 'package:koofit/model/data/diet.dart';
+import 'package:koofit/model/data/food.dart';
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(FoodAdapter());
+
   Hive.registerAdapter(UserAdapter());
   await HiveUserHelper().openUserBox();
+
+  Hive.registerAdapter(DietAdapter());
+  await HiveDietHelper().openDietBox();
 
   runApp(const MyApp());
 }
@@ -46,11 +52,10 @@ class _MyAppState extends State<MyApp> {
                 'home': (context) => const LoginScreen(),
                 'signUp': (context) => const SignUpScreen(),
                 'BodySignUp': (context) => const BodySignUpScreen(),
-                'welcomeScreen' : (context) => const WelcomeScreen(),
+                'welcomeScreen': (context) => const WelcomeScreen(),
                 'main_diet': (context) => const DietScreen(),
-                'search_diet' : (context) => SearchDietScreen(),
-                'userPage' : (context) => UserPage(),
-
+                'search_diet': (context) => SearchDietScreen(),
+                'userPage': (context) => UserPage(),
               });
         });
   }

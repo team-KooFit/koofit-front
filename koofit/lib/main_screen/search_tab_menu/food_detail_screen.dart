@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
 import 'package:koofit/model/HiveDietHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/food.dart';
 import 'package:koofit/model/data/diet.dart';
+import 'package:get/get.dart';
+
 
 class DetailsPage extends StatefulWidget {
   final List<String> rowData;
@@ -17,6 +20,7 @@ class _DetailsPageState extends State<DetailsPage> {
   late Food food;
   late Diet diet;
   bool isSuccess = false;
+  String keyTime = '아침';
 
   @override
   void didChangeDependencies() {
@@ -55,7 +59,9 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             onPressed: () async {
               print('Settings button pressed');
-              await saveFoodToHiveBox(food);
+               saveFoodToHiveBox(food).then((value) =>  _showdialog(context, keyTime));
+
+              ;
             },
           ),
         ],
@@ -63,7 +69,7 @@ class _DetailsPageState extends State<DetailsPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 5),
             _buildTile('식품명', '${food!.foodName}'),
@@ -73,36 +79,97 @@ class _DetailsPageState extends State<DetailsPage> {
             _buildTile('당류(g)', '${food?.sugar ?? '정보없음'}'),
             _buildTile('단백질(g)', '${food?.protein ?? '정보없음'}'),
             _buildTile('지방(g)', '${food?.fat ?? '정보없음'}'),
+            SizedBox(height: 10),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Palette.mainSkyBlue,
+                    //background color of dropdown button
+                    border: Border.all(color: Palette.mainSkyBlue, width: 1),
+                    //border of dropdown button
+                    borderRadius: BorderRadius.circular(
+                        20), //border raiuds of dropdown button
+
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: DropdownButton(
+                        iconSize: 25,
+                        dropdownColor: Palette.mainSkyBlue,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                        value: keyTime,
+                        items: [
+                          DropdownMenuItem(value: '아침', child: Text('아침')),
+                          DropdownMenuItem(value: '점심', child: Text('점심')),
+                          DropdownMenuItem(value: '저녁', child: Text('저녁')),
+                          DropdownMenuItem(value: '간식', child: Text('간식')),
+                        ],
+                        onChanged: (String? value) {
+                          setState(() {
+                            keyTime = value!;
+                            print("keyTime ${keyTime}");
+                          });
+                        },
+                      ))),
+              SizedBox(width: 10),
+              Text(
+                "에 먹었어요",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black38,
+                    fontWeight: FontWeight.bold),
+              )
+            ])
           ],
         ),
       ),
     );
   }
 
+  Future<dynamic> _showdialog(BuildContext context, String time) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text('${time}', style: TextStyle(fontWeight: FontWeight.bold)),
+        content: Text('저장되었습니다'),
+        actions: [
+          ElevatedButton(
+              onPressed: () =>  Get.offAll(() => DietScreen()),
+              child: Text('확인')),
+        ],
+      ),
+    );
+  }
+
+
   Widget _buildTile(String title, String value) {
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 4),
         child: Card(
+            color: Colors.white,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             elevation: 2.0,
             child: ListTile(
                 title: Row(children: [
-              Text('${title}  : ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              Text(
-                value,
-                style: TextStyle(fontSize: 15),
-                overflow: TextOverflow.fade,
-              )
-            ]))));
+                  Text('${title}  : ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text(
+                    value,
+                    style: TextStyle(fontSize: 15),
+                    overflow: TextOverflow.fade,
+                  )
+                ]))));
   }
 
   Future<void> saveFoodToHiveBox(Food food) async {
     diet = Diet(
         stuNumber: '111',
-        date:   DateTime.now().toLocal().toString().split(' ')[0],
-        keyTime: "breakfast",
+        date: DateTime.now().toLocal().toString().split(' ')[0],
+        keyTime: keyTime,
         foodName: food.foodName,
         nutrient: food);
 
@@ -115,8 +182,7 @@ class _DetailsPageState extends State<DetailsPage> {
         isSuccess = true;
       });
 
-      HiveDietHelper().readDiet().then((value){
-      });
+      HiveDietHelper().readDiet().then((value) {});
     }
   }
 }

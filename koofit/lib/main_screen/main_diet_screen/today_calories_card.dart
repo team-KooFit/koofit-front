@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/show_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/HiveDietHelper.dart';
+import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:get/get.dart';
 import 'package:koofit/model/data/diet.dart';
+import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/loading_view.dart';
 
@@ -18,8 +20,16 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
   bool isSuccess = false;
   late String todayDate;
   late List<Diet> dietList;
-
+  late User user;
   double totalCalories = 0.0;
+  double totalCarbo = 0.0;
+  double totalProtein = 0.0;
+  double totalFat = 0.0;
+
+  double carboRate = 0.0;
+  double proteinRate = 0.0;
+  double fatRate = 0.0;
+
   Map<String, dynamic> todayDietMap = {
     "totalCalo": "",
     "carboRate": "",
@@ -34,22 +44,25 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
     super.initState();
 
     todayDate = DateTime.now().toLocal().toString().split(' ')[0];
-print(todayDate);
-    HiveDietHelper().readDiet();
+
+    HiveUserHelper().readUser().then((value) => user = value);
 
     HiveDietHelper().searchDiet(todayDate).then((value) {
       dietList = value;
-    print(dietList);
-     totalCalories  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.calories ?? 0.0)));
+      print(dietList);
+      totalCalories  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.calories ?? 0.0)));
+      totalCarbo  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.carbo ?? 0.0)));
+      totalProtein  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.protein ?? 0.0)));
+      totalFat = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.fat ?? 0.0)));
 
-     setState(() {
+      carboRate = totalCarbo / int.parse(user.goalNutrient!.carbo);
+      proteinRate = totalProtein / int.parse(user.goalNutrient!.protein);
+      fatRate = totalFat / int.parse(user.goalNutrient!.fat);
+
+      setState(() {
        isSuccess = true;
      });
-
     });
-
-
-
   }
 
   @override
@@ -98,9 +111,9 @@ print(todayDate);
                           SizedBox(
                             height: 13,
                           ),
-                          CircleText(Palette.tanSu, 61, isOuter),
-                          CircleText(Palette.danBaek, 100, isOuter),
-                          CircleText(Palette.jiBang, 24, isOuter)
+                          CircleText(Palette.tanSu,carboRate.toInt() , isOuter),
+                          CircleText(Palette.danBaek, proteinRate.toInt(), isOuter),
+                          CircleText(Palette.jiBang, fatRate.toInt(), isOuter)
                         ]))))
     : Center(
             child: CircularProgressIndicator(

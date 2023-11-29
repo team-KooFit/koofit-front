@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
+import 'package:koofit/model/HiveDietHelper.dart';
+import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/Nutrient.dart';
+import 'package:koofit/model/data/diet.dart';
+import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/calText.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
@@ -16,6 +21,58 @@ class DietModalBottomSheet extends StatefulWidget {
 }
 
 class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
+  late String todayDate;
+  late List<Diet> dietList;
+  late Nutrient goalNutrient;
+  late User user;
+  int totalCalories = 0;
+  int totalCarbo = 0;
+  int totalProtein = 0;
+  int totalFat = 0;
+  int remainCalories = 0;
+
+  int carboRate = 0;
+  int proteinRate = 0;
+  int fatRate = 0;
+
+  bool isSuccess = false;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    todayDate = DateTime.now().toLocal().toString().split(' ')[0];
+
+
+
+    HiveDietHelper().searchDiet(todayDate).then((value) {
+      dietList = value;
+      print(dietList);
+      totalCalories = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.calories?.toInt() ?? 0)));
+      totalCarbo  = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.carbo?.toInt() ?? 0)));
+      totalProtein  = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.protein?.toInt() ?? 0)));
+      totalFat = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
+
+      carboRate = (totalCarbo / int.parse( user.goalNutrient!.carbo)).toInt();
+      proteinRate =(totalProtein / int.parse( user.goalNutrient!.protein)).toInt();
+      fatRate = (totalFat / int.parse( user.goalNutrient!.fat)).toInt();
+
+
+      remainCalories = int.parse( user.goalNutrient!.calories)-totalCalories;
+      setState(() {
+        isSuccess = true;
+      });
+    });
+  }
+  //
+  // Future<void> _user() {
+  //   // HiveUserHelper().readUser().then((value) {
+  //   //   user = value;
+  //   // } );
+  //   //
+  // }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,35 +123,34 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
   }
 
   Widget nutrientBox(BuildContext context) {
-    int remainKol = 1388;
     return Padding(
       padding: EdgeInsets.all(15),
       child: Column(
         children: [
           CircleText(
             Palette.tanSu,
-            61,
+            carboRate,
             false,
-            realGram: 32,
-            goalGram: 200,
+            realGram: totalCarbo,
+            goalGram: int.parse( user.goalNutrient!.carbo),
           ),
           CircleText(
             Palette.danBaek,
-            100,
+            proteinRate,
             false,
-            realGram: 120,
-            goalGram: 120,
+            realGram: totalProtein,
+            goalGram: int.parse( user.goalNutrient!.protein),
           ),
           CircleText(
             Palette.jiBang,
             24,
             false,
-            realGram: 6,
-            goalGram: 36,
+            realGram: totalFat,
+            goalGram: int.parse( user.goalNutrient!.fat),
           ),
           CalText(215, 1603),
           Text(
-            '$remainKol kcal 더 먹을 수 있어요',
+            '${remainCalories} kcal 더 먹을 수 있어요',
             textAlign: TextAlign.left,
             style: TextStyle(
               color: Color(0xC6222B45),

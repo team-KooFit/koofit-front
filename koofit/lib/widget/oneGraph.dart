@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class oneGraph extends StatelessWidget {
     final double carbPercentage;
@@ -17,7 +18,7 @@ class oneGraph extends StatelessWidget {
           PieChartData(
             sections: [
               PieChartSectionData(
-                color: Palette.tansu,
+                color: Palette.tanSu,
                 value: carbPercentage,
                 title: '탄수화물',
                 radius: 80,

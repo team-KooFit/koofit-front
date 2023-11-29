@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/widget/MacroNutrientGraph.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/calText.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/widget/RectangleText.dart';
-import 'package:koofit/widget/MacroNutrientGraph';
+import 'package:koofit/widget/oneGraph.dart';
 
 Future<void> showTodayDiet(BuildContext context) async {
 
@@ -74,13 +75,11 @@ Future<void> showTodayDiet(BuildContext context) async {
                   ],
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            );}
 
-    },
-  );
+        );
+
+
 }
 
 Widget todayGraphCard(){

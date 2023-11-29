@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
 
 class BodySignUpScreen extends StatefulWidget {
@@ -148,7 +149,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                               },
                               autofocus: true,
                               focusNode: curWeightField,
-                              maxLength: 11,
+                              maxLength: 3,
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
@@ -157,7 +158,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 setState(() {
                                   _goalWeight = text;
                                   if (titleIndex == 1) {
-                                    if (text.length > 1) {
+                                    if (text.length > 2) {
                                       goalWeightField.requestFocus();
                                       titleIndex = 2;
                                       isCurWeightFilled = true;
@@ -274,7 +275,11 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                             args.curWeight =
                                                 int.parse(_curWeight);
                                             print("args : ${args}");
-
+                                            args.goalNutrient = Nutrient(
+                                                calories: '1900',
+                                                carbo: '129',
+                                                protein: '99',
+                                                fat: '40');
                                             Navigator.pushNamed(
                                                 context, 'welcomeScreen',
                                                 arguments: args);

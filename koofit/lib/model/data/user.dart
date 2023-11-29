@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-
+import 'Nutrient.dart';
 part 'user.g.dart';
 
 @HiveType(typeId: 1)
@@ -32,8 +32,7 @@ class User {
   int? goalWeight; //목표 몸무게
 
   @HiveField(9)
-  Map<String, dynamic>?
-      goalNutrient; // 일일 권장 영양성분 {'탄수화물' : 22, '단백질' : 45, '지방' : 20, '목표 칼로리' : 2000}
+  Nutrient? goalNutrient; // 일일 권장 영양성분 {'탄수화물' : 22, '단백질' : 45, '지방' : 20, '목표 칼로리' : 2000}
 
   @HiveField(10)
   List<Map<String, dynamic>>?
@@ -79,7 +78,7 @@ class User {
         goalWeight: json['goal_weight'],
         todayNutrientList:
             List<Map<String, dynamic>>.from(json['todayNutrient']),
-        goalNutrient: Map<String, dynamic>.from(json['goalNutrient']),
+        goalNutrient: Nutrient.fromJson(json['goalNutrient']),
         fitnessList: List<Map<String, dynamic>>.from(json['fitnessList']),
         // todayNutrientList: List<Map<String, dynamic>>.from(
         //     json['todayNutrient']),

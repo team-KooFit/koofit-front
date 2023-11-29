@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   FocusNode node1 = FocusNode();
   FocusNode numberField = FocusNode();
+  FocusNode genderField = FocusNode();
   FocusNode ageField = FocusNode();
   FocusNode stuNumField = FocusNode();
 
@@ -206,7 +208,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (text) {
                                 setState(() {
                                   _number = text;
-                                  print("2222 ${titleIndex}");
                                   if (titleIndex == 2) {
                                     if (text.length == 11) {
                                       ageField.requestFocus();
@@ -238,6 +239,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Visibility(
                               visible: isNameFilled,
                               child: DropdownButtonFormField<String>(
+                                autofocus: true,
+                                focusNode: genderField,
                                 decoration: const InputDecoration(
                                     focusedBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -307,6 +310,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   if (_name.isNotEmpty &&
                                       _number.length == 11 &&
                                       _age.length == 2) {
+                                    genderField.requestFocus();
                                     isButtonActive = true;
                                   } else {
                                     isButtonActive = false;
@@ -364,7 +368,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 gender: _gender,
                                                 height: 0,
                                                 curWeight: 0,
-                                                goalNutrient: {},
+                                                goalNutrient: Nutrient(calories: ' ', carbo: ' ', protein: ' ', fat: ' ', fitnessTime: " "),
                                                 goalWeight: 0,
                                                 fitnessList: [],
                                                 todayNutrientList: [],
@@ -379,6 +383,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     },
                                     child: Text('확인',
                                         style: TextStyle(
+                                          color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20.sp)),
                                   ))),

@@ -5,6 +5,7 @@
 
 import 'dart:convert';
 import 'package:koofit/login/login_screen.dart';
+import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
 import 'package:crypto/crypto.dart';
@@ -23,36 +24,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String initialRoute = '';
+
   @override
   void initState() {
     super.initState();
-    _routePage();
+     _routePage();
   }
 
   Future<void> _routePage() async {
-    String initialRoute = 'no';
-    String newUserUid = '';
-    String uid = '';
-
-    // null 예외 처리 ✅
-    // // final userPlatform = await FlutterSecureStorage().read(key: 'userPlatform');
-    // if (userPlatform != null) {
-    //   // 만약, 로그인 정보가 있다면
-    //
-    //
-    //   } else {
-    //     // 만약, 카카오 로그인이라면
-    //
-    // }
-
-    // 로그인 정보 파악 후, 페이지 이동
     await Future.delayed(Duration(seconds: 3));
-    if (initialRoute == 'main') {
-      // print('$userPlatform 토큰 자동 로그인 성공 👋');
-      Get.offAll(() => DietScreen());
-    } else {
-      if (!mounted) return;
-      Get.offAll(() => LoginScreen());
+
+    if (initialRoute == '') {
+      HiveUserHelper().readUser().then((value) {
+        if (value == null) {
+          initialRoute = 'login';
+          Get.offAll(() => LoginScreen());
+        } else {
+          initialRoute = 'main';
+          Get.offAll(() => DietScreen());
+        }
+      });
     }
   }
 

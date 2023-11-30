@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:koofit/main_screen/fitness_screen/show_fitness_screen.dart';
 import 'package:koofit/main_screen/main_diet_screen/show_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
+import 'package:koofit/model/HiveFitnessHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:get/get.dart';
+import 'package:koofit/model/data/fitness.dart';
+import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/circleText.dart';
 
 class FitnessCard extends StatefulWidget {
@@ -18,6 +22,21 @@ class _FitnessCardState extends State<FitnessCard> {
 
   bool isOuter = true;
 
+  late List<Fitness> todayFitness;
+  @override
+  void didUpdateWidget(covariant FitnessCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDate != widget.selectedDate) {
+      _initializeData(widget.selectedDate);
+    }
+  }
+
+
+  Future<void> _initializeData(String date) async {
+    HiveFitnessHelper().searchFitness(date).then((value) => todayFitness = value);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +47,7 @@ class _FitnessCardState extends State<FitnessCard> {
         child:
         InkWell(
             onTap: () async {
-              await ShowFitness(context);
+              await ShowFitness(context, widget.selectedDate);
             },
 
             child: Card(

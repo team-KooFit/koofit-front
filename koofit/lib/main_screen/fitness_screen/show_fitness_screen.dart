@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
+import 'package:koofit/model/HiveFitnessHelper.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/fitness.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/fitness/core/app_export.dart';
 import 'package:koofit/fitness/widgets/custom_elevated_button.dart';
 
 class FitnessModalBottomSheet extends StatefulWidget {
+  final String selectedDate;
+
+
+  const FitnessModalBottomSheet(
+      {super.key, required this.selectedDate});
+
   @override
   _FitnessModalBottomSheetState createState() =>
       _FitnessModalBottomSheetState();
@@ -28,7 +36,11 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
   TextStyle selectedTextStyle = TextStyle(fontWeight: FontWeight.bold);
   TextStyle unselectedTextStyle = TextStyle();
   FocusNode timeField = FocusNode();
-  String _finessTime = '';
+
+  List<String> whatFitnessList = [];
+  String time = '';
+  String strong = '';
+  late TextEditingController timeController = TextEditingController();
 
   @override
   void initState() {
@@ -198,9 +210,11 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
                   //   bottom: 4.v,
                   // ),
                   child: TextFormField(
+                      controller: timeController,  // Add this line to use the controller
+
                       onSaved: (val) {
                         setState(() {
-                          _finessTime = val.toString();
+                          time = val.toString();
                         });
                       },
                       validator: (val) {
@@ -303,7 +317,35 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 backgroundColor: Palette.mainSkyBlue,
                 disabledBackgroundColor: Palette.mainSkyBlue.withOpacity(0.12)),
-            onPressed: () {},
+            onPressed: () {
+              if (_isCheckCardio) {
+                whatFitnessList.add('유산소');
+              }
+              if (_isCheckWeight) {
+                whatFitnessList.add('무산소');
+              }
+              if (_isCheckStretch) {
+                whatFitnessList.add('스트레칭');
+              }
+
+              time = timeController.text;
+
+              // 예시: strong 변수에 선택된 강도 저장
+              if (isStrong) {
+                strong = '가볍게';
+              } else if (isMiddle) {
+                strong = '적당히';
+              } else if (isWeak) {
+                strong = '격하게';
+              }
+
+
+              HiveFitnessHelper().createFitness(
+                Fitness(uid: "", stuNumber: "stuNumber",
+                    date: widget.selectedDate, whatFitnessList: whatFitnessList,
+                    time: int.parse(time), strong: strong)
+              );
+            },
             child: Text('추가',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -312,7 +354,7 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
   }
 }
 
-Future<void> ShowFitness(BuildContext context) async {
+Future<void> ShowFitness(BuildContext context, String date) async {
   mediaQueryData = MediaQuery.of(context);
 
   await showModalBottomSheet<void>(
@@ -334,7 +376,7 @@ Future<void> ShowFitness(BuildContext context) async {
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
-        child: FitnessModalBottomSheet(),
+        child: FitnessModalBottomSheet(selectedDate: date,),
       );
     },
   );

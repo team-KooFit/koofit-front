@@ -39,7 +39,7 @@ class _DietScreenState extends State<DietScreen> {
 
     initializeDateFormatting('ko', null);
 
-    HiveUserHelper().readUser();
+    // HiveUserHelper().readUser();
   }
 
   @override
@@ -122,9 +122,9 @@ class _DietScreenState extends State<DietScreen> {
                 selectedDate: formatter.format(date).toString(),
               ),
               Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              TodayCalorieCard( selectedDate: formatter.format(date).toString(),),
+              TodayCalorieCard(selectedDate: formatter.format(date).toString(),),
               Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              FitnessCard( selectedDate: formatter.format(date).toString()),
+              FitnessCard(selectedDate: formatter.format(date).toString()),
             ],
           ),
         ),

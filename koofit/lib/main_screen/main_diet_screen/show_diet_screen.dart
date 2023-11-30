@@ -188,17 +188,19 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
             goalGram: int.parse(user.goalNutrient!.fat),
           ),
           CalText(totalCalories, int.parse(user.goalNutrient!.calories)),
+          SizedBox(height: 20),
+
           Text(
             '${remainCalories} kcal 더 먹을 수 있어요',
             textAlign: TextAlign.left,
             style: TextStyle(
               color: Color(0xC6222B45),
-              fontSize: 14,
+              fontSize: 16,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 15),
           ElevatedButton(
             onPressed: () async {
               Navigator.push(

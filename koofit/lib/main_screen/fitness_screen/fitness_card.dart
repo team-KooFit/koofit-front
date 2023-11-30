@@ -12,6 +12,7 @@ import 'package:koofit/widget/circleText.dart';
 
 class FitnessCard extends StatefulWidget {
   final String selectedDate;
+
   const FitnessCard({super.key, required this.selectedDate});
 
   @override
@@ -19,10 +20,11 @@ class FitnessCard extends StatefulWidget {
 }
 
 class _FitnessCardState extends State<FitnessCard> {
-
   bool isOuter = true;
 
   late List<Fitness> todayFitness;
+  int totalTime = 0;
+
   @override
   void didUpdateWidget(covariant FitnessCard oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -31,58 +33,68 @@ class _FitnessCardState extends State<FitnessCard> {
     }
   }
 
-
   Future<void> _initializeData(String date) async {
-    HiveFitnessHelper().searchFitness(date).then((value) => todayFitness = value);
+    HiveFitnessHelper().readFitness();
 
+    print("110112903108230192301 $date");
+    HiveFitnessHelper().searchFitness(date).then((value) {
+      todayFitness = value;
+      print("111110011001011010101010 $todayFitness");
+
+      // 총 Time data 추출
+      totalTime = todayFitness.fold<int>(
+        0,
+        (sum, fitness) => sum + (fitness.time ?? 0),
+      );
+
+      print(totalTime);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+        width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(35), // 여기서 숫자를 조절하여 둥근 정도를 결정할 수 있습니다.
+          borderRadius:
+              BorderRadius.circular(35), // 여기서 숫자를 조절하여 둥근 정도를 결정할 수 있습니다.
         ),
-        child:
-        InkWell(
+        child: InkWell(
             onTap: () async {
               await ShowFitness(context, widget.selectedDate);
             },
-
             child: Card(
-              color: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                child:
-                Padding(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    child:
-                    Column(
+                    child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 5),
-                          Text("운동",
+                          Text(
+                            "운동",
                             style: TextStyle(
                               color: Color(0xA5222B45),
                               fontSize: 15,
                               fontWeight: FontWeight.w700,
-                            ),),
-                          SizedBox(height: 20,),
-                          Text("30분/60분",
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "$totalTime분/60분",
                             style: TextStyle(
                               color: Color(0xFF222B45),
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
-                            )
-                            ,),
-                          SizedBox(height: 13,),
-
-                        ]))
-            )
-        )
-    );
-
-
+                            ),
+                          ),
+                          SizedBox(
+                            height: 13,
+                          ),
+                        ])))));
   }
-
 }

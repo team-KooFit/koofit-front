@@ -29,7 +29,7 @@ class UserAdapter extends TypeAdapter<User> {
       todayNutrientList: (fields[10] as List?)
           ?.map((dynamic e) => (e as Map).cast<String, dynamic>())
           .toList(),
-      goalNutrient: (fields[9] as Map?)?.cast<String, dynamic>(),
+      goalNutrient: fields[9] as Nutrient?,
       fitnessList: (fields[11] as List?)
           ?.map((dynamic e) => (e as Map).cast<String, dynamic>())
           .toList(),

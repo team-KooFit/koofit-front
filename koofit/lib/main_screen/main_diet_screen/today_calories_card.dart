@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/main_diet_screen/show_diet_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/search_diet_screen.dart';
 import 'package:koofit/model/HiveDietHelper.dart';
+import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:get/get.dart';
+import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/diet.dart';
+import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/loading_view.dart';
 
@@ -16,16 +19,22 @@ class TodayCalorieCard extends StatefulWidget {
 class _TodayCalorieCardState extends State<TodayCalorieCard> {
   bool isOuter = true;
   bool isSuccess = false;
+
   late String todayDate;
   late List<Diet> dietList;
 
-  double totalCalories = 0.0;
-  Map<String, dynamic> todayDietMap = {
-    "totalCalo": "",
-    "carboRate": "",
-    "proteinRate": "",
-    "fatRate": ""
-  };
+  int totalCalories = 0;
+  int totalCarbo = 0;
+  int totalProtein = 0;
+  int totalFat = 0;
+  int remainCalories = 0;
+
+  int carboRate = 0;
+  int proteinRate = 0;
+  int fatRate = 0;
+
+  User user = User(uid: "", name: "name", gender: "gender", stuNumber: "stuNumber", number: "number", age: "age", height: 0, curWeight: 0, goalWeight: 0, todayNutrientList: [],
+      goalNutrient: Nutrient(calories: "", carbo: "", protein: "", fat: "") , fitnessList: [], serviceNeedsAgreement: false, privacyNeedsAgreement: false);
 
 
   @override
@@ -34,22 +43,31 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
     super.initState();
 
     todayDate = DateTime.now().toLocal().toString().split(' ')[0];
-print(todayDate);
-    HiveDietHelper().readDiet();
+    _initializeData();
+
+  }
+
+  Future<void> _initializeData() async {
+    user = await HiveUserHelper().readUser();
 
     HiveDietHelper().searchDiet(todayDate).then((value) {
       dietList = value;
-    print(dietList);
-     totalCalories  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.calories ?? 0.0)));
+      print(dietList);
+      totalCalories = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.calories?.toInt() ?? 0)));
+      totalCarbo  = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.carbo?.toInt() ?? 0)));
+      totalProtein  = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.protein?.toInt() ?? 0)));
+      totalFat = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
 
-     setState(() {
-       isSuccess = true;
-     });
+      carboRate = (totalCarbo / double.parse( user.goalNutrient!.carbo)* 100).toInt() ;
+      proteinRate =(totalProtein / double.parse( user.goalNutrient!.protein) * 100).toInt();
+      fatRate = (totalFat / double.parse(user.goalNutrient!.fat)* 100).toInt();
 
+      print("$totalProtein ///$carboRate, $proteinRate, $fatRate");
+      remainCalories = int.parse( user.goalNutrient!.calories)-totalCalories;
+      setState(() {
+        isSuccess = true;
+      });
     });
-
-
-
   }
 
   @override
@@ -64,7 +82,7 @@ print(todayDate);
         isSuccess ?
         InkWell(
             onTap: () async {
-              await showTodayDiet(context);
+              await showTodayDiet(context, user);
             },
             child: Card(
               color: Colors.white,
@@ -98,9 +116,9 @@ print(todayDate);
                           SizedBox(
                             height: 13,
                           ),
-                          CircleText(Palette.tanSu, 61, isOuter),
-                          CircleText(Palette.danBaek, 100, isOuter),
-                          CircleText(Palette.jiBang, 24, isOuter)
+                          CircleText(Palette.tanSu,carboRate , isOuter),
+                          CircleText(Palette.danBaek, proteinRate, isOuter),
+                          CircleText(Palette.jiBang, fatRate, isOuter)
                         ]))))
     : Center(
             child: CircularProgressIndicator(

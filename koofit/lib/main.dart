@@ -13,12 +13,14 @@ import 'package:koofit/login/welcome_screen.dart';
 import 'package:koofit/main_screen/user_screen.dart';
 import 'package:koofit/model/HiveDietHelper.dart';
 import 'package:koofit/model/HiveUserHelper.dart';
+import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
 import 'package:koofit/model/data/diet.dart';
 import 'package:koofit/model/data/food.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(FoodAdapter());
+  Hive.registerAdapter(NutrientAdapter());
 
   Hive.registerAdapter(UserAdapter());
   await HiveUserHelper().openUserBox();
@@ -45,8 +47,9 @@ class _MyAppState extends State<MyApp> {
         minTextAdapt: true,
         builder: (context, child) {
           return GetMaterialApp(
+            theme: ThemeData(primaryColor: Colors.white),
               // navigatorObservers: <NavigatorObserver>[observer],
-              initialRoute: 'main_diet',
+              initialRoute: SplashScreen.routeName,
               routes: {
                 SplashScreen.routeName: (context) => SplashScreen(),
                 'home': (context) => const LoginScreen(),

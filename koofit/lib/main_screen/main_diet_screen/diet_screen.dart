@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:koofit/main_screen/fitness_screen/fitness_card.dart';
 import 'package:koofit/main_screen/main_diet_screen/today_calories_card.dart';
 import 'package:koofit/widget/advanced_calender_lib/advanced_calendar.dart';
@@ -31,6 +32,8 @@ class _DietScreenState extends State<DietScreen> {
     super.initState();
     initializeDateFormatting('ko', null);
     HiveUserHelper().openUserBox();
+
+    HiveUserHelper().readUser();
   }
 
   @override

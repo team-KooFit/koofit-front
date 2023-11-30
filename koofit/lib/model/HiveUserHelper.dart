@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -24,9 +25,14 @@ class HiveUserHelper {
     return userBox!.add(newUser);
   }
 
-  Future readUser() async {
-    print(userBox!.values);
-    return userBox!.values;
+  Future<User> readUser() async {
+    final users = userBox!.values.cast<User>(); // Assuming User is the model class
+    if (users.isNotEmpty) {
+      return users.first; // Returning the first user (you might need to define a logic to select the correct user)
+    } else {
+      return User(uid: "", name: "name", gender: "gender", stuNumber: "stuNumber", number: "number", age: "age", height: 0, curWeight: 0, goalWeight: 0, todayNutrientList: [],
+          goalNutrient: Nutrient(calories: "", carbo: "", protein: "", fat: "") , fitnessList: [], serviceNeedsAgreement: false, privacyNeedsAgreement: false);
+    }
   }
 
   Future updateUser(int index, User updatedUser) async {

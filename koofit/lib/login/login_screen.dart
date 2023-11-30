@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       curWeight: 0,
                       goalWeight: 0,
                       todayNutrientList: [],
-                      goalNutrient: {},
+                      goalNutrient: Nutrient(calories: '1900', carbo: '100', protein: '80', fat: '70', fitnessTime: "30"),
                       fitnessList: [],
                       serviceNeedsAgreement: false,
                       privacyNeedsAgreement: false);

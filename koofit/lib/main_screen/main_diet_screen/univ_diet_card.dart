@@ -25,7 +25,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
   int clickedBtnIndex = 0;
   String btnText = '복지관';
   List<String> btnTxtList = ['복지관', '법학관', '교직원'];
-
+  String cleanedString = '';
   String menuText = '복지관';
 
   final ScrollController _scrollController = ScrollController();
@@ -54,15 +54,15 @@ class _UnivDietCardState extends State<UnivDietCard> {
     setState(() {
       bokjiMenu = result['학생식당(복지관 1층)'] ??
           {
-            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+           null
           };
       beobgwanMenu = result['교직원식당(복지관 1층)'] ??
           {
-            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+            null
           };
       gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ??
           {
-            '식당': {"메뉴": "운영 안함", "가격": "없음"}
+            null
           };
       // Set the initial selectedMenu to 복지관
       selectedMenu = bokjiMenu;
@@ -75,9 +75,9 @@ class _UnivDietCardState extends State<UnivDietCard> {
       width: double.infinity,
       child: Card(
         color: Color(0xffFFFFFF),
-        shape:  RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
-        side: BorderSide(color: Colors.white24, width: 5.0)),
+            side: BorderSide(color: Colors.white24, width: 5.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -158,12 +158,10 @@ class _UnivDietCardState extends State<UnivDietCard> {
                   children: selectedMenu.entries.map((entry) {
                     String menuKey = entry.key
                         .replaceAll(RegExp(r'<br>', caseSensitive: false), '-');
-                    dynamic jsonString = entry.value;
-                    // 백슬래시 이스케이프 처리 및 줄바꿈 문자(\n)로 치환
 
-                    String cleanedString =
-                        jsonString.replaceAll('\\r\n', '\r\n');
+                    cleanedString = cleaningString( entry.value.toString());
                     Map<String, dynamic> menuMap = json.decode(cleanedString);
+
                     String menuText = menuMap['메뉴'] ?? '';
                     // Create a list to store widgets for each key-value pair in menuValue
                     List<Widget> keyValueWidgets = [];
@@ -226,5 +224,26 @@ class _UnivDietCardState extends State<UnivDietCard> {
         ),
       ),
     );
+  }
+
+ String cleaningString(String jsonString) {
+    String cleanString = '';
+// Check if jsonString is a string or a map
+    if (jsonString is String) {
+      // Handle the case where jsonString is a String
+      // Your existing code for String type
+      cleanString = jsonString.replaceAll('\\r\n', '\r\n');
+      // Continue with the rest of your code
+    } else if (jsonString is Map) {
+      // Handle the case where jsonString is a Map
+      // Convert the map to a String or handle it accordingly
+      cleanString = jsonString.toString();
+      // Continue with the rest of your code
+    } else {
+      // Handle other cases or raise an error, depending on your requirements
+      print('Unexpected type for jsonString: ${jsonString.runtimeType}');
+    }
+
+    return cleanString;
   }
 }

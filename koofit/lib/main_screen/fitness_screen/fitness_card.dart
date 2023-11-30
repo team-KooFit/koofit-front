@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:koofit/widget/circleText.dart';
 
 class FitnessCard extends StatefulWidget {
+  final String selectedDate;
+  const FitnessCard({super.key, required this.selectedDate});
 
   @override
   State<FitnessCard> createState() => _FitnessCardState();

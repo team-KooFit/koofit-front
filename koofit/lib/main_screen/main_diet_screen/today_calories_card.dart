@@ -12,6 +12,9 @@ import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/loading_view.dart';
 
 class TodayCalorieCard extends StatefulWidget {
+  final String selectedDate;
+  const TodayCalorieCard({super.key, required this.selectedDate});
+
   @override
   State<TodayCalorieCard> createState() => _TodayCalorieCardState();
 }
@@ -42,15 +45,28 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
     // TODO: implement initState
     super.initState();
 
-    todayDate = DateTime.now().toLocal().toString().split(' ')[0];
-    _initializeData();
+    todayDate = widget.selectedDate;
+    print(
+      "11111111 $todayDate"
+    );
+    _initializeData(todayDate);
 
   }
 
-  Future<void> _initializeData() async {
+
+  @override
+  void didUpdateWidget(covariant TodayCalorieCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDate != widget.selectedDate) {
+      _initializeData(widget.selectedDate);
+    }
+  }
+
+
+  Future<void> _initializeData(String date) async {
     user = await HiveUserHelper().readUser();
 
-    HiveDietHelper().searchDiet(todayDate).then((value) {
+    HiveDietHelper().searchDiet(date).then((value) {
       dietList = value;
       print(dietList);
       totalCalories = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.calories?.toInt() ?? 0)));
@@ -82,7 +98,7 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
         isSuccess ?
         InkWell(
             onTap: () async {
-              await showTodayDiet(context, user);
+              await showTodayDiet(context, user, todayDate);
             },
             child: Card(
               color: Colors.white,

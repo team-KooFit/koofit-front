@@ -33,13 +33,18 @@ class DietSearcher {
     Map<String, Map<String, Map<String, String>>> transformedData = {};
     DateTime today = DateTime.now();
     String todayDate = today.toLocal().toString().split(' ')[0];
-    DateTime firstDayOfMonth = DateTime(today.year, today.month, 1);
-    DateTime lastDayOfMonth = DateTime(today.year, today.month + 1, 0);
+
+    // Convert todayDate to DateTime
+    DateTime todayDateTime = DateTime.parse(todayDate);
+
+    // Calculate one month before and one month later
+    DateTime monthBeforeDate = todayDateTime.subtract(Duration(days: 30));
+    DateTime monthLaterDate = todayDateTime.add(Duration(days: 30));
 
     String formattedFirstDay =
-        '${firstDayOfMonth.year}-${firstDayOfMonth.month.toString().padLeft(2, '0')}-${firstDayOfMonth.day.toString().padLeft(2, '0')}';
+        '${monthBeforeDate.year}-${monthBeforeDate.month.toString().padLeft(2, '0')}-${monthBeforeDate.day.toString().padLeft(2, '0')}';
     String formattedLastDay =
-        '${lastDayOfMonth.year}-${lastDayOfMonth.month.toString().padLeft(2, '0')}-${lastDayOfMonth.day.toString().padLeft(2, '0')}';
+        '${monthLaterDate.year}-${monthLaterDate.month.toString().padLeft(2, '0')}-${monthLaterDate.day.toString().padLeft(2, '0')}';
 
     String url =
         'https://kmucoop.kookmin.ac.kr/menu/menujson.php?callback=jQuery112408319456905698375_1699929495522&sdate=$formattedFirstDay&edate=$formattedLastDay&today=$todayDate&_=${DateTime.now().millisecondsSinceEpoch}';

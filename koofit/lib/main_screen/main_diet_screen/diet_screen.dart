@@ -8,8 +8,12 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'univ_diet_card.dart';
 import 'package:koofit/model/HiveUserHelper.dart';
+import 'package:koofit/model/data/user.dart';
+
 class DietScreen extends StatefulWidget {
-  const DietScreen({super.key});
+  final User? user;
+
+  const DietScreen({Key? key, this.user}) : super(key: key);
 
   @override
   State<DietScreen> createState() => _DietScreenState();
@@ -27,11 +31,13 @@ class _DietScreenState extends State<DietScreen> {
   // Use ValueNotifier for selectedDate
   DateTime _selectedDate = DateTime.now(); // Initialize with the current date
 
+
   @override
   void initState() {
     super.initState();
+
+
     initializeDateFormatting('ko', null);
-    HiveUserHelper().openUserBox();
 
     HiveUserHelper().readUser();
   }
@@ -118,7 +124,7 @@ class _DietScreenState extends State<DietScreen> {
               Padding(padding: EdgeInsets.symmetric(vertical: 5)),
               TodayCalorieCard( selectedDate: formatter.format(date).toString(),),
               Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              FitnessCard( selectedDate: formatter.format(date).toString(),),
+              FitnessCard( selectedDate: formatter.format(date).toString()),
             ],
           ),
         ),

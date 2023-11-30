@@ -5,6 +5,7 @@ import 'package:koofit/model/HiveDietHelper.dart';
 import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:get/get.dart';
+import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/diet.dart';
 import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/circleText.dart';
@@ -18,24 +19,22 @@ class TodayCalorieCard extends StatefulWidget {
 class _TodayCalorieCardState extends State<TodayCalorieCard> {
   bool isOuter = true;
   bool isSuccess = false;
+
   late String todayDate;
   late List<Diet> dietList;
-  late User user;
-  double totalCalories = 0.0;
-  double totalCarbo = 0.0;
-  double totalProtein = 0.0;
-  double totalFat = 0.0;
 
-  double carboRate = 0.0;
-  double proteinRate = 0.0;
-  double fatRate = 0.0;
+  int totalCalories = 0;
+  int totalCarbo = 0;
+  int totalProtein = 0;
+  int totalFat = 0;
+  int remainCalories = 0;
 
-  Map<String, dynamic> todayDietMap = {
-    "totalCalo": "",
-    "carboRate": "",
-    "proteinRate": "",
-    "fatRate": ""
-  };
+  int carboRate = 0;
+  int proteinRate = 0;
+  int fatRate = 0;
+
+  User user = User(uid: "", name: "name", gender: "gender", stuNumber: "stuNumber", number: "number", age: "age", height: 0, curWeight: 0, goalWeight: 0, todayNutrientList: [],
+      goalNutrient: Nutrient(calories: "", carbo: "", protein: "", fat: "") , fitnessList: [], serviceNeedsAgreement: false, privacyNeedsAgreement: false);
 
 
   @override
@@ -44,24 +43,30 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
     super.initState();
 
     todayDate = DateTime.now().toLocal().toString().split(' ')[0];
+    _initializeData();
 
-    HiveUserHelper().readUser().then((value) => user = value);
+  }
+
+  Future<void> _initializeData() async {
+    user = await HiveUserHelper().readUser();
 
     HiveDietHelper().searchDiet(todayDate).then((value) {
       dietList = value;
       print(dietList);
-      totalCalories  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.calories ?? 0.0)));
-      totalCarbo  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.carbo ?? 0.0)));
-      totalProtein  = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.protein ?? 0.0)));
-      totalFat = (dietList.fold<double>(0.0, (sum, diet) => sum + (diet.nutrient.fat ?? 0.0)));
+      totalCalories = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.calories?.toInt() ?? 0)));
+      totalCarbo  = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.carbo?.toInt() ?? 0)));
+      totalProtein  = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.protein?.toInt() ?? 0)));
+      totalFat = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
 
-      carboRate = totalCarbo / int.parse(user.goalNutrient!.carbo);
-      proteinRate = totalProtein / int.parse(user.goalNutrient!.protein);
-      fatRate = totalFat / int.parse(user.goalNutrient!.fat);
+      carboRate = (totalCarbo / double.parse( user.goalNutrient!.carbo)* 100).toInt() ;
+      proteinRate =(totalProtein / double.parse( user.goalNutrient!.protein) * 100).toInt();
+      fatRate = (totalFat / double.parse(user.goalNutrient!.fat)* 100).toInt();
 
+      print("$totalProtein ///$carboRate, $proteinRate, $fatRate");
+      remainCalories = int.parse( user.goalNutrient!.calories)-totalCalories;
       setState(() {
-       isSuccess = true;
-     });
+        isSuccess = true;
+      });
     });
   }
 
@@ -77,7 +82,7 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
         isSuccess ?
         InkWell(
             onTap: () async {
-              await showTodayDiet(context);
+              await showTodayDiet(context, user);
             },
             child: Card(
               color: Colors.white,
@@ -111,9 +116,9 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
                           SizedBox(
                             height: 13,
                           ),
-                          CircleText(Palette.tanSu,carboRate.toInt() , isOuter),
-                          CircleText(Palette.danBaek, proteinRate.toInt(), isOuter),
-                          CircleText(Palette.jiBang, fatRate.toInt(), isOuter)
+                          CircleText(Palette.tanSu,carboRate , isOuter),
+                          CircleText(Palette.danBaek, proteinRate, isOuter),
+                          CircleText(Palette.jiBang, fatRate, isOuter)
                         ]))))
     : Center(
             child: CircularProgressIndicator(

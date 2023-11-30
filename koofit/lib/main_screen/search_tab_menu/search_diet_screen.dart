@@ -82,25 +82,28 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
   Future<List<String>> _filterData(String query) async {
     await Future.delayed(const Duration(milliseconds: 10));
 
-    setState(() {
-      searchText = query.toLowerCase();
-      _filteredData = _data
-          .where((row) =>
-              row.length > 9 && row[1].toLowerCase().contains(searchText))
-          .toList();
+    if (mounted) {
+      setState(() {
+        searchText = query.toLowerCase();
+        _filteredData = _data
+            .where((row) =>
+        row.length > 9 && row[1].toLowerCase().contains(searchText))
+            .toList();
 
-      // Update dataToDisplayList here
-      dataToDisplayList = _filteredData
-          .map((rowData) => rowData.length > 10 ? rowData[1] : '')
-          .toList();
+        // Update dataToDisplayList here
+        dataToDisplayList = _filteredData
+            .map((rowData) => rowData.length > 10 ? rowData[1] : '')
+            .toList();
 
-      // Print or use dataToDisplayList as needed
-      print(dataToDisplayList);
-    });
+        // Print or use dataToDisplayList as needed
+        print(dataToDisplayList);
+      });
+    }
 
     // Return the result outside the setState block
     return dataToDisplayList;
   }
+
 
   void _onRowTap(List<String> rowData) {
     Navigator.push(

@@ -14,7 +14,9 @@ import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/widget/RectangleText.dart';
 
 class DietModalBottomSheet extends StatefulWidget {
-  const DietModalBottomSheet({super.key});
+  final User user;
+
+  const DietModalBottomSheet({super.key, required this.user});
 
   @override
   State<DietModalBottomSheet> createState() => _DietModalBottomSheetState();
@@ -44,8 +46,12 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
     super.initState();
 
     todayDate = DateTime.now().toLocal().toString().split(' ')[0];
+    _initializeData();
 
+  }
 
+  Future<void> _initializeData() async {
+    user = widget.user; // Access the user from the widget property
 
     HiveDietHelper().searchDiet(todayDate).then((value) {
       dietList = value;
@@ -55,9 +61,10 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
       totalProtein  = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.protein?.toInt() ?? 0)));
       totalFat = (dietList.fold<int>(0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
 
-      carboRate = (totalCarbo / int.parse( user.goalNutrient!.carbo)).toInt();
-      proteinRate =(totalProtein / int.parse( user.goalNutrient!.protein)).toInt();
-      fatRate = (totalFat / int.parse( user.goalNutrient!.fat)).toInt();
+
+      carboRate = (totalCarbo / double.parse( user.goalNutrient!.carbo)* 100).toInt() ;
+      proteinRate =(totalProtein / double.parse( user.goalNutrient!.protein) * 100).toInt();
+      fatRate = (totalFat / double.parse(user.goalNutrient!.fat)* 100).toInt();
 
 
       remainCalories = int.parse( user.goalNutrient!.calories)-totalCalories;
@@ -66,13 +73,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
       });
     });
   }
-  //
-  // Future<void> _user() {
-  //   // HiveUserHelper().readUser().then((value) {
-  //   //   user = value;
-  //   // } );
-  //   //
-  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -143,12 +144,12 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
           ),
           CircleText(
             Palette.jiBang,
-            24,
+            fatRate,
             false,
             realGram: totalFat,
             goalGram: int.parse( user.goalNutrient!.fat),
           ),
-          CalText(215, 1603),
+          CalText(totalCalories, int.parse(user.goalNutrient!.calories)),
           Text(
             '${remainCalories} kcal 더 먹을 수 있어요',
             textAlign: TextAlign.left,
@@ -335,7 +336,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
   }
 }
 
-Future<void> showTodayDiet(BuildContext context) async {
+Future<void> showTodayDiet(BuildContext context, User user) async {
   await showModalBottomSheet<void>(
     context: context,
     shape: RoundedRectangleBorder(
@@ -355,7 +356,7 @@ Future<void> showTodayDiet(BuildContext context) async {
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
-          child: DietModalBottomSheet());
+          child: DietModalBottomSheet(user: user));
     },
   );
 }

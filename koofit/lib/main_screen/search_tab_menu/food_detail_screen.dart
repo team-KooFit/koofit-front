@@ -31,11 +31,11 @@ class _DetailsPageState extends State<DetailsPage> {
         foodName: widget.rowData[1],
         manufacturer: widget.rowData[2],
         foodWeight: widget.rowData[14],
-        calories: double.tryParse(widget.rowData[16]),
-        protein: double.tryParse(widget.rowData[17]),
-        fat: double.tryParse(widget.rowData[18]),
-        carbo: double.tryParse(widget.rowData[19]),
-        sugar: double.tryParse(widget.rowData[20]),
+        calories: double.tryParse(widget.rowData[16]) ?? 0.0,
+        protein: double.tryParse(widget.rowData[17])?? 0.0,
+        fat: double.tryParse(widget.rowData[18])?? 0.0,
+        carbo: double.tryParse(widget.rowData[19])?? 0.0,
+        sugar: double.tryParse(widget.rowData[20])?? 0.0,
       );
     }
   }

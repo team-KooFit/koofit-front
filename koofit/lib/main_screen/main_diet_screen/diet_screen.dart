@@ -118,11 +118,9 @@ class _DietScreenState extends State<DietScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               ),
               Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-              UnivDietCard(
-                selectedDate: formatter.format(date).toString(),
-              ),
+              UnivDietCard(selectedDate: formatter.format(date).toString()),
               Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              TodayCalorieCard(selectedDate: formatter.format(date).toString(),),
+              TodayCalorieCard(selectedDate: formatter.format(date).toString()),
               Padding(padding: EdgeInsets.symmetric(vertical: 5)),
               FitnessCard(selectedDate: formatter.format(date).toString()),
             ],

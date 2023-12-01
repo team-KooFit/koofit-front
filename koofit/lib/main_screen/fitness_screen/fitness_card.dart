@@ -68,7 +68,7 @@ class _FitnessCardState extends State<FitnessCard> {
         child: isSuccess
             ? InkWell(
                 onTap: () async {
-                  await ShowFitness(context, widget.selectedDate);
+                  await ShowFitness(context, widget.selectedDate, todayFitness);
                 },
                 child: Card(
                     color: Colors.white,

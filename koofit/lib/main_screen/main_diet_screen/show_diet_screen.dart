@@ -150,16 +150,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
         ));
   }
 
-  Widget todayGraphCard() {
-    return Card(
-        color: Color(0xFFEFEFEF),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10), // 모서리를 둥글게 만드는 값 설정
-        ),
-        child: Padding(padding: EdgeInsets.all(20.0), child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center, // 시작에 배치
-            children: [])));
-  }
+
 
   Widget nutrientBox(BuildContext context) {
     return Padding(

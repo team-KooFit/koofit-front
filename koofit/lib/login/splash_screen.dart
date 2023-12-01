@@ -37,7 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (initialRoute == '') {
       HiveUserHelper().readUser().then((value) {
-        if (value == null) {
+        print(value);
+        if (value.name == "name") {
           initialRoute = 'login';
           Get.offAll(() => LoginScreen());
         } else {

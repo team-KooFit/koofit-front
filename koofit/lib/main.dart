@@ -12,8 +12,10 @@ import 'package:koofit/main_screen/search_tab_menu/add_diet_screen.dart';
 import 'package:koofit/login/welcome_screen.dart';
 import 'package:koofit/main_screen/user_screen.dart';
 import 'package:koofit/model/HiveDietHelper.dart';
+import 'package:koofit/model/HiveFitnessHelper.dart';
 import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/data/Nutrient.dart';
+import 'package:koofit/model/data/fitness.dart';
 import 'package:koofit/model/data/user.dart';
 import 'package:koofit/model/data/diet.dart';
 import 'package:koofit/model/data/food.dart';
@@ -21,6 +23,9 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(FoodAdapter());
   Hive.registerAdapter(NutrientAdapter());
+
+  Hive.registerAdapter(FitnessAdapter());
+  await HiveFitnessHelper().openFitnessBox();
 
   Hive.registerAdapter(UserAdapter());
   await HiveUserHelper().openUserBox();

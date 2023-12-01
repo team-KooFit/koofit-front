@@ -39,16 +39,22 @@ class HiveDietHelper {
     dietBox!.deleteAt(index);
   }
 
-  Future<List<Diet>> searchDiet(String date) async{
-    // Get today's date in the 'yyyy-MM-dd' format
+  Future<List<Diet>> searchDiet(String date) async {
 
     // Query the box to get all Diet objects with today's date
-    final List<Diet> diets = dietBox!.values
-        .where((diet) => diet.date == date)
-        .toList();
-print("ddddddd${dietBox!.values}");
-print("dddddkdkdjahldfk ${date}");
-    return diets;
+    final List<Diet> diets =
+        dietBox!.values.where((diet) => diet.date == date).toList();
 
+    return diets;
+  }
+
+  Future<List<Diet>> searchKeyTime(String date, String key) async {
+
+    List<Diet> todayDietList = await searchDiet(date);
+
+    final List<Diet> diets =
+    todayDietList.where((diet) => diet.keyTime == key).toList();
+
+    return diets;
   }
 }

@@ -4,7 +4,7 @@ import 'package:koofit/model/config/palette.dart';
 
 class RectangleText extends StatelessWidget {
   final Color color;
-  final double? realGram;
+  final int? realGram;
 
   RectangleText(this.color, {this.realGram});
 

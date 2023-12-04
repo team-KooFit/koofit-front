@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:koofit/login/welcome_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
@@ -158,8 +159,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 setState(() {
                                   _goalWeight = text;
                                   if (titleIndex == 1) {
-                                    if (text.length > 2) {
-                                      goalWeightField.requestFocus();
+                                    if (text.length > 1) {
                                       titleIndex = 2;
                                       isCurWeightFilled = true;
                                     }
@@ -275,14 +275,35 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                             args.curWeight =
                                                 int.parse(_curWeight);
                                             print("args : ${args}");
+
+                                            //목표 칼로리, 영양성분 저장
+                                            double caloriesValue =
+                                                ((args.goalWeight!.toInt()) *
+                                                        30 -
+                                                    500);
                                             args.goalNutrient = Nutrient(
-                                                calories: '1900',
-                                                carbo: '129',
-                                                protein: '99',
-                                                fat: '40');
-                                            Navigator.pushNamed(
-                                                context, 'welcomeScreen',
-                                                arguments: args);
+                                                calories:
+                                                    caloriesValue.toString(),
+                                                carbo:
+                                                    (caloriesValue * 0.55 / 4)
+                                                        .toString(),
+                                                protein:
+                                                    (caloriesValue * 0.20 / 4)
+                                                        .toString(),
+                                                fat: (caloriesValue * 0.25 / 4)
+                                                    .toString());
+
+                                            print(
+                                                "goalNutrient: ${args.goalNutrient}");
+
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => WelcomeScreen(user: args),
+                                              ),
+                                            );
+
                                           }
                                         }
                                       }

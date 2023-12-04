@@ -75,18 +75,18 @@ class _DetailsPageState extends State<DetailsPage> {
             SizedBox(height: 5),
             _buildTile('식품명', '${food!.foodName}'),
             _buildTile('식품 중량(g)', '${food?.foodWeight != null ? (double.parse(widget.rowData[14].replaceAll('g', ''))) * num : '정보없음'}'),
-            _buildTile('에너지(kcal)', '${food!.calories != null ? (double.parse(widget.rowData[16])) * num : '정보없음'}'),
-            _buildTile('탄수화물(g)', '${food?.carbo != null ? (double.parse(widget.rowData[19]) * num) : '정보없음'}'),
-            _buildTile('당류(g)', '${food?.sugar != null ? (double.parse(widget.rowData[20])) * num : '정보없음'}'),
-            _buildTile('단백질(g)', '${food?.protein != null ? (double.parse(widget.rowData[17])) * num : '정보없음'}'),
-            _buildTile('지방(g)', '${food?.fat != null ? (double.parse(widget.rowData[18])) * num : '정보없음'}'),
+            _buildTile('에너지(kcal)', '${food?.calories != null ? (double.parse(widget.rowData[16]) * num).toStringAsFixed(2) : '정보없음'}'),
+            _buildTile('탄수화물(g)', '${food?.carbo != null ? (double.parse(widget.rowData[19]) * num).toStringAsFixed(2) : '정보없음'}'),
+            _buildTile('당류(g)', '${food?.sugar != null ? (double.parse(widget.rowData[20]) * num).toStringAsFixed(2) : '정보없음'}'),
+            _buildTile('단백질(g)', '${food?.protein != null ? (double.parse(widget.rowData[17]) * num).toStringAsFixed(2) : '정보없음'}'),
+            _buildTile('지방(g)', '${food?.fat != null ? (double.parse(widget.rowData[18]) * num).toStringAsFixed(2) : '정보없음'}'),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center, children: [
                 DecoratedBox(
                     decoration: BoxDecoration(
                       color: Palette.mainSkyBlue,
-                      border: Border.all(color:Palette.dark_mainSkyBlue,width: 1),
+                      border: Border.all(color: Palette.mainSkyBlue, width: 1),
                       borderRadius: BorderRadius.circular(20),
 
                     ),
@@ -107,7 +107,9 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       Text(
                         '$num',
-                        style: TextStyle(fontSize: 29),
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                       IconButton(
                         onPressed: (){
@@ -200,7 +202,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
     // 업데이트된 값을 food 객체에 저장합니다.
     if (title == '식품 중량(g)') {
-      food.foodWeight = updatedValue.toString();
+      food.foodWeight = updatedValue.toStringAsFixed(2);
     } else if (title == '에너지(kcal)') {
       food.calories = updatedValue;
     } else if (title == '탄수화물(g)') {

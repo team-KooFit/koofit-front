@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
+import 'package:koofit/login/sign_up_screen.dart';
 
 class BodySignUpScreen extends StatefulWidget {
   const BodySignUpScreen({super.key});
@@ -47,17 +48,48 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
 
     void calculateGoalNutrient() {
       // 여기에서 적절한 계산식을 사용하여 goalNutrient의 값을 계산합니다.
-      double caloriesValue = double.parse(_goalWeight)*30-500;
-      double carboValue = caloriesValue*0.55/4;
-      double proteinValue = caloriesValue*0.20/4;
-      double fatValue = caloriesValue*0.25/4;
+      // double caloriesValue = double.parse(_goalWeight)*30-500;
+      // double carboValue = caloriesValue*0.55/4;
+      // double proteinValue = caloriesValue*0.20/4;
+      // double fatValue = caloriesValue*0.25/4;
 
-      args.goalNutrient = Nutrient(
+if(args.gender == 0)
+  {
+    double Bmi;
+    Bmi = 10*double.parse(_curWeight)+6.25*double.parse(_height)-5*double.parse(args.age)+5;
+    double caloriesValue=Bmi*1.55-500;
+    double carboValue = caloriesValue*0.55/4;
+    double proteinValue = caloriesValue*0.20/4;
+    double fatValue = caloriesValue*0.25/4;
+
+    args.goalNutrient = Nutrient(
         calories: caloriesValue.toString(),
         carbo: carboValue.toString(),
         protein: proteinValue.toString(),
         fat: fatValue.toString(),
+    );
+  }
+else {
+  double Bmi;
+  Bmi = 10 * double.parse(_curWeight)+6.25*double.parse(_height)-5*double.parse(args.age)-161;
+  double caloriesValue=Bmi*1.55-500;
+  double carboValue = caloriesValue*0.55/4;
+  double proteinValue = caloriesValue*0.20/4;
+  double fatValue = caloriesValue*0.25/4;
+
+    args.goalNutrient = Nutrient(
+    calories: caloriesValue.toString(),
+    carbo: carboValue.toString(),
+    protein: proteinValue.toString(),
+    fat: fatValue.toString(),
       );
+}
+      // args.goalNutrient = Nutrient(
+      //   calories: caloriesValue.toString(),
+      //   carbo: carboValue.toString(),
+      //   protein: proteinValue.toString(),
+      //   fat: fatValue.toString(),
+      // );
     }
 
     return WillPopScope(

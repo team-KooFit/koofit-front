@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:koofit/login/welcome_screen.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
@@ -58,7 +59,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                 backgroundColor: const Color(0xFFffffff),
                 body: Container(
                   padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 20).r,
+                  const EdgeInsets.only(left: 20, right: 20, bottom: 20).r,
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -96,11 +97,11 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                   _curWeight = text;
                                   if (titleIndex >= 2) {
                                     if (_height.length > 2 &&
-                                            _goalWeight.length > 1 &&
-                                            _curWeight.length > 1
-                                        // int.parse(_weight) >= 15 &&
-                                        // int.parse(_weight) <= 19
-                                        ) {
+                                        _goalWeight.length > 1 &&
+                                        _curWeight.length > 1
+                                    // int.parse(_weight) >= 15 &&
+                                    // int.parse(_weight) <= 19
+                                    ) {
                                       isButtonActive = true;
                                     } else {
                                       isButtonActive = false;
@@ -112,13 +113,13 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                               focusNode: goalWeightField,
                               autofocus: true,
                               decoration: const InputDecoration(
-                                  // errorText: _weight.isNotEmpty && _weight.length >2
-                                  //     ? int.parse(_weight) >= 20
-                                  //         ? '만 19세 이상은 서비스 이용이 제한됩니다.'
-                                  //         : int.parse(_weight) < 15
-                                  //             ? '15세 미만은 서비스 이용이 제한됩니다.'
-                                  //             : null
-                                  //     : null,
+                                // errorText: _weight.isNotEmpty && _weight.length >2
+                                //     ? int.parse(_weight) >= 20
+                                //         ? '만 19세 이상은 서비스 이용이 제한됩니다.'
+                                //         : int.parse(_weight) < 15
+                                //             ? '15세 미만은 서비스 이용이 제한됩니다.'
+                                //             : null
+                                //     : null,
                                   counterText: '',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -126,7 +127,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                   labelText: "목표 몸무게",
                                   labelStyle: TextStyle(
                                       color:
-                                          Color.fromARGB(255, 182, 183, 184))),
+                                      Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
                           Visibility(
@@ -158,8 +159,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 setState(() {
                                   _goalWeight = text;
                                   if (titleIndex == 1) {
-                                    if (text.length > 2) {
-                                      goalWeightField.requestFocus();
+                                    if (text.length > 1) {
                                       titleIndex = 2;
                                       isCurWeightFilled = true;
                                     }
@@ -183,7 +183,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                   labelText: "몸무게",
                                   labelStyle: TextStyle(
                                       color:
-                                          Color.fromARGB(255, 182, 183, 184))),
+                                      Color.fromARGB(255, 182, 183, 184))),
                             ),
                           ),
                           TextFormField(
@@ -227,7 +227,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                             decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: Palette.mainSkyBlue)),
+                                    BorderSide(color: Palette.mainSkyBlue)),
                                 labelText: "키",
                                 labelStyle: TextStyle(
                                     color: Color.fromARGB(255, 182, 183, 184))),
@@ -246,7 +246,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                             : null,
                                         disabledBackgroundColor: titleIndex > 2
                                             ? Palette.mainSkyBlue
-                                                .withOpacity(0.12)
+                                            .withOpacity(0.12)
                                             : null),
                                     onPressed: () {
                                       if (titleIndex == 0) {
@@ -275,14 +275,35 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                             args.curWeight =
                                                 int.parse(_curWeight);
                                             print("args : ${args}");
+
+                                            //목표 칼로리, 영양성분 저장
+                                            double caloriesValue =
+                                            ((args.goalWeight!.toInt()) *
+                                                30 -
+                                                500);
                                             args.goalNutrient = Nutrient(
-                                                calories: '1900',
-                                                carbo: '129',
-                                                protein: '99',
-                                                fat: '40');
-                                            Navigator.pushNamed(
-                                                context, 'welcomeScreen',
-                                                arguments: args);
+                                                calories:
+                                                caloriesValue.toString(),
+                                                carbo:
+                                                (caloriesValue * 0.55 / 4)
+                                                    .toString(),
+                                                protein:
+                                                (caloriesValue * 0.20 / 4)
+                                                    .toString(),
+                                                fat: (caloriesValue * 0.25 / 4)
+                                                    .toString());
+
+                                            print(
+                                                "goalNutrient: ${args.goalNutrient}");
+
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => WelcomeScreen(user: args),
+                                              ),
+                                            );
+
                                           }
                                         }
                                       }

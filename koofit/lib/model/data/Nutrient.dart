@@ -5,35 +5,35 @@ part 'Nutrient.g.dart';
 @HiveType(typeId: 4)
 class Nutrient {
   @HiveField(0)
-  String calories;
+  int calories;
 
   @HiveField(1)
-  String carbo;
+  int carbo;
 
   @HiveField(2)
-  String protein;
+  int protein;
 
   @HiveField(3)
-  String fat;
+  int fat;
 
   @HiveField(4)
-  String? fitnessTime;
+  int fitnessTime;
 
   Nutrient({
     required this.calories,
     required this.carbo,
     required this.protein,
     required this.fat,
-    this.fitnessTime,
+    required this.fitnessTime,
   });
 
   factory Nutrient.fromJson(Map<String, dynamic> json) {
     return Nutrient(
-      calories: json['calories'] as String,
-      carbo: json['carbo'] as String,
-      protein: json['protein'] as String,
-      fat: json['fat'] as String,
-      fitnessTime: json['fitnessTime'] as String?,
+      calories: json['calories'] as int,
+      carbo: json['carbo'] as int,
+      protein: json['protein'] as int,
+      fat: json['fat'] as int,
+      fitnessTime: json['fitnessTime'] as int,
     );
   }
 

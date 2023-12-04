@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       curWeight: 0,
                       goalWeight: 0,
                       todayNutrientList: [],
-                      goalNutrient: Nutrient(calories: '1900', carbo: '100', protein: '80', fat: '70', fitnessTime: "30"),
+                      goalNutrient: Nutrient(calories: 0, carbo: 0, protein: 0, fat: 0, fitnessTime: 0),
                       fitnessList: [],
                       serviceNeedsAgreement: false,
                       privacyNeedsAgreement: false);

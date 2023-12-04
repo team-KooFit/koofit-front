@@ -5,6 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:koofit/login/welcome_screen.dart';
+import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
@@ -158,8 +160,7 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 setState(() {
                                   _goalWeight = text;
                                   if (titleIndex == 1) {
-                                    if (text.length > 2) {
-                                      goalWeightField.requestFocus();
+                                    if (text.length > 1) {
                                       titleIndex = 2;
                                       isCurWeightFilled = true;
                                     }
@@ -210,7 +211,6 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                 print("_height : ${_height}, ${titleIndex}");
                                 if (titleIndex == 0 && _height.length == 3) {
                                   curWeightField.requestFocus();
-
                                   titleIndex = 1;
                                   isHeightFilled = true;
                                 } else if (titleIndex > 2) {
@@ -275,20 +275,38 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                             args.curWeight =
                                                 int.parse(_curWeight);
                                             print("args : ${args}");
+
+                                            //목표 칼로리, 영양성분 저장
+
+                                            int caloriesValue =
+                                                ((args.goalWeight!.toInt()) *
+                                                        30 -
+                                                    500);
+
                                             args.goalNutrient = Nutrient(
-                                                calories: '1900',
-                                                carbo: '129',
-                                                protein: '99',
-                                                fat: '40');
-                                            Navigator.pushNamed(
-                                                context, 'welcomeScreen',
-                                                arguments: args);
+                                                calories: caloriesValue,
+                                                carbo:(caloriesValue * 0.5 ~/ 4),
+                                                protein: (caloriesValue * 0.2 ~/ 4),
+                                                fat: (caloriesValue * 0.25 ~/ 4),
+                                                fitnessTime: 30);
+
+                                            print(
+                                                "goalNutrient: ${args.goalNutrient}");
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    WelcomeScreen(user: args),
+                                              ),
+                                            );
                                           }
                                         }
                                       }
                                     },
                                     child: Text('확인',
                                         style: TextStyle(
+                                            color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20.sp)),
                                   ))),

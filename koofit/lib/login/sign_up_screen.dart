@@ -368,7 +368,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 gender: _gender,
                                                 height: 0,
                                                 curWeight: 0,
-                                                goalNutrient: Nutrient(calories: ' ', carbo: ' ', protein: ' ', fat: ' ', fitnessTime: " "),
+                                                goalNutrient: Nutrient(calories: 0, carbo:0, protein: 0, fat: 0, fitnessTime: 30),
                                                 goalWeight: 0,
                                                 fitnessList: [],
                                                 todayNutrientList: [],

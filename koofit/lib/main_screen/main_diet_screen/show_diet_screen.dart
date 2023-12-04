@@ -73,14 +73,11 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
       totalFat = (dietList.fold<int>(
           0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
 
-      carboRate =
-          (totalCarbo / double.parse(user.goalNutrient!.carbo) * 100).toInt();
-      proteinRate =
-          (totalProtein / double.parse(user.goalNutrient!.protein) * 100)
-              .toInt();
-      fatRate = (totalFat / double.parse(user.goalNutrient!.fat) * 100).toInt();
+      carboRate = (totalCarbo / user.goalNutrient!.carbo * 100).toInt();
+      proteinRate = (totalProtein / user.goalNutrient!.protein * 100).toInt();
+      fatRate = (totalFat / user.goalNutrient!.fat * 100).toInt();
 
-      remainCalories = int.parse(user.goalNutrient!.calories) - totalCalories;
+      remainCalories = user.goalNutrient!.calories - totalCalories;
 
       // 아침/점심/저녁/간식 기록 있는지 확인
       keyTimes.forEach((keyTime) {
@@ -150,8 +147,6 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
         ));
   }
 
-
-
   Widget nutrientBox(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(15),
@@ -162,25 +157,24 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
             carboRate,
             false,
             realGram: totalCarbo,
-            goalGram: int.parse(user.goalNutrient!.carbo),
+            goalGram: user.goalNutrient!.carbo,
           ),
           CircleText(
             Palette.danBaek,
             proteinRate,
             false,
             realGram: totalProtein,
-            goalGram: int.parse(user.goalNutrient!.protein),
+            goalGram: user.goalNutrient!.protein,
           ),
           CircleText(
             Palette.jiBang,
             fatRate,
             false,
             realGram: totalFat,
-            goalGram: int.parse(user.goalNutrient!.fat),
+            goalGram: user.goalNutrient!.fat,
           ),
-          CalText(totalCalories, int.parse(user.goalNutrient!.calories)),
+          CalText(totalCalories, user.goalNutrient!.calories),
           SizedBox(height: 20),
-
           Text(
             '${remainCalories} kcal 더 먹을 수 있어요',
             textAlign: TextAlign.left,

@@ -12,6 +12,7 @@ import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/calText.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/widget/RectangleText.dart';
+import 'package:koofit/login/body_size_sign_up_screen.dart';
 
 class DietModalBottomSheet extends StatefulWidget {
   final User user;

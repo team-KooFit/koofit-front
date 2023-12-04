@@ -40,9 +40,25 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
   String _curWeight = '';
   String _goalWeight = '';
 
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as User;
+
+    void calculateGoalNutrient() {
+      // 여기에서 적절한 계산식을 사용하여 goalNutrient의 값을 계산합니다.
+      double caloriesValue = double.parse(_goalWeight)*30-500;
+      double carboValue = caloriesValue*0.55/4;
+      double proteinValue = caloriesValue*0.20/4;
+      double fatValue = caloriesValue*0.25/4;
+
+      args.goalNutrient = Nutrient(
+        calories: caloriesValue.toString(),
+        carbo: carboValue.toString(),
+        protein: proteinValue.toString(),
+        fat: fatValue.toString(),
+      );
+    }
 
     return WillPopScope(
         onWillPop: () async {
@@ -274,12 +290,14 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                                             args.height = int.parse(_height);
                                             args.curWeight =
                                                 int.parse(_curWeight);
+                                            calculateGoalNutrient();
                                             print("args : ${args}");
-                                            args.goalNutrient = Nutrient(
-                                                calories: '1900',
-                                                carbo: '129',
-                                                protein: '99',
-                                                fat: '40');
+
+                                            // args.goalNutrient = Nutrient(
+                                            //     calories: '1900',
+                                            //     carbo: '129',
+                                            //     protein: '99',
+                                            //     fat: '40');
                                             Navigator.pushNamed(
                                                 context, 'welcomeScreen',
                                                 arguments: args);
@@ -295,7 +313,10 @@ class _BodySignUpScreenState extends State<BodySignUpScreen> {
                         ]),
                   ),
                 ))));
+
   }
+
+
 
   void hideKeyboard() {
     FocusScope.of(context).unfocus();

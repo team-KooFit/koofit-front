@@ -9,7 +9,7 @@ class CircleText extends StatelessWidget {
   final int? realGram;
   final int? goalGram;
 
-  CircleText(this.color, this.percent, this.isOuter, {this.realGram, this.goalGram});
+  CircleText(this.color, this.percent, this.isOuter, {super.key, this.realGram, this.goalGram});
 
   @override
   Widget build(BuildContext context) {

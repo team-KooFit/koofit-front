@@ -26,7 +26,7 @@ class HiveUserHelper {
   }
 
   Future<User> readUser() async {
-    final users = userBox!.values.cast<User>(); // Assuming User is the model class
+    final users = userBox!.values.cast<User>();
     if (users.isNotEmpty) {
       return users.first; // Returning the first user (you might need to define a logic to select the correct user)
     } else {

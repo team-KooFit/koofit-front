@@ -192,8 +192,11 @@ class _DetailsPageState extends State<DetailsPage> {
 
 
   Widget _buildTile(String title, String value) {
-    double updatedValue = double.tryParse(value) ?? 0.0; // 문자열을 double로 변환하고 실패할 경우 0.0을 사용합니다.
-    updatedValue *= num; // num 값을 곱해 업데이트합니다.
+    double? updatedValue;
+
+    if (title != '식품명') {
+      updatedValue = double.tryParse(value) ?? 0.0;
+      // 문자열을 double로 변환하고 실패할 경우 그대로 사용합니다.
 
     // 업데이트된 값을 food 객체에 저장합니다.
     if (title == '식품 중량(g)') {
@@ -209,7 +212,7 @@ class _DetailsPageState extends State<DetailsPage> {
     } else if (title == '지방(g)') {
       food.fat = updatedValue;
     }
-
+  }
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 4),
       child: Card(
@@ -224,7 +227,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               Text(
-                updatedValue.toString(), // 업데이트된 값을 표시합니다.
+                value, // 업데이트된 값을 표시합니다.
                 style: TextStyle(fontSize: 15),
                 overflow: TextOverflow.fade,
               )

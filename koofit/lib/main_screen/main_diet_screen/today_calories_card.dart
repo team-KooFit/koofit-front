@@ -10,6 +10,8 @@ import 'package:koofit/model/data/diet.dart';
 import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/loading_view.dart';
+import 'package:koofit/widget/oneGraph';
+
 
 class TodayCalorieCard extends StatefulWidget {
   final String selectedDate;
@@ -120,11 +122,20 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
                     child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                        child: Column(
+                        child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 5),
-                              Text(
+                              oneGraph(
+                                carbPercentage : carboRate.toDouble(),
+                                proteinPercentage : proteinRate.toDouble(),
+                                fatPercentage : fatRate.toDouble(),
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment : CrossAxisAlignment.start,
+                                children : [
+                                  SizedBox(height : 5),
+                                Text(
                                 "식단",
                                 style: TextStyle(
                                   color: Color(0xA5222B45),
@@ -148,8 +159,8 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
                               ),
                               CircleText(Palette.tanSu, carboRate, isOuter),
                               CircleText(Palette.danBaek, proteinRate, isOuter),
-                              CircleText(Palette.jiBang, fatRate, isOuter)
-                            ]))))
+                              CircleText(Palette.jiBang, fatRate, isOuter),
+                            ],),],),),),)
             : Center(
                 child: CircularProgressIndicator(
                 color: Palette.mainSkyBlue,

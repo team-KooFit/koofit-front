@@ -59,7 +59,7 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             onPressed: () async {
               print('Settings button pressed');
-               saveFoodToHiveBox(food).then((value) =>  _showdialog(context, keyTime));
+              saveFoodToHiveBox(food).then((value) =>  _showdialog(context, keyTime));
 
               ;
             },

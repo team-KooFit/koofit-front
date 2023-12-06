@@ -10,9 +10,9 @@ class AddDietBtnScreen extends StatefulWidget {
   // 생성자 정의
   AddDietBtnScreen(
       {Key? key,
-      required this.where,
-      required this.menu,
-      required this.fromScreen})
+        required this.where,
+        required this.menu,
+        required this.fromScreen})
       : super(key: key);
 
   @override
@@ -37,19 +37,19 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
             )),
         style: widget.fromScreen == 'main'
             ? ElevatedButton.styleFrom(
-                minimumSize: Size(80, 20),
-                backgroundColor: Palette.mainSkyBlue,
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                // 내부 패딩 조절
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)))
+            minimumSize: Size(80, 20),
+            backgroundColor: Palette.mainSkyBlue,
+            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+            // 내부 패딩 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)))
             : ElevatedButton.styleFrom(
-                minimumSize: Size(40, 80),
-                backgroundColor: Palette.mainSkyBlue,
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                // 내부 패딩 조절
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))));
+            minimumSize: Size(40, 80),
+            backgroundColor: Palette.mainSkyBlue,
+            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+            // 내부 패딩 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))));
   }
 
   Future<void> _showNutrientSheet(
@@ -69,7 +69,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
       ),
       builder: (BuildContext context) {
         menu = menu.replaceAll('\n', '');
-print(widget.where);
+        print(widget.where);
         return ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -106,7 +106,7 @@ print(widget.where);
                     color: Color(0xFFEFEFEF),
                     shape: RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.circular(30), // 모서리를 둥글게 만드는 값 설정
+                      BorderRadius.circular(30), // 모서리를 둥글게 만드는 값 설정
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(30.0),
@@ -131,7 +131,7 @@ print(widget.where);
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "탄수화물",
@@ -151,7 +151,7 @@ print(widget.where);
                               padding: EdgeInsets.all(5),
                               child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "당류",
@@ -173,7 +173,7 @@ print(widget.where);
                               padding: EdgeInsets.all(5),
                               child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "식이섬유",
@@ -200,7 +200,7 @@ print(widget.where);
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "단백질",
@@ -225,7 +225,7 @@ print(widget.where);
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "지방",
@@ -256,7 +256,7 @@ print(widget.where);
                         },
                         child: Text('수정하기',
                             style: TextStyle(
-                              color: Colors.white,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold, fontSize: 20)),
                       ))
                 ],

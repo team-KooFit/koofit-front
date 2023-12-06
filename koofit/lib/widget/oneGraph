@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:koofit/model/config/palette.dart';
 
 class oneGraph extends StatelessWidget {
@@ -13,30 +14,142 @@ class oneGraph extends StatelessWidget {
         });
 
     Widget build(BuildContext context) {
-        return PieChart(
-          PieChartData(
-            sections: [
-              PieChartSectionData(
-                color: Palette.tansu,
-                value: carbPercentage,
-                title: '탄수화물',
-                radius: 80,
-              ),
-              PieChartSectionData(
-                color: Palette.danBaek,
-                value: proteinPercentage,
-                title: '단백질',
-                radius: 80,
-              ),
-              PieChartSectionData(
-                color: Palette.jiBang,
-                value: fatPercentage,
-                title: '지방',
-                radius: 80,
-              ),
-            ],
-          ),
-        );
-      }
+        return CustomPaint(
+          size : Size(200,200),
+          painter : OneGraphPainter(
+            carbPercentage : carbPercentage,
+            fatPercentage : fatPercentage,
+            proteinPercentage : proteinPercentage,
+            ),
+
+          );
+          }
+          }
+
+class OneGraphPainter extends CustomPainter {
+  final double carbPercentage;
+  final double fatPercentage;
+  final double proteinPercentage;
+
+  OneGraphPainter({
+    required this.carbPercentage,
+    required this.fatPercentage,
+    required this.proteinPercentage,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final double centerX = size.width / 2;
+    final double centerY = size.height / 2;
+    final double radius = size.width / 2;
+
+    final Paint carbPaint = Paint()..color = Palette.tanSu;
+    final Paint proteinPaint = Paint()..color = Palette.danBaek;
+    final Paint fatPaint = Paint()..color = Palette.jiBang;
+
+    final double totalPercentage = carbPercentage + proteinPercentage + fatPercentage;
+
+    if (totalPercentage <= 0) {
+        canvas.drawCircle(
+            Offset(centerX, centerY),
+            radius,
+            Paint()..color = Colors.grey,
+            );
+            return;
 
     }
+
+    final double carbSweepAngle = 2 * pi * (carbPercentage / totalPercentage);
+    final double proteinSweepAngle = 2 * pi * (proteinPercentage / totalPercentage);
+    final double fatSweepAngle = 2 * pi * (fatPercentage / totalPercentage);
+
+    // 탄수화물 부분 그리기
+    canvas.drawArc(
+      Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
+      -pi / 2,
+      carbSweepAngle,
+      true,
+      carbPaint,
+    );
+
+    // 단백질 부분 그리기
+    canvas.drawArc(
+      Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
+      -pi / 2 + carbSweepAngle,
+      proteinSweepAngle,
+      true,
+      proteinPaint,
+    );
+
+    // 지방 부분 그리기
+    canvas.drawArc(
+      Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
+      -pi / 2 + carbSweepAngle + proteinSweepAngle,
+      fatSweepAngle,
+      true,
+      fatPaint,
+    );
+
+    // 퍼센트 텍스트 그리기
+    TextPainter textPainter = TextPainter(
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    );
+
+    // 탄수화물 퍼센트 텍스트
+    textPainter.text = TextSpan(
+      text: "${(carbPercentage / totalPercentage * 100).toStringAsFixed(1)}%",
+      style: TextStyle(
+        color: Colors.black, // 텍스트 색상
+        fontSize: 14, // 텍스트 크기
+      ),
+    );
+    textPainter.layout();
+    textPainter.paint(
+      canvas,
+      Offset(
+      centerX - radius * cos(-pi / 2 + carbSweepAngle),
+      centerY - radius * sin(-pi / 2 + carbSweepAngle),
+      ),
+    );
+
+    // 단백질 퍼센트 텍스트
+    textPainter.text = TextSpan(
+      text: "${(proteinPercentage / totalPercentage * 100).toStringAsFixed(1)}%",
+      style: TextStyle(
+        color: Colors.black, // 텍스트 색상
+        fontSize: 14, // 텍스트 크기
+      ),
+    );
+    textPainter.layout();
+    textPainter.paint(
+      canvas,
+      Offset(
+      centerX - radius * cos(-pi / 2 + carbSweepAngle + proteinSweepAngle / 2),
+      centerY - radius * sin(-pi / 2 + carbSweepAngle + proteinSweepAngle / 2),
+      ),
+    );
+
+    // 지방 퍼센트 텍스트
+    textPainter.text = TextSpan(
+      text: "${(fatPercentage / totalPercentage * 100).toStringAsFixed(1)}%",
+      style: TextStyle(
+        color: Colors.black, // 텍스트 색상
+        fontSize: 14, // 텍스트 크기
+      ),
+    );
+    textPainter.layout();
+    textPainter.paint(
+      canvas,
+      Offset(
+      centerX - radius * cos(-pi / 2 + carbSweepAngle + proteinSweepAngle + fatSweepAngle / 2),
+      centerY - radius * sin(-pi / 2 + carbSweepAngle + proteinSweepAngle + fatSweepAngle / 2),
+      ),
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}

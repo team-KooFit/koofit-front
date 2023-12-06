@@ -9,7 +9,8 @@ import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  final User user;
+  const WelcomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -20,11 +21,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   String newUserUid = '';
   bool isLoading = true;
   bool isSuccess = false;
-
+  late User args;
   @override
   void initState() {
     super.initState();
-
+    args = widget.user;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _uploadUserToHive().then((value) {
         setState(() {
@@ -43,7 +44,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as User;
 
     return isLoading
         ? loadingView()
@@ -90,23 +90,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   Future<void> _uploadUserToHive() async {
     bool isKakao = true;
-    // try {
-    final args = ModalRoute.of(context)!.settings.arguments as User;
 
-    //   // if (MyUser.userPlatform == 'kakao') {
-    //     // 만약, 카카오 로그인이라면
     if (isKakao) {
-      //     // final user = await kakao.UserApi.instance.me();
-      //     // var bytes =
-      //     // utf8.encode(user.id.toString()); // 비밀번호를 UTF-8 형식의 바이트 배열로 변환
-      //     // var digest = sha256.convert(bytes); // SHA-256 알고리즘을 사용하여 해시화
-      //     // String newPassword = digest.toString();
-      //     // final newUser = await _authentication.createUserWithEmailAndPassword(
-      //     //     email: user.kakaoAccount!.email.toString(), password: newPassword);
-      //
-      //     await FlutterSecureStorage().write(key: "userPlatform", value: 'kakao');
-      //
-      //     // final uid = newUser.user!.uid.toString();
+
       args.uid = "uid";
       newUserUid = "uid";
 

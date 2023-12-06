@@ -26,12 +26,28 @@ class HiveUserHelper {
   }
 
   Future<User> readUser() async {
-    final users = userBox!.values.cast<User>(); // Assuming User is the model class
+    final users =
+        userBox!.values.cast<User>(); // Assuming User is the model class
     if (users.isNotEmpty) {
-      return users.first; // Returning the first user (you might need to define a logic to select the correct user)
+      return users
+          .first; // Returning the first user (you might need to define a logic to select the correct user)
     } else {
-      return User(uid: "", name: "name", gender: "gender", stuNumber: "stuNumber", number: "number", age: "age", height: 0, curWeight: 0, goalWeight: 0, todayNutrientList: [],
-          goalNutrient: Nutrient(calories: "", carbo: "", protein: "", fat: "") , fitnessList: [], serviceNeedsAgreement: false, privacyNeedsAgreement: false);
+      return User(
+          uid: "",
+          name: "name",
+          gender: "gender",
+          stuNumber: "stuNumber",
+          number: "number",
+          age: "age",
+          height: 0,
+          curWeight: 0,
+          goalWeight: 0,
+          todayNutrientList: [],
+          goalNutrient: Nutrient(
+              calories: 0, carbo: 0, protein: 0, fat: 0, fitnessTime: 0),
+          fitnessList: [],
+          serviceNeedsAgreement: false,
+          privacyNeedsAgreement: false);
     }
   }
 

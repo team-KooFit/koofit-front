@@ -48,7 +48,8 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
       curWeight: 0,
       goalWeight: 0,
       todayNutrientList: [],
-      goalNutrient: Nutrient(calories: "", carbo: "", protein: "", fat: ""),
+      goalNutrient:
+          Nutrient(calories: 0, carbo: 0, protein: 0, fat: 0, fitnessTime: 30),
       fitnessList: [],
       serviceNeedsAgreement: false,
       privacyNeedsAgreement: false);
@@ -86,15 +87,12 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
       totalFat = (dietList.fold<int>(
           0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
 
-      carboRate =
-          (totalCarbo / double.parse(user.goalNutrient!.carbo) * 100).toInt();
-      proteinRate =
-          (totalProtein / double.parse(user.goalNutrient!.protein) * 100)
-              .toInt();
-      fatRate = (totalFat / double.parse(user.goalNutrient!.fat) * 100).toInt();
+      carboRate = (totalCarbo / user.goalNutrient!.carbo * 100).toInt();
+      proteinRate = (totalProtein / user.goalNutrient!.protein * 100).toInt();
+      fatRate = (totalFat / user.goalNutrient!.fat * 100).toInt();
 
       print("$totalProtein ///$carboRate, $proteinRate, $fatRate");
-      remainCalories = int.parse(user.goalNutrient!.calories) - totalCalories;
+      remainCalories = user.goalNutrient!.calories - totalCalories;
       setState(() {
         isSuccess = true;
       });
@@ -135,13 +133,25 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
                               SizedBox(
                                 height: 5,
                               ),
-                              Text(
-                                "${totalCalories}Kal",
-                                style: TextStyle(
-                                  color: Color(0xFF222B45),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${totalCalories}",
+                                    style: TextStyle(
+                                      color: Color(0xFF222B45),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Text(
+                                    " / ${user.goalNutrient!.calories}kal",
+                                    style: TextStyle(
+                                      color: Colors.black26,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 13,

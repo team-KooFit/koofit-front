@@ -17,11 +17,11 @@ class NutrientAdapter extends TypeAdapter<Nutrient> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Nutrient(
-      calories: fields[0] as String,
-      carbo: fields[1] as String,
-      protein: fields[2] as String,
-      fat: fields[3] as String,
-      fitnessTime: fields[4] as String?,
+      calories: fields[0] as int,
+      carbo: fields[1] as int,
+      protein: fields[2] as int,
+      fat: fields[3] as int,
+      fitnessTime: fields[4] as int,
     );
   }
 

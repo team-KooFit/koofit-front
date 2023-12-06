@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
                 'home': (context) => const LoginScreen(),
                 'signUp': (context) => const SignUpScreen(),
                 'BodySignUp': (context) => const BodySignUpScreen(),
-                'welcomeScreen': (context) => const WelcomeScreen(),
+                // 'welcomeScreen': (context) => const WelcomeScreen(),
                 'main_diet': (context) => const DietScreen(),
                 'search_diet': (context) => SearchDietScreen(),
                 'userPage': (context) => UserPage(),

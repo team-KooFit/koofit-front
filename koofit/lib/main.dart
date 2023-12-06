@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:koofit/login/splash_screen.dart';
 import 'package:koofit/login/login_screen.dart';
 import 'package:koofit/login/sign_up_screen.dart';
@@ -20,6 +21,7 @@ import 'package:koofit/model/data/user.dart';
 import 'package:koofit/model/data/diet.dart';
 import 'package:koofit/model/data/food.dart';
 void main() async {
+  KakaoSdk.init(nativeAppKey: '03921b5c12528d3a6f58bffa6895ee10');
   await Hive.initFlutter();
   Hive.registerAdapter(FoodAdapter());
   Hive.registerAdapter(NutrientAdapter());

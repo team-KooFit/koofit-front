@@ -23,7 +23,7 @@ class _TabMenuState extends State<TabMenu> {
             ],
             labelColor: Colors.black87,
             labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            dividerHeight: 0,
+           // dividerHeight: 0,
             indicatorWeight: 3,
             indicatorColor: Palette.mainSkyBlue,
             indicatorSize: TabBarIndicatorSize.tab,

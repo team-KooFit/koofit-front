@@ -80,7 +80,7 @@ class _DetailsPageState extends State<DetailsPage> {
             _buildTile('당류(g)', '${food?.sugar != null ? (double.parse(widget.rowData[20]) * num).toStringAsFixed(2) : '정보없음'}'),
             _buildTile('단백질(g)', '${food?.protein != null ? (double.parse(widget.rowData[17]) * num).toStringAsFixed(2) : '정보없음'}'),
             _buildTile('지방(g)', '${food?.fat != null ? (double.parse(widget.rowData[18]) * num).toStringAsFixed(2) : '정보없음'}'),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               DecoratedBox(
                   decoration: BoxDecoration(
@@ -130,7 +130,7 @@ class _DetailsPageState extends State<DetailsPage> {
               )
             ],
             ),
-            SizedBox(height :10),
+            SizedBox(height :25),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               DecoratedBox(
                   decoration: BoxDecoration(
@@ -160,7 +160,6 @@ class _DetailsPageState extends State<DetailsPage> {
                         onChanged: (String? value) {
                           setState(() {
                             keyTime = value!;
-                            print("keyTime ${keyTime}");
                           });
                         },
                       ))),
@@ -240,26 +239,6 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-//   Widget _buildTile(String title, String value) {
-//     return Padding(
-//         padding: EdgeInsets.symmetric(vertical: 4),
-//         child: Card(
-//             color: Colors.white,
-//             shape:
-//             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-//             elevation: 2.0,
-//             child: ListTile(
-//                 title: Row(children: [
-//                   Text('${title}  : ',
-//                       style: TextStyle(
-//                           fontWeight: FontWeight.bold, fontSize: 16)),
-//                   Text(
-//                     value,
-//                     style: TextStyle(fontSize: 15),
-//                     overflow: TextOverflow.fade,
-//                   )
-//                 ]))));
-//   }
 
   Future<void> saveFoodToHiveBox(Food food) async {
     diet = Diet(

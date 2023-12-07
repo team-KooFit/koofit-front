@@ -32,7 +32,6 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
   int totalProtein = 0;
   int totalFat = 0;
   int remainCalories = 0;
-
   int carboRate = 0;
   int proteinRate = 0;
   int fatRate = 0;
@@ -51,8 +50,8 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
       goalNutrient:
           Nutrient(calories: 0, carbo: 0, protein: 0, fat: 0, fitnessTime: 30),
       fitnessList: [],
-      serviceNeedsAgreement: false,
-      privacyNeedsAgreement: false);
+      recordedDayList: [],
+      favorieFoodList: []);
 
   @override
   void initState() {
@@ -60,7 +59,6 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
     super.initState();
 
     todayDate = widget.selectedDate;
-    print("11111111 $todayDate");
     _initializeData(todayDate);
   }
 

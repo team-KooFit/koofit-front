@@ -85,7 +85,8 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
                 // Create a list to store widgets for each key-value pair in menuValue
                 List<Widget> keyValueWidgets = [];
                 // Iterate through entries in menuValue
-                keyValueWidgets.add(Container(
+                keyValueWidgets.add(
+                    Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                     width: 170,
                     decoration: BoxDecoration(
@@ -101,7 +102,7 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
 
                 if (menuText == '') {
                   return Container();
-                }
+                  }
                 return Card(
                   color: Color(0xFFF2F3F3),
                   elevation: 2,

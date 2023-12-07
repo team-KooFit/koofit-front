@@ -46,7 +46,7 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
             decoration: BoxDecoration(
               color: Colors.white60,
               borderRadius: BorderRadius.circular(20.0),

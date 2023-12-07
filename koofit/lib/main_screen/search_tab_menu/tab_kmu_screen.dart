@@ -7,7 +7,8 @@ import 'package:koofit/model/DietSearcher.dart';
 import 'package:koofit/model/config/palette.dart';
 
 class TabKmuScreen extends StatefulWidget {
-  const TabKmuScreen({Key? key});
+  final String selectedDate;
+  const TabKmuScreen({Key? key, required this.selectedDate});
 
   @override
   State<TabKmuScreen> createState() => _TabKmuScreenState();
@@ -35,8 +36,7 @@ class _TabKmuScreenState extends State<TabKmuScreen> {
   }
 
   void _updateData() async {
-    DateTime today = DateTime.now();
-    String todayDate = today.toLocal().toString().split(' ')[0];
+    String todayDate = widget.selectedDate;
     DietSearcher dietSearcher = DietSearcher(todayDate);
     result = await dietSearcher.performDietSearch();
     setState(() {

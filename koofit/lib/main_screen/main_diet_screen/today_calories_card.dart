@@ -67,6 +67,8 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selectedDate != widget.selectedDate) {
       _initializeData(widget.selectedDate);
+
+      print("selected Date: ${widget.selectedDate}");
     }
   }
 
@@ -75,7 +77,6 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
 
     HiveDietHelper().searchDiet(date).then((value) {
       dietList = value;
-      print(dietList);
       totalCalories = (dietList.fold<int>(
           0, (sum, diet) => sum + (diet.nutrient.calories?.toInt() ?? 0)));
       totalCarbo = (dietList.fold<int>(
@@ -107,7 +108,7 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
         child: isSuccess
             ? InkWell(
                 onTap: () async {
-                  await showTodayDiet(context, user, todayDate);
+                  await showTodayDiet(context, user, widget.selectedDate);
                 },
                 child: Card(
                     color: Colors.white,

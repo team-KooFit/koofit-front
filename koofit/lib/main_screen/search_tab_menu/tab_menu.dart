@@ -6,7 +6,8 @@ import 'package:koofit/model/data/user.dart';
 
 class TabMenu extends StatefulWidget {
   final User UserData;
-  const TabMenu({super.key, required this.UserData});
+  final String selectedDate;
+  const TabMenu({super.key, required this.UserData, required this.selectedDate});
 
   @override
   State<TabMenu> createState() => _TabMenuState();
@@ -36,9 +37,9 @@ class _TabMenuState extends State<TabMenu> {
             child: TabBarView(
               children: [
                 // Content for Tab 1
-                TabKmuScreen(),
+                TabKmuScreen(selectedDate: widget.selectedDate),
                 // Content for Tab 2
-                TabFavoriteScreen(UserData: widget.UserData),
+                TabFavoriteScreen(UserData: widget.UserData, selectedDate: widget.selectedDate,),
                 // Content for Tab 3
                 // Text('Tab 3 Content')
               ],

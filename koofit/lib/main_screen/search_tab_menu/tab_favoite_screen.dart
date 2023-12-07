@@ -7,7 +7,11 @@ class FavoriteListItem extends StatefulWidget {
   final Food food;
   final int index;
   final User userData;
-  const FavoriteListItem({super.key, required this.food, required this.index, required this.userData});
+  final String selectedDate;
+  const FavoriteListItem({super.key, required this.food,
+    required this.index,
+    required this.userData,
+    required this.selectedDate});
 
   @override
   State<FavoriteListItem> createState() => _FavoriteListItemState();
@@ -46,7 +50,7 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.white60,
               borderRadius: BorderRadius.circular(20.0),
@@ -63,7 +67,7 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 15,
                   ),
                 ),
                 Text(
@@ -94,7 +98,7 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
             ),
           ),
           Positioned(
-            top: 10,
+            top: 13,
             right: 30,
             child: IconButton(
               onPressed: onHeartTap,
@@ -103,12 +107,12 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
                     ? Icons.favorite
                     : Icons.favorite_outline_rounded,
                 color: Color(0xffFFB3BA),
-                size: 35,
+                size: 30,
               ),
             ),
           ),
           Positioned(
-            child: AddFoodScreen(food: widget.food),
+            child: AddFoodScreen(food: widget.food, selectedDate: widget.selectedDate ),
             top: 55,
             right: 30,
           ),
@@ -121,10 +125,12 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
 
 class TabFavoriteScreen extends StatefulWidget {
   final User UserData;
+  final String selectedDate;
 
   const TabFavoriteScreen({
     super.key,
     required this.UserData,
+    required this.selectedDate
   });
 
   @override
@@ -168,6 +174,7 @@ class _TabFavoriteScreenState extends State<TabFavoriteScreen> {
               food: _favorites[index],
               index: index,
               userData: widget.UserData,
+              selectedDate: widget.selectedDate,
             );
           },
         ),

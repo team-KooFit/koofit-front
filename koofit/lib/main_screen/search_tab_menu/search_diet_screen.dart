@@ -8,8 +8,8 @@ import 'package:gsheets/gsheets.dart';
 
 class SearchDietScreen extends StatefulWidget {
   final User userData;
-
-  const SearchDietScreen({super.key, required this.userData,});
+  final String selectedDate;
+  const SearchDietScreen({super.key, required this.userData, required this.selectedDate});
 
   @override
   State<SearchDietScreen> createState() => _SearchDietScreenState();
@@ -70,7 +70,7 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
                   orElse: () => []);
               _onRowTap(rowData);
             }),
-        body: Center(child: TabMenu(UserData: _userData)));
+        body: Center(child: TabMenu(UserData: _userData, selectedDate: widget.selectedDate)));
   }
 
   Future<void> _loadSpreadsheetData() async {

@@ -53,6 +53,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
     super.initState();
 
     todayDate = widget.selectedDate;
+    print("tttttoday : ${todayDate}");
     _initializeData();
   }
 
@@ -187,7 +188,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchDietScreen(userData: widget.user,),
+                  builder: (context) => SearchDietScreen(userData: widget.user, selectedDate: widget.selectedDate,),
                 ),
               );
             },

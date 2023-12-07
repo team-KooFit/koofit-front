@@ -19,8 +19,6 @@ class DetailsPage extends StatefulWidget {
   _DetailsPageState createState() => _DetailsPageState();
 }
 
-
-
 class _DetailsPageState extends State<DetailsPage> {
   late Food food;
   late Diet diet;
@@ -30,7 +28,6 @@ class _DetailsPageState extends State<DetailsPage> {
 
   String keyTime = '아침';
   int num = 1;
-
 
   @override
   void initState() {
@@ -68,7 +65,6 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,10 +78,9 @@ class _DetailsPageState extends State<DetailsPage> {
           IconButton(
               onPressed: onHeartTap,
               icon: Icon(
-                isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_outline_rounded,
-                size: 29,)),
+                isFavorite ? Icons.favorite : Icons.favorite_outline_rounded,
+                size: 29,
+              )),
           IconButton(
             icon: Icon(
               Icons.add,
@@ -93,10 +88,8 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             onPressed: () async {
               print('Settings button pressed');
-              saveFoodToHiveBox(food, isFavorite).then((value) =>
-                  _showdialog(context, keyTime));
-
-              ;
+              saveFoodToHiveBox(food, isFavorite)
+                  .then((value) => _showdialog(context, keyTime));
             },
           ),
         ],
@@ -108,72 +101,70 @@ class _DetailsPageState extends State<DetailsPage> {
           children: [
             SizedBox(height: 5),
             _buildTile('식품명', '${food.foodName}'),
-            _buildTile('식품 중량(g)', '${food.foodWeight != null ? (double.parse(
-                widget.rowData[14].replaceAll('g', ''))) * num : '정보없음'}'),
+            _buildTile('식품 중량(g)',
+                '${food.foodWeight != null ? (double.parse(widget.rowData[14].replaceAll('g', ''))) * num : '정보없음'}'),
             _buildTile('에너지(kcal)',
-                '${food.calories != null ? (double.parse(widget.rowData[16]) *
-                    num).toStringAsFixed(2) : '정보없음'}'),
+                '${food.calories != null ? (double.parse(widget.rowData[16]) * num).toStringAsFixed(2) : '정보없음'}'),
             _buildTile('탄수화물(g)',
-                '${food.carbo != null ? (double.parse(widget.rowData[19]) * num)
-                    .toStringAsFixed(2) : '정보없음'}'),
+                '${food.carbo != null ? (double.parse(widget.rowData[19]) * num).toStringAsFixed(2) : '정보없음'}'),
             _buildTile('당류(g)',
-                '${food.sugar != null ? (double.parse(widget.rowData[20]) * num)
-                    .toStringAsFixed(2) : '정보없음'}'),
+                '${food.sugar != null ? (double.parse(widget.rowData[20]) * num).toStringAsFixed(2) : '정보없음'}'),
             _buildTile('단백질(g)',
-                '${food.protein != null ? (double.parse(widget.rowData[17]) *
-                    num).toStringAsFixed(2) : '정보없음'}'),
+                '${food.protein != null ? (double.parse(widget.rowData[17]) * num).toStringAsFixed(2) : '정보없음'}'),
             _buildTile('지방(g)',
-                '${food.fat != null ? (double.parse(widget.rowData[18]) * num)
-                    .toStringAsFixed(2) : '정보없음'}'),
+                '${food.fat != null ? (double.parse(widget.rowData[18]) * num).toStringAsFixed(2) : '정보없음'}'),
             SizedBox(height: 20),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Palette.mainSkyBlue,
-                  //background color of dropdown button
-                  border: Border.all(color: Palette.mainSkyBlue, width: 1),
-                  //border of dropdown button
-                  borderRadius: BorderRadius.circular(
-                      20), //border raiuds of dropdown button
-
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        print(widget.rowData);
-                        if (num > 1) {
-                          num--;
-                        }
-                        print(num);
-                        setState(() {});
-                      }, icon: Icon(
-                      Icons.remove,
-                      size: 29,
-                    ),
-                    ),
-                    Text(
-                      '$num',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        print(widget.rowData);
-                        num++;
-                        print(num);
-                        setState(() {});
-                      }, icon: Icon(
-                      Icons.add,
-                      size: 29,
-                    ),
-                    ),
-
-                  ],
-                ),
-              )
-            ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Palette.mainSkyBlue,
+                    //background color of dropdown button
+                    border: Border.all(color: Palette.mainSkyBlue, width: 1),
+                    //border of dropdown button
+                    borderRadius: BorderRadius.circular(
+                        20), //border raiuds of dropdown button
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          print(widget.rowData);
+                          if (num > 1) {
+                            num--;
+                          }
+                          print(num);
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          Icons.remove,
+                          size: 29,
+                        ),
+                      ),
+                      Text(
+                        '$num',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          print(widget.rowData);
+                          num++;
+                          print(num);
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          Icons.add,
+                          size: 29,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
             SizedBox(height: 25),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -185,7 +176,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     //border of dropdown button
                     borderRadius: BorderRadius.circular(
                         20), //border raiuds of dropdown button
-
                   ),
                   child: Padding(
                       padding: EdgeInsets.only(left: 10, right: 10),
@@ -194,7 +184,8 @@ class _DetailsPageState extends State<DetailsPage> {
                         dropdownColor: Palette.mainSkyBlue,
                         style: TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                         value: keyTime,
                         items: [
                           DropdownMenuItem(value: '아침', child: Text('아침')),
@@ -226,17 +217,15 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<dynamic> _showdialog(BuildContext context, String time) {
     return showDialog(
       context: context,
-      builder: (BuildContext context) =>
-          AlertDialog(
-            title: Text(
-                '${time}', style: TextStyle(fontWeight: FontWeight.bold)),
-            content: Text('저장되었습니다'),
-            actions: [
-              ElevatedButton(
-                  onPressed: () => Get.offAll(() => DietScreen()),
-                  child: Text('확인')),
-            ],
-          ),
+      builder: (BuildContext context) => AlertDialog(
+        title: Text('${time}', style: TextStyle(fontWeight: FontWeight.bold)),
+        content: Text('저장되었습니다'),
+        actions: [
+          ElevatedButton(
+              onPressed: () => Get.offAll(() => DietScreen()),
+              child: Text('확인')),
+        ],
+      ),
     );
   }
 
@@ -305,5 +294,4 @@ class _DetailsPageState extends State<DetailsPage> {
       }
     }
   }
-
 }

@@ -94,8 +94,8 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
             ),
           ),
           Positioned(
-            top: 15,
-            right: 25,
+            top: 10,
+            right: 30,
             child: IconButton(
               onPressed: onHeartTap,
               icon: Icon(
@@ -109,7 +109,7 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
           ),
           Positioned(
             child: AddFoodScreen(food: widget.food),
-            top: 60,
+            top: 55,
             right: 30,
           ),
         ],

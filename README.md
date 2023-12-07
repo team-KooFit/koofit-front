@@ -1,4 +1,6 @@
 # koofit-쿠핏
+![image](https://github.com/team-KooFit/koofit-front/assets/139297274/85e1843b-6ec7-431b-b7c7-d9279c30a101)
+
 국민대학교 알파프로젝트 활동으로 학생들의 건강관리를 도와주는 앱 개발을 목표로 하는 프로젝트.
 
 ### 프로젝트 소개

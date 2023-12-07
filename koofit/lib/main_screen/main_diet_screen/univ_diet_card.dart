@@ -28,15 +28,19 @@ class _UnivDietCardState extends State<UnivDietCard> {
   String cleanedString = '';
   String menuText = '복지관';
 
-  final ScrollController _scrollController = ScrollController();
+  late ScrollController _scrollController; // Declare _scrollController here
 
   void _scrollToTop() {
-    _scrollController.jumpTo(1);
+    // _scrollController가 할당되었을 때에만 jumpTo 메서드를 호출
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0.0);
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController(); // Initialize _scrollController
     _updateData(widget.selectedDate);
   }
 
@@ -52,20 +56,12 @@ class _UnivDietCardState extends State<UnivDietCard> {
     DietSearcher dietSearcher = DietSearcher(date);
     result = await dietSearcher.performDietSearch();
     setState(() {
-      bokjiMenu = result['학생식당(복지관 1층)'] ??
-          {
-           null
-          };
-      beobgwanMenu = result['교직원식당(복지관 1층)'] ??
-          {
-            null
-          };
-      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ??
-          {
-            null
-          };
+      bokjiMenu = result['학생식당(복지관 1층)'] ?? {};
+      beobgwanMenu = result['교직원식당(복지관 1층)'] ?? {};
+      gyojeokwonMenu = result['한울식당(법학관 지하1층)'] ?? {};
+
       // Set the initial selectedMenu to 복지관
-      selectedMenu = bokjiMenu;
+      selectedMenu = bokjiMenu.isNotEmpty ? bokjiMenu : {};
     });
   }
 
@@ -142,7 +138,8 @@ class _UnivDietCardState extends State<UnivDietCard> {
                       } else {
                         selectedMenu = gyojeokwonMenu;
                       }
-                      _scrollToTop(); // Reset scroll position
+
+                      _scrollToTop();
                     });
                   },
                 ),
@@ -159,7 +156,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     String menuKey = entry.key
                         .replaceAll(RegExp(r'<br>', caseSensitive: false), '-');
 
-                    cleanedString = cleaningString( entry.value.toString());
+                    cleanedString = cleaningString(entry.value.toString());
                     Map<String, dynamic> menuMap = json.decode(cleanedString);
 
                     String menuText = menuMap['메뉴'] ?? '';
@@ -226,7 +223,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
     );
   }
 
- String cleaningString(String jsonString) {
+  String cleaningString(String jsonString) {
     String cleanString = '';
 // Check if jsonString is a string or a map
     if (jsonString is String) {

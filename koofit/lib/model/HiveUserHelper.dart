@@ -46,8 +46,8 @@ class HiveUserHelper {
           goalNutrient: Nutrient(
               calories: 0, carbo: 0, protein: 0, fat: 0, fitnessTime: 0),
           fitnessList: [],
-          serviceNeedsAgreement: false,
-          privacyNeedsAgreement: false);
+          recordedDayList: [],
+          favorieFoodList: []);
     }
   }
 

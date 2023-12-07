@@ -79,8 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       todayNutrientList: [],
                       goalNutrient: Nutrient(calories: 0, carbo: 0, protein:0, fat: 0, fitnessTime: 30),
                       fitnessList: [],
-                      serviceNeedsAgreement: false,
-                      privacyNeedsAgreement: false);
+                      recordedDayList: [],
+                      favorieFoodList: []);
         // 카카오 로그인 
         await viewmodel.login();
               Navigator.pushNamed(scaffoldContext, 'signUp',

@@ -372,8 +372,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 goalWeight: 0,
                                                 fitnessList: [],
                                                 todayNutrientList: [],
-                                                privacyNeedsAgreement: false,
-                                                serviceNeedsAgreement: false);
+                                                recordedDayList: [],
+                                                favorieFoodList: []);
                                             Navigator.pushNamed(
                                                 context, 'BodySignUp',
                                                 arguments: _userData);

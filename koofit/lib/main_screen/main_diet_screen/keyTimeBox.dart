@@ -92,11 +92,13 @@ class _keyTimeBoxState extends State<keyTimeBox> {
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         width: double.infinity,
-        child: Row(
+        child: IntrinsicHeight(
+            child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
                 child: Container(
+              width: 140,
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               decoration: BoxDecoration(
                 color: Palette.mainSkyBlue,
@@ -182,6 +184,6 @@ class _keyTimeBoxState extends State<keyTimeBox> {
               ),
             ),
           ],
-        ));
+        )));
   }
 }

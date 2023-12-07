@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'Nutrient.dart';
+import 'food.dart';
 part 'user.g.dart';
 
 @HiveType(typeId: 1)
@@ -43,10 +44,10 @@ class User {
       fitnessList; //유저 운동 데이터 리스트 [{'날짜' : Fitness.data, {..} ]
 
   @HiveField(12)
-  bool? serviceNeedsAgreement;
+  List<DateTime> recordedDayList;
 
   @HiveField(13)
-  bool? privacyNeedsAgreement;
+  List<Food> favorieFoodList;
 
   User({
     required this.uid,
@@ -61,8 +62,9 @@ class User {
     required this.todayNutrientList,
     required this.goalNutrient,
     required this.fitnessList,
-    required this.serviceNeedsAgreement,
-    required this.privacyNeedsAgreement,
+    required this.recordedDayList,
+    required this.favorieFoodList,
+
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -80,13 +82,9 @@ class User {
             List<Map<String, dynamic>>.from(json['todayNutrient']),
         goalNutrient: Nutrient.fromJson(json['goalNutrient']),
         fitnessList: List<Map<String, dynamic>>.from(json['fitnessList']),
-        // todayNutrientList: List<Map<String, dynamic>>.from(
-        //     json['todayNutrient']),
-        // goalNutrient: Map<String, dynamic> .from(json['goalNutrient']),
-        // dietList: List<Map<String, dynamic>> .from(json['dietList']),
-        // fitnessList: List<Map<String, dynamic>> .from(json['fitnessList']),
-        serviceNeedsAgreement: json['serviceNeedsAgreement'],
-        privacyNeedsAgreement: json['privacyNeedsAgreement']);
+        recordedDayList: List<DateTime>.from(json['recordedDayList']),
+        favorieFoodList: List<Food>.from(json['favorieFoodList'])
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -98,24 +96,19 @@ class User {
       'stuNumber': stuNumber,
       'age': age,
       'height': height,
-      // 'birthday': birthday,
       'curWeight': curWeight,
       'goalWeight': goalWeight,
       'todayNutrientList': todayNutrientList,
       'goalNutrient': goalNutrient,
-      // 'dietList': dietList,
       'fitnessList': fitnessList,
-      'serviceNeedsAgreement': serviceNeedsAgreement,
-      'privacyNeedsAgreement': privacyNeedsAgreement,
+      'recordedDayList': recordedDayList,
+      'favorieFoodList': favorieFoodList,
     };
   }
-  //
-  // void updateUserDietList(List<Map<String, dynamic>> dietList) {
-  //   this.dietList = dietList;
-  // }
+
   @override
   String toString() {
-    return '\nUser{uid: $uid, name: $name, gender: $gender, stuNumber: $stuNumber, number: $number, age: $age, height: $height, curWeight: $curWeight, goalWeight: $goalWeight, todayNutrientList: $todayNutrientList, goalNutrient: $goalNutrient, fitnessList: $fitnessList, serviceNeedsAgreement: $serviceNeedsAgreement, privacyNeedsAgreement: $privacyNeedsAgreement}';
+    return '\nUser{uid: $uid, name: $name, gender: $gender, stuNumber: $stuNumber, number: $number, age: $age, height: $height, curWeight: $curWeight, goalWeight: $goalWeight, todayNutrientList: $todayNutrientList, goalNutrient: $goalNutrient, fitnessList: $fitnessList, recordedDayList: $recordedDayList, favorieFoodList: $favorieFoodList}';
   }
 
   void updateUserFitnessList(List<Map<String, dynamic>> fitnessList) {

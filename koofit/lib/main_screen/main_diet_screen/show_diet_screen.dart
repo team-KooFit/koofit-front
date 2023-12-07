@@ -187,7 +187,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchDietScreen(),
+                  builder: (context) => SearchDietScreen(userData: widget.user,),
                 ),
               );
             },

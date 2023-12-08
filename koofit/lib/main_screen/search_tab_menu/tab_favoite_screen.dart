@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:koofit/main_screen/search_tab_menu/add_food_screen.dart';
+import 'package:koofit/model/HiveUserHelper.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/food.dart';
 import 'package:koofit/model/data/user.dart';
@@ -28,6 +29,8 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
 
     if (isFavorite == false) {
       widget.userData.favorieFoodList.remove(widget.food);
+      print(widget.userData.favorieFoodList);
+      await HiveUserHelper().updateUser(0, widget.userData);
     } else {
       if (!_favorites.contains(widget.food)) {
         widget.userData.favorieFoodList.add(widget.food);

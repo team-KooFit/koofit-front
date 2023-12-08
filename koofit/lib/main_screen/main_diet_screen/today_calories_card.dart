@@ -57,7 +57,6 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     todayDate = widget.selectedDate;
     _initializeData(todayDate);
   }
@@ -113,7 +112,8 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
                 child: Card(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(20),
+                     ),
                     child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 15, vertical: 10),

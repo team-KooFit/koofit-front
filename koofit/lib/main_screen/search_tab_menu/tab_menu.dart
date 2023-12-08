@@ -31,7 +31,7 @@ class _TabMenuState extends State<TabMenu> {
             indicatorWeight: 3,
             indicatorColor: Palette.mainSkyBlue,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicatorPadding: EdgeInsets.all(5),
+            indicatorPadding: EdgeInsets.all(1),
           ),
           Expanded(
             child: TabBarView(

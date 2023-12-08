@@ -73,7 +73,7 @@ class _UnivDietCardState extends State<UnivDietCard> {
         color: Color(0xffFFFFFF),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white24, width: 5.0)),
+           ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -185,7 +185,6 @@ class _UnivDietCardState extends State<UnivDietCard> {
                     }
                     return Card(
                       color: Color(0xFFF1F1F1),
-                      elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),

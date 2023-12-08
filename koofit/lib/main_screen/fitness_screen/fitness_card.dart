@@ -71,6 +71,7 @@ class _FitnessCardState extends State<FitnessCard> {
                   await ShowFitness(context, widget.selectedDate, todayFitness);
                 },
                 child: Card(
+                    elevation: 1,
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),

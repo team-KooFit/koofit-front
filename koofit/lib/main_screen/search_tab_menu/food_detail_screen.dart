@@ -11,9 +11,11 @@ import 'package:get/get.dart';
 class DetailsPage extends StatefulWidget {
   final List<String> rowData;
   final User userData;
+  final String selectedDate;
+
 
   // Make either rowData or foodData required, not both
-  DetailsPage({required this.rowData, required this.userData});
+  DetailsPage({required this.rowData, required this.userData, required this.selectedDate});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -44,11 +46,11 @@ class _DetailsPageState extends State<DetailsPage> {
         foodName: widget.rowData[1],
         manufacturer: widget.rowData[2],
         foodWeight: widget.rowData[14],
-        calories: double.tryParse(widget.rowData[16]) ?? 0.0,
-        protein: double.tryParse(widget.rowData[17]) ?? 0.0,
-        fat: double.tryParse(widget.rowData[18]) ?? 0.0,
-        carbo: double.tryParse(widget.rowData[19]) ?? 0.0,
-        sugar: double.tryParse(widget.rowData[20]) ?? 0.0,
+        calories: double.tryParse(widget.rowData[16]) ?? null,
+        protein: double.tryParse(widget.rowData[17]) ?? null,
+        fat: double.tryParse(widget.rowData[18]) ?? null,
+        carbo: double.tryParse(widget.rowData[19]) ?? null,
+        sugar: double.tryParse(widget.rowData[20]) ?? null,
       );
     }
   }
@@ -233,12 +235,12 @@ class _DetailsPageState extends State<DetailsPage> {
     double? updatedValue;
 
     if (title != '식품명') {
-      updatedValue = double.tryParse(value) ?? 0.0;
+      updatedValue = double.tryParse(value) ?? null;
       // 문자열을 double로 변환하고 실패할 경우 그대로 사용합니다.
 
       // 업데이트된 값을 food 객체에 저장합니다.
       if (title == '식품 중량(g)') {
-        food.foodWeight = updatedValue.toStringAsFixed(2);
+        food.foodWeight = updatedValue?.toStringAsFixed(2);
       } else if (title == '에너지(kcal)') {
         food.calories = updatedValue;
       } else if (title == '탄수화물(g)') {
@@ -277,9 +279,11 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   Future<void> saveFoodToHiveBox(Food food, bool isFavoite) async {
+    String date = widget.selectedDate;
+
     diet = Diet(
         stuNumber: '111',
-        date: DateTime.now().toLocal().toString().split(' ')[0],
+        date: date,
         keyTime: keyTime,
         foodName: food.foodName,
         nutrient: food);

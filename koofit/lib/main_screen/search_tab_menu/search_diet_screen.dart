@@ -115,7 +115,7 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DetailsPage(rowData: rowData, userData: _userData),
+        builder: (context) => DetailsPage(rowData: rowData, userData: _userData, selectedDate: widget.selectedDate),
       ),
     );
   }

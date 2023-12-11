@@ -54,7 +54,6 @@ class _FitnessCardState extends State<FitnessCard> {
     setState(() {
       isSuccess = true;
     });
-    print("${todayFitness} ///\n ${widget.selectedDate}, ${totalTime}");
   }
 
   @override
@@ -71,6 +70,7 @@ class _FitnessCardState extends State<FitnessCard> {
                   await ShowFitness(context, widget.selectedDate, todayFitness);
                 },
                 child: Card(
+                    elevation: 1,
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -94,8 +94,6 @@ class _FitnessCardState extends State<FitnessCard> {
                               ),
                               Text(
                                 "${totalTime ?? 0}분/60분",
-                                // 나머지 코드...
-
                                 style: TextStyle(
                                   color: Color(0xFF222B45),
                                   fontSize: 18,

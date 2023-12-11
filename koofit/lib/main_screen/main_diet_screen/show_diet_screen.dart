@@ -13,7 +13,6 @@ import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/calText.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/widget/RectangleText.dart';
-import 'package:koofit/widget/OneGraph';
 
 class DietModalBottomSheet extends StatefulWidget {
   final User user;
@@ -26,10 +25,7 @@ class DietModalBottomSheet extends StatefulWidget {
   State<DietModalBottomSheet> createState() => _DietModalBottomSheetState();
 }
 
-
 class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
-
-
   late String todayDate;
   late List<Diet> dietList;
   late Nutrient goalNutrient;
@@ -161,50 +157,30 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
       padding: EdgeInsets.all(15),
       child: Column(
         children: [
-          Row(
-            children: [
-            oneGraph(
-                recommendedCarb : 50.0,
-                recommendedProtein : 20.0,
-                recommendedFat : 30.0,
-                consumedCarb : 30.0,
-                consumedProtein : 10.0,
-                consumedFat : 20.0,
-              ),
-              SizedBox(width : 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleText(
-                    Palette.tanSu,
-                    carboRate,
-                    false,
-                    realGram: totalCarbo,
-                    goalGram: int.parse(user.goalNutrient!.carbo),
-                  ),
-                  SizedBox(height: 10),
-                  CircleText(
-                    Palette.danBaek,
-                    proteinRate,
-                    false,
-                    realGram: totalProtein,
-                    goalGram: int.parse(user.goalNutrient!.protein),
-                  ),
-                  SizedBox(height: 10),
-                  CircleText(
-                    Palette.jiBang,
-                    fatRate,
-                    false,
-                    realGram: totalFat,
-                    goalGram: int.parse(user.goalNutrient!.fat),
-                  ),
-                ],
-              ),
-            ],
+          CircleText(
+            Palette.tanSu,
+            carboRate,
+            false,
+            realGram: totalCarbo,
+            goalGram: int.parse(user.goalNutrient!.carbo),
           ),
-          SizedBox(height: 10),
+          CircleText(
+            Palette.danBaek,
+            proteinRate,
+            false,
+            realGram: totalProtein,
+            goalGram: int.parse(user.goalNutrient!.protein),
+          ),
+          CircleText(
+            Palette.jiBang,
+            fatRate,
+            false,
+            realGram: totalFat,
+            goalGram: int.parse(user.goalNutrient!.fat),
+          ),
           CalText(totalCalories, int.parse(user.goalNutrient!.calories)),
           SizedBox(height: 20),
+
           Text(
             '${remainCalories} kcal 더 먹을 수 있어요',
             textAlign: TextAlign.left,
@@ -235,18 +211,17 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              minimumSize: Size(500, 20),
-              backgroundColor: Palette.mainSkyBlue,
-              padding: EdgeInsets.symmetric(vertical: 1, horizontal: 2),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
+                minimumSize: Size(500, 20),
+                backgroundColor: Palette.mainSkyBlue,
+                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 2),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15))),
           ),
         ],
       ),
     );
   }
+
   Widget todayBox() {
     int totalCal = 205;
     int eggCal = 65;

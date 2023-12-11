@@ -33,8 +33,8 @@ class UserAdapter extends TypeAdapter<User> {
       fitnessList: (fields[11] as List?)
           ?.map((dynamic e) => (e as Map).cast<String, dynamic>())
           .toList(),
-      serviceNeedsAgreement: fields[12] as bool?,
-      privacyNeedsAgreement: fields[13] as bool?,
+      recordedDayList: (fields[12] as List).cast<DateTime>(),
+      favorieFoodList: (fields[13] as List).cast<Food>(),
     );
   }
 
@@ -67,9 +67,9 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(11)
       ..write(obj.fitnessList)
       ..writeByte(12)
-      ..write(obj.serviceNeedsAgreement)
+      ..write(obj.recordedDayList)
       ..writeByte(13)
-      ..write(obj.privacyNeedsAgreement);
+      ..write(obj.favorieFoodList);
   }
 
   @override

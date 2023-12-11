@@ -3,10 +3,14 @@ import 'package:koofit/main_screen/search_tab_menu/food_detail_screen.dart';
 import 'package:koofit/main_screen/search_tab_menu/tab_menu.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:koofit/model/data/user.dart';
 import 'package:gsheets/gsheets.dart';
 
 class SearchDietScreen extends StatefulWidget {
+  final User userData;
+  final String selectedDate;
+  const SearchDietScreen({super.key, required this.userData, required this.selectedDate});
+
   @override
   State<SearchDietScreen> createState() => _SearchDietScreenState();
 }
@@ -35,12 +39,14 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
   String searchValue = '';
   List<String> dataToDisplayList = [];
   List<List<String>> _filteredData = [];
+  late User _userData;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _loadSpreadsheetData();
+    _userData = widget.userData;
   }
 
   @override
@@ -64,7 +70,7 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
                   orElse: () => []);
               _onRowTap(rowData);
             }),
-        body: Center(child: TabMenu()));
+        body: Center(child: TabMenu(UserData: _userData, selectedDate: widget.selectedDate)));
   }
 
   Future<void> _loadSpreadsheetData() async {
@@ -109,7 +115,7 @@ class _SearchDietScreenState extends State<SearchDietScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DetailsPage(rowData: rowData),
+        builder: (context) => DetailsPage(rowData: rowData, userData: _userData, selectedDate: widget.selectedDate),
       ),
     );
   }

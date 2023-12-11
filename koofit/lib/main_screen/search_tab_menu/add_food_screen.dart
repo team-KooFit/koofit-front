@@ -1,32 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
+import 'package:koofit/main_screen/main_diet_screen/diet_screen.dart';
+import 'package:koofit/model/HiveDietHelper.dart';
 import 'package:koofit/model/config/palette.dart';
+import 'package:koofit/model/data/diet.dart';
+import 'package:koofit/model/data/food.dart';
+import 'package:get/get.dart';
 
-class AddDietBtnScreen extends StatefulWidget {
-  final String where;
-  final String menu;
-  final String fromScreen;
-
+class AddFoodScreen extends StatefulWidget {
+  final Food food;
+  final String selectedDate;
   // 생성자 정의
-  AddDietBtnScreen(
-      {Key? key,
-      required this.where,
-      required this.menu,
-      required this.fromScreen})
-      : super(key: key);
+  AddFoodScreen({
+    Key? key,
+    required this.food,
+    required this.selectedDate
+  }) : super(key: key);
 
   @override
-  State<AddDietBtnScreen> createState() => _AddDietBtnScreenState();
+  State<AddFoodScreen> createState() => _AddFoodScreenState();
 }
 
-class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
+class _AddFoodScreenState extends State<AddFoodScreen> {
   // late var _defaultValue;
+  late String keyTime;
+  bool isSuccess = false;
+  final ValueNotifier<String> keyTimeNotifier = ValueNotifier<String>('아침');
+
+  @override
+  void initState() {
+    super.initState();
+    keyTime = '아침';
+      print(DateTime.now());
+  }
   @override
   Widget build(BuildContext context) {
-
     return ElevatedButton(
         onPressed: () async {
-          await _showNutrientSheet(context, widget.where, widget.menu);
+          await _showNutrientSheet(context, widget.food);
         },
         child: Text('+',
             style: TextStyle(
@@ -35,25 +46,16 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
               fontFamily: 'Inter',
               fontWeight: FontWeight.w800,
             )),
-        style: widget.fromScreen == 'main'
-            ? ElevatedButton.styleFrom(
-                minimumSize: Size(80, 20),
-                backgroundColor: Palette.mainSkyBlue,
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                // 내부 패딩 조절
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)))
-            : ElevatedButton.styleFrom(
-                minimumSize: Size(40, 80),
-                backgroundColor: Palette.mainSkyBlue,
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                // 내부 패딩 조절
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))));
+        style: ElevatedButton.styleFrom(
+            minimumSize: Size(50, 20),
+            backgroundColor: Palette.mainSkyBlue,
+            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+            // 내부 패딩 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15))));
   }
 
-  Future<void> _showNutrientSheet(
-      BuildContext context, String where, String menu) async {
+  Future<void> _showNutrientSheet(BuildContext context, Food foodData) async {
     await showModalBottomSheet<void>(
       context: context,
       shape: RoundedRectangleBorder(
@@ -68,7 +70,6 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
         maxHeight: 730,
       ),
       builder: (BuildContext context) {
-        menu = menu.replaceAll('\n', '');
         return ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -81,26 +82,13 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                 children: <Widget>[
                   SizedBox(height: 15),
                   Text(
-                    "${widget.where}",
+                    "${foodData.foodName}",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 22, fontWeight: FontWeight.bold),
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 15),
-                  Text(
-                    menu,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black54,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [],
-                  ),
                   Card(
                     color: Color(0xFFEFEFEF),
                     shape: RoundedRectangleBorder(
@@ -114,7 +102,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                           // 시작에 배치
                           children: [
                             Text(
-                              "594Kcal",
+                              "${foodData.calories}Kcal",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -139,7 +127,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                                           fontSize: 15),
                                     ),
                                     Text(
-                                      "74g",
+                                      "${foodData.carbo}g",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -160,29 +148,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                                           color: Colors.black45),
                                     ),
                                     Text(
-                                      "10g",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: Colors.black45),
-                                    ),
-                                  ]),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "식이섬유",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: Colors.black45),
-                                    ),
-                                    Text(
-                                      "10g",
+                                      "${foodData.sugar}g",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
@@ -208,7 +174,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                                           fontSize: 15),
                                     ),
                                     Text(
-                                      "24g",
+                                      "${foodData.protein}g",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -233,7 +199,7 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                                           fontSize: 15),
                                     ),
                                     Text(
-                                      "19g",
+                                      "${foodData.fat}g",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -244,19 +210,27 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
                     ),
                   ),
                   const Spacer(),
-                  SizedBox(
+                  //TODO : 영양성분 수정하는 버튼 추가
+                  keyTimeSelecter(),
+                  Container(
+                    // padding: EdgeInsets.symmetric(vertical: 10),
+                      margin: EdgeInsets.symmetric(vertical: 20),
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Palette.mainSkyBlue),
-                        onPressed: () {
-                          Navigator.pop(context);
+                        onPressed: () async {
+                          print('Settings button pressed $keyTime');
+
+                          saveFavoriteFoodToHiveBox(widget.food)
+                              .then((value) => _showdialog(context, keyTime));
                         },
-                        child: Text('수정하기',
+                        child: Text('저장하기',
                             style: TextStyle(
-                              color: Colors.white,
-                                fontWeight: FontWeight.bold, fontSize: 20)),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20)),
                       ))
                 ],
               ),
@@ -264,4 +238,91 @@ class _AddDietBtnScreenState extends State<AddDietBtnScreen> {
       },
     );
   }
+
+  Future<dynamic> _showdialog(BuildContext context, String time) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text('${time}', style: TextStyle(fontWeight: FontWeight.bold)),
+        content: Text('저장되었습니다'),
+        actions: [
+          ElevatedButton(
+              onPressed: () => Get.offAll(() => DietScreen()),
+              child: Text('확인')),
+        ],
+      ),
+    );
+  }
+
+  Future<void> saveFavoriteFoodToHiveBox(Food food) async {
+
+    String date = widget.selectedDate;
+    print("saveFavorite dateeeee !!!  $date");
+
+    Diet diet = Diet(
+        stuNumber: '111',
+        date: date,
+        keyTime: keyTime,
+        foodName: food.foodName,
+        nutrient: food);
+
+    if (food != null) {
+      HiveDietHelper().createDiet(diet).then((value) {
+        isSuccess = true;
+      });
+    }
+  }
+
+  Widget keyTimeSelecter() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ValueListenableBuilder<String>(
+          valueListenable: keyTimeNotifier,
+          builder: (context, selectedValue, child) {
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: Palette.mainSkyBlue,
+                border: Border.all(color: Palette.mainSkyBlue, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: DropdownButton(
+                  iconSize: 20,
+                  dropdownColor: Palette.mainSkyBlue,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  value: selectedValue,
+                  items: [
+                    DropdownMenuItem(value: '아침', child: Text('아침')),
+                    DropdownMenuItem(value: '점심', child: Text('점심')),
+                    DropdownMenuItem(value: '저녁', child: Text('저녁')),
+                    DropdownMenuItem(value: '간식', child: Text('간식')),
+                  ],
+                  onChanged: (String? value) {
+                    keyTimeNotifier.value = value ?? '아침';
+                    keyTime = value ?? '아침';
+                  },
+                ),
+              ),
+            );
+          },
+        ),
+        SizedBox(width: 10),
+        Text(
+          "에 먹었어요",
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.black38,
+            fontWeight: FontWeight.bold,
+          ),
+        )
+      ],
+    );
+  }
+
 }

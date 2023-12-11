@@ -6,15 +6,15 @@ import 'package:koofit/widget/RectangleText.dart';
 class keyTimeBox extends StatefulWidget {
   final String keyTime;
   final List<Diet> keyTimeDietList;
-  const keyTimeBox({super.key, required this.keyTime, required this.keyTimeDietList});
+
+  const keyTimeBox(
+      {super.key, required this.keyTime, required this.keyTimeDietList});
 
   @override
   State<keyTimeBox> createState() => _keyTimeBoxState();
 }
 
 class _keyTimeBoxState extends State<keyTimeBox> {
-
-
   List<Diet> keyTimeDiets = [];
 
   int totalCalories = 0;
@@ -31,8 +31,9 @@ class _keyTimeBoxState extends State<keyTimeBox> {
     super.initState();
     keyTime = widget.keyTime;
     print(keyTime);
-    keyTimeDiets = widget.keyTimeDietList.where((diet) => diet.keyTime == widget.keyTime).toList();
-
+    keyTimeDiets = widget.keyTimeDietList
+        .where((diet) => diet.keyTime == widget.keyTime)
+        .toList();
 
     // 총칼로리 data 추출, 탄단지 섭취율 계산
     totalCalories = (keyTimeDiets.fold<int>(
@@ -43,8 +44,6 @@ class _keyTimeBoxState extends State<keyTimeBox> {
         0, (sum, diet) => sum + (diet.nutrient.protein?.toInt() ?? 0)));
     totalFat = (keyTimeDiets.fold<int>(
         0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
-
-
 
     // morningDiets를 사용하여 Row 위젯을 생성합니다.
     morningRows = keyTimeDiets.map((diet) {
@@ -66,14 +65,13 @@ class _keyTimeBoxState extends State<keyTimeBox> {
               ),
             ),
           ),
-
           SizedBox(width: 20),
           SizedBox(
             width: 50,
             child: FittedBox(
               alignment: Alignment.topRight,
               fit: BoxFit.scaleDown,
-              child:   Text(
+              child: Text(
                 '${diet.nutrient.calories!.toInt()} kcal',
                 textAlign: TextAlign.right,
                 style: TextStyle(
@@ -84,26 +82,24 @@ class _keyTimeBoxState extends State<keyTimeBox> {
               ),
             ),
           ),
-
         ],
       );
     }).toList();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         width: double.infinity,
-        child: Row(
+        child: IntrinsicHeight(
+            child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
                 child: Container(
-
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              width: 140,
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               decoration: BoxDecoration(
                 color: Palette.mainSkyBlue,
                 borderRadius: BorderRadius.only(
@@ -188,7 +184,6 @@ class _keyTimeBoxState extends State<keyTimeBox> {
               ),
             ),
           ],
-        ));
+        )));
   }
-
 }

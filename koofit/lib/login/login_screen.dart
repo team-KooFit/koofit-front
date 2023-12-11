@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:koofit/login/kakao_login.dart';
+import 'package:koofit/login/loginview.dart';
 import 'package:koofit/model/config/palette.dart';
 import 'package:koofit/model/data/Nutrient.dart';
 import 'package:koofit/model/data/user.dart';
@@ -15,6 +17,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isLoading = false;
   bool isKakaoClicked = false;
+
+  //로그인 모델 객체 생성 
+    final viewmodel = Loginview(KakaoLogin());
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +65,26 @@ class _LoginScreenState extends State<LoginScreen> {
 // UI: 카카오 로그인 버튼
   Widget _kakaoLoginButton() {
     return GestureDetector(
-      onTap: () {
-        // if(!isLoading){
-        //   signInWithKakao();
-        // }
+      onTap: () async {
+        User newUser = User(
+                      uid: "",
+                      name: "",
+                      gender: "",
+                      stuNumber: "",
+                      number: "",
+                      age: "",
+                      height: 0,
+                      curWeight: 0,
+                      goalWeight: 0,
+                      todayNutrientList: [],
+                      goalNutrient: Nutrient(calories: 0, carbo: 0, protein:0, fat: 0, fitnessTime: 30),
+                      fitnessList: [],
+                      recordedDayList: [],
+                      favorieFoodList: []);
+        // 카카오 로그인 
+        await viewmodel.login();
+              Navigator.pushNamed(scaffoldContext, 'signUp',
+                      arguments: newUser);
       },
       child: Container(
         alignment: Alignment.center,
@@ -83,24 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
               )
             : GestureDetector(
                 onTap: () {
-                  User newUser = User(
-                      uid: "",
-                      name: "",
-                      gender: "",
-                      stuNumber: "",
-                      number: "",
-                      age: "",
-                      height: 0,
-                      curWeight: 0,
-                      goalWeight: 0,
-                      todayNutrientList: [],
-                      goalNutrient: Nutrient(calories: '1900', carbo: '100', protein: '80', fat: '70', fitnessTime: "30"),
-                      fitnessList: [],
-                      serviceNeedsAgreement: false,
-                      privacyNeedsAgreement: false);
-
-                  Navigator.pushNamed(scaffoldContext, 'signUp',
-                      arguments: newUser);
+                  
+                  // 위로 이동 
+                   
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -124,3 +130,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

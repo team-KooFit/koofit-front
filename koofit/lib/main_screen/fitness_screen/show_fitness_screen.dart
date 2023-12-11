@@ -77,7 +77,7 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
             "오늘의 운동을 기록해볼까요?",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 35),
+          SizedBox(height: 25),
           _todayFitness.isNotEmpty
               ? Padding(
                   padding: EdgeInsets.all(10.0),
@@ -85,7 +85,10 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
                     for (var fitness in _todayFitness) todayGraphCard(fitness)
                   ]))
               : Container(),
+          SizedBox(height: 25),
           addBtn(),
+          SizedBox(height: 15),
+
         ],
       ))
     ); // Your existing build method content

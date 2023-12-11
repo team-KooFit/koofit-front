@@ -10,7 +10,7 @@ import 'package:koofit/model/data/diet.dart';
 import 'package:koofit/model/data/user.dart';
 import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/loading_view.dart';
-import 'package:koofit/widget/oneGraph';
+
 
 
 class TodayCalorieCard extends StatefulWidget {
@@ -125,12 +125,6 @@ class _TodayCalorieCardState extends State<TodayCalorieCard> {
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              oneGraph(
-                                carbPercentage : carboRate.toDouble(),
-                                proteinPercentage : proteinRate.toDouble(),
-                                fatPercentage : fatRate.toDouble(),
-                              ),
-                              SizedBox(width: 10),
                               Column(
                                 crossAxisAlignment : CrossAxisAlignment.start,
                                 children : [

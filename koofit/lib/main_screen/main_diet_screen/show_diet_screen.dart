@@ -13,7 +13,7 @@ import 'package:koofit/widget/circleText.dart';
 import 'package:koofit/widget/calText.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import 'package:koofit/widget/RectangleText.dart';
-import 'package:koofit/widget/oneGraph';
+import 'package:koofit/widget/OneGraph';
 
 class DietModalBottomSheet extends StatefulWidget {
   final User user;
@@ -26,7 +26,10 @@ class DietModalBottomSheet extends StatefulWidget {
   State<DietModalBottomSheet> createState() => _DietModalBottomSheetState();
 }
 
+
 class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
+
+
   late String todayDate;
   late List<Diet> dietList;
   late Nutrient goalNutrient;
@@ -160,12 +163,15 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
         children: [
           Row(
             children: [
-              oneGraph(
-                carbPercentage: 30.0,
-                proteinPercentage: 30.0,
-                fatPercentage: 30.0,
+            oneGraph(
+                recommendedCarb : 50.0,
+                recommendedProtein : 20.0,
+                recommendedFat : 30.0,
+                consumedCarb : 30.0,
+                consumedProtein : 25.0,
+                consumedFat : 20.0,
               ),
-              SizedBox(width: 10),
+              SizedBox(width : 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

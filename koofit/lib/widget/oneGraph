@@ -3,38 +3,53 @@ import 'dart:math';
 import 'package:koofit/model/config/palette.dart';
 
 class oneGraph extends StatelessWidget {
-    final double carbPercentage;
-    final double fatPercentage;
-    final double proteinPercentage;
+  final double recommendedCarb;
+  final double recommendedProtein;
+  final double recommendedFat;
+  final double consumedCarb;
+  final double consumedProtein;
+  final double consumedFat;
 
-    oneGraph({
-            required this.carbPercentage,
-            required this.fatPercentage,
-            required this.proteinPercentage,
-        });
+  oneGraph({
+    required this.recommendedCarb,
+    required this.recommendedProtein,
+    required this.recommendedFat,
+    required this.consumedCarb,
+    required this.consumedProtein,
+    required this.consumedFat,
+  });
 
-    Widget build(BuildContext context) {
-        return CustomPaint(
-          size : Size(200,200),
-          painter : OneGraphPainter(
-            carbPercentage : carbPercentage,
-            fatPercentage : fatPercentage,
-            proteinPercentage : proteinPercentage,
-            ),
-
-          );
-          }
-          }
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      size: Size(150, 150),
+      painter: OneGraphPainter(
+        recommendedCarb: recommendedCarb,
+        recommendedProtein: recommendedProtein,
+        recommendedFat: recommendedFat,
+        consumedCarb: consumedCarb,
+        consumedProtein: consumedProtein,
+        consumedFat: consumedFat,
+      ),
+    );
+  }
+}
 
 class OneGraphPainter extends CustomPainter {
-  final double carbPercentage;
-  final double fatPercentage;
-  final double proteinPercentage;
+  final double recommendedCarb;
+  final double recommendedProtein;
+  final double recommendedFat;
+  final double consumedCarb;
+  final double consumedProtein;
+  final double consumedFat;
 
   OneGraphPainter({
-    required this.carbPercentage,
-    required this.fatPercentage,
-    required this.proteinPercentage,
+    required this.recommendedCarb,
+    required this.recommendedProtein,
+    required this.recommendedFat,
+    required this.consumedCarb,
+    required this.consumedProtein,
+    required this.consumedFat,
   });
 
   @override
@@ -43,113 +58,72 @@ class OneGraphPainter extends CustomPainter {
     final double centerY = size.height / 2;
     final double radius = size.width / 2;
 
-    final Paint carbPaint = Paint()..color = Palette.tanSu;
-    final Paint proteinPaint = Paint()..color = Palette.danBaek;
-    final Paint fatPaint = Paint()..color = Palette.jiBang;
+    final Paint recommendedCarbPaint = Paint()..color = Colors.grey;
+    final Paint recommendedProteinPaint = Paint()..color = Colors.black;
+    final Paint recommendedFatPaint = Paint()..color = Colors.blueGrey;
 
-    final double totalPercentage = carbPercentage + proteinPercentage + fatPercentage;
+    final Paint actualCarbPaint = Paint()
+        ..color = consumedCarb > recommendedCarb ? Colors.red : Palette.tanSu;
+    final Paint actualProteinPaint = Paint()
+        ..color = consumedProtein > recommendedProtein ? Colors.red : Palette.danBaek;
+    final Paint actualFatPaint = Paint()
+        ..color = consumedFat > recommendedFat ? Colors.red : Palette.jiBang;
 
-    if (totalPercentage <= 0) {
-        canvas.drawCircle(
-            Offset(centerX, centerY),
-            radius,
-            Paint()..color = Colors.grey,
-            );
-            return;
+    double totalRecommended = recommendedCarb + recommendedProtein + recommendedFat;
+    double startAngle = pi / 2;
 
+    _drawArc(canvas, centerX, centerY, radius, startAngle, recommendedCarb / totalRecommended, recommendedCarbPaint);
+    startAngle += 2 * pi * (recommendedCarb / totalRecommended);
+    _drawArc(canvas, centerX, centerY, radius, startAngle, recommendedProtein / totalRecommended, recommendedProteinPaint);
+    startAngle += 2 * pi * (recommendedProtein / totalRecommended);
+    _drawArc(canvas, centerX, centerY, radius, startAngle, recommendedFat / totalRecommended, recommendedFatPaint);
+
+        // Draw actual consumption
+        startAngle = pi / 2;  // Reset start angle
+        _drawArc(canvas, centerX, centerY, radius, startAngle, consumedCarb / totalRecommended, actualCarbPaint);
+        startAngle += 2 * pi * (recommendedCarb / totalRecommended);
+        _drawArc(canvas, centerX, centerY, radius, startAngle, consumedProtein / totalRecommended, actualProteinPaint);
+        startAngle += 2 * pi * (recommendedProtein/ totalRecommended);
+        _drawArc(canvas, centerX, centerY, radius, startAngle, consumedFat / totalRecommended, actualFatPaint);
+
+        final textStyle = TextStyle(color: Colors.black, fontSize: 14);
+            final textSpanCarb = TextSpan(text: '${(recommendedCarb).toStringAsFixed(0)}% 탄수화물', style: textStyle);
+            final textSpanProtein = TextSpan(text: '${(recommendedProtein).toStringAsFixed(0)}% 단백질', style: textStyle);
+            final textSpanFat = TextSpan(text: '${(recommendedFat).toStringAsFixed(0)}% 지방', style: textStyle);
+
+            // Text를 그리는 함수 호출
+            _drawText(canvas, size, textSpanCarb, -pi / 2, recommendedCarb / totalRecommended);
+            _drawText(canvas, size, textSpanProtein, -pi / 2 + 2 * pi * (recommendedCarb / totalRecommended), recommendedProtein / totalRecommended);
+            _drawText(canvas, size, textSpanFat, -pi / 2 + 2 * pi * ((recommendedCarb + recommendedProtein) / totalRecommended), recommendedFat / totalRecommended);
+      }
+
+    void _drawArc(Canvas canvas, double centerX, double centerY, double radius, double startAngle, double percentage, Paint paint) {
+        if (percentage > 0) {
+          final double sweepAngle = 2 * pi * percentage;
+          canvas.drawArc(
+            Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
+            startAngle,
+            sweepAngle,
+            true,
+            paint,
+          );
+        }
+      }
+
+      void _drawText(Canvas canvas, Size size, TextSpan textSpan, double startAngle, double percentage) {
+          final textPainter = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
+          textPainter.layout();
+
+          final double radius = min(size.width, size.height) / 2.5;
+          final double angle = startAngle + 2 * pi * percentage / 2;
+          final Offset offset = Offset(
+            size.width / 2 + radius * cos(angle) - textPainter.width / 2,
+            size.height / 2 + radius * sin(angle) - textPainter.height / 2,
+          );
+
+          textPainter.paint(canvas, offset);
+        }
+
+      @override
+      bool shouldRepaint(CustomPainter oldDelegate) => false;
     }
-
-    final double carbSweepAngle = 2 * pi * (carbPercentage / totalPercentage);
-    final double proteinSweepAngle = 2 * pi * (proteinPercentage / totalPercentage);
-    final double fatSweepAngle = 2 * pi * (fatPercentage / totalPercentage);
-
-    // 탄수화물 부분 그리기
-    canvas.drawArc(
-      Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
-      -pi / 2,
-      carbSweepAngle,
-      true,
-      carbPaint,
-    );
-
-    // 단백질 부분 그리기
-    canvas.drawArc(
-      Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
-      -pi / 2 + carbSweepAngle,
-      proteinSweepAngle,
-      true,
-      proteinPaint,
-    );
-
-    // 지방 부분 그리기
-    canvas.drawArc(
-      Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
-      -pi / 2 + carbSweepAngle + proteinSweepAngle,
-      fatSweepAngle,
-      true,
-      fatPaint,
-    );
-
-    // 퍼센트 텍스트 그리기
-    TextPainter textPainter = TextPainter(
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.center,
-    );
-
-    // 탄수화물 퍼센트 텍스트
-    textPainter.text = TextSpan(
-      text: "${(carbPercentage / totalPercentage * 100).toStringAsFixed(1)}%",
-      style: TextStyle(
-        color: Colors.black, // 텍스트 색상
-        fontSize: 14, // 텍스트 크기
-      ),
-    );
-    textPainter.layout();
-    textPainter.paint(
-      canvas,
-      Offset(
-      centerX - radius * cos(-pi / 2 + carbSweepAngle),
-      centerY - radius * sin(-pi / 2 + carbSweepAngle),
-      ),
-    );
-
-    // 단백질 퍼센트 텍스트
-    textPainter.text = TextSpan(
-      text: "${(proteinPercentage / totalPercentage * 100).toStringAsFixed(1)}%",
-      style: TextStyle(
-        color: Colors.black, // 텍스트 색상
-        fontSize: 14, // 텍스트 크기
-      ),
-    );
-    textPainter.layout();
-    textPainter.paint(
-      canvas,
-      Offset(
-      centerX - radius * cos(-pi / 2 + carbSweepAngle + proteinSweepAngle / 2),
-      centerY - radius * sin(-pi / 2 + carbSweepAngle + proteinSweepAngle / 2),
-      ),
-    );
-
-    // 지방 퍼센트 텍스트
-    textPainter.text = TextSpan(
-      text: "${(fatPercentage / totalPercentage * 100).toStringAsFixed(1)}%",
-      style: TextStyle(
-        color: Colors.black, // 텍스트 색상
-        fontSize: 14, // 텍스트 크기
-      ),
-    );
-    textPainter.layout();
-    textPainter.paint(
-      canvas,
-      Offset(
-      centerX - radius * cos(-pi / 2 + carbSweepAngle + proteinSweepAngle + fatSweepAngle / 2),
-      centerY - radius * sin(-pi / 2 + carbSweepAngle + proteinSweepAngle + fatSweepAngle / 2),
-      ),
-    );
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
-  }
-}

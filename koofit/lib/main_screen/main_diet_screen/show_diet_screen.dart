@@ -168,7 +168,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
                 recommendedProtein : 20.0,
                 recommendedFat : 30.0,
                 consumedCarb : 30.0,
-                consumedProtein : 25.0,
+                consumedProtein : 10.0,
                 consumedFat : 20.0,
               ),
               SizedBox(width : 10),

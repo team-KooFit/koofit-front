@@ -58,9 +58,9 @@ class OneGraphPainter extends CustomPainter {
     final double centerY = size.height / 2;
     final double radius = size.width / 2;
 
-    final Paint recommendedCarbPaint = Paint()..color = Colors.grey;
-    final Paint recommendedProteinPaint = Paint()..color = Colors.black;
-    final Paint recommendedFatPaint = Paint()..color = Colors.blueGrey;
+    final Paint recommendedCarbPaint = Paint()..color = Color(0xFFDCDCDC);
+    final Paint recommendedProteinPaint = Paint()..color = Color(0xFFDCDCDC);
+    final Paint recommendedFatPaint = Paint()..color = Color(0xFFDCDCDC);
 
     final Paint actualCarbPaint = Paint()
         ..color = consumedCarb > recommendedCarb ? Colors.red : Palette.tanSu;
@@ -86,15 +86,7 @@ class OneGraphPainter extends CustomPainter {
         startAngle += 2 * pi * (recommendedProtein/ totalRecommended);
         _drawArc(canvas, centerX, centerY, radius, startAngle, consumedFat / totalRecommended, actualFatPaint);
 
-        final textStyle = TextStyle(color: Colors.black, fontSize: 14);
-            final textSpanCarb = TextSpan(text: '${(recommendedCarb).toStringAsFixed(0)}% 탄수화물', style: textStyle);
-            final textSpanProtein = TextSpan(text: '${(recommendedProtein).toStringAsFixed(0)}% 단백질', style: textStyle);
-            final textSpanFat = TextSpan(text: '${(recommendedFat).toStringAsFixed(0)}% 지방', style: textStyle);
 
-            // Text를 그리는 함수 호출
-            _drawText(canvas, size, textSpanCarb, -pi / 2, recommendedCarb / totalRecommended);
-            _drawText(canvas, size, textSpanProtein, -pi / 2 + 2 * pi * (recommendedCarb / totalRecommended), recommendedProtein / totalRecommended);
-            _drawText(canvas, size, textSpanFat, -pi / 2 + 2 * pi * ((recommendedCarb + recommendedProtein) / totalRecommended), recommendedFat / totalRecommended);
       }
 
     void _drawArc(Canvas canvas, double centerX, double centerY, double radius, double startAngle, double percentage, Paint paint) {
@@ -110,19 +102,7 @@ class OneGraphPainter extends CustomPainter {
         }
       }
 
-      void _drawText(Canvas canvas, Size size, TextSpan textSpan, double startAngle, double percentage) {
-          final textPainter = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
-          textPainter.layout();
 
-          final double radius = min(size.width, size.height) / 2.5;
-          final double angle = startAngle + 2 * pi * percentage / 2;
-          final Offset offset = Offset(
-            size.width / 2 + radius * cos(angle) - textPainter.width / 2,
-            size.height / 2 + radius * sin(angle) - textPainter.height / 2,
-          );
-
-          textPainter.paint(canvas, offset);
-        }
 
       @override
       bool shouldRepaint(CustomPainter oldDelegate) => false;

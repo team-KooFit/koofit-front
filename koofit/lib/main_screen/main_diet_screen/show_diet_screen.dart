@@ -53,6 +53,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
     super.initState();
 
     todayDate = widget.selectedDate;
+    print("tttttoday : ${todayDate}");
     _initializeData();
   }
 
@@ -73,14 +74,11 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
       totalFat = (dietList.fold<int>(
           0, (sum, diet) => sum + (diet.nutrient.fat?.toInt() ?? 0)));
 
-      carboRate =
-          (totalCarbo / double.parse(user.goalNutrient!.carbo) * 100).toInt();
-      proteinRate =
-          (totalProtein / double.parse(user.goalNutrient!.protein) * 100)
-              .toInt();
-      fatRate = (totalFat / double.parse(user.goalNutrient!.fat) * 100).toInt();
+      carboRate = (totalCarbo / user.goalNutrient!.carbo * 100).toInt();
+      proteinRate = (totalProtein / user.goalNutrient!.protein * 100).toInt();
+      fatRate = (totalFat / user.goalNutrient!.fat * 100).toInt();
 
-      remainCalories = int.parse(user.goalNutrient!.calories) - totalCalories;
+      remainCalories = user.goalNutrient!.calories - totalCalories;
 
       // 아침/점심/저녁/간식 기록 있는지 확인
       keyTimes.forEach((keyTime) {
@@ -108,7 +106,7 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
         color: Colors.white,
         width: double.infinity,
         padding:
-            const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 35),
+        const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 35),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -128,20 +126,15 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
                         crossAxisAlignment: CrossAxisAlignment.center, // 시작에 배치
                         children: [
                           nutrientBox(context),
-                          Divider(
-                            indent: 10,
-                            endIndent: 10,
-                            color: Colors.black26,
-                            height: 10, // 선의 높이 조절
-                          ),
                           selectedKeyTimes.isNotEmpty
                               ? Column(
-                                  children: selectedKeyTimes
-                                      .map((keyTime) => keyTimeBox(
-                                            keyTime: keyTime,
-                                            keyTimeDietList: dietList,
-                                          ))
-                                      .toList())
+                              children:
+                              selectedKeyTimes
+                                  .map((keyTime) => keyTimeBox(
+                                keyTime: keyTime,
+                                keyTimeDietList: dietList,
+                              ))
+                                  .toList())
                               : Container()
                         ])),
               )
@@ -150,37 +143,53 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
         ));
   }
 
-
-
   Widget nutrientBox(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: Column(
         children: [
+          Row(
+            children : [
+              oneGraph(
+                recommendedCarb : 50.0,
+                recommendedProtein : 20.0,
+                recommendedFat : 30.0,
+                consumedCarb : 30.0,
+                consumedProtein : 10.0,
+                consumedFat : 20.0,
+              ),
+              SizedBox(width : 10),
+              Column(
+                crossAxisAlignment : CrossAxisAlignment.start,
+                children : [
           CircleText(
             Palette.tanSu,
             carboRate,
             false,
             realGram: totalCarbo,
-            goalGram: int.parse(user.goalNutrient!.carbo),
+            goalGram: user.goalNutrient!.carbo,
           ),
           CircleText(
             Palette.danBaek,
             proteinRate,
             false,
             realGram: totalProtein,
-            goalGram: int.parse(user.goalNutrient!.protein),
+            goalGram: user.goalNutrient!.protein,
           ),
           CircleText(
             Palette.jiBang,
             fatRate,
             false,
             realGram: totalFat,
-            goalGram: int.parse(user.goalNutrient!.fat),
+            goalGram: user.goalNutrient!.fat,
           ),
-          CalText(totalCalories, int.parse(user.goalNutrient!.calories)),
+          ],
+              ),
+          ],
+          ),
+          SizedBox(height : 10),
+          CalText(totalCalories, user.goalNutrient!.calories),
           SizedBox(height: 20),
-
           Text(
             '${remainCalories} kcal 더 먹을 수 있어요',
             textAlign: TextAlign.left,
@@ -192,12 +201,13 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
             ),
           ),
           SizedBox(height: 15),
+
           ElevatedButton(
             onPressed: () async {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchDietScreen(),
+                  builder: (context) => SearchDietScreen(userData: widget.user, selectedDate: widget.selectedDate,),
                 ),
               );
             },
@@ -220,150 +230,6 @@ class _DietModalBottomSheetState extends State<DietModalBottomSheet> {
         ],
       ),
     );
-  }
-
-  Widget todayBox() {
-    int totalCal = 205;
-    int eggCal = 65;
-    int appleCal = 142;
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        width: double.infinity,
-        height: 140,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              decoration: BoxDecoration(
-                color: Palette.mainSkyBlue,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  bottomLeft: Radius.circular(20.0),
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image.asset('assets/images/healthy_food.png'),
-                  ),
-                  Text(
-                    "아침",
-                    style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: 230,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                color: Color(0xEFCFCFAEE),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15.0),
-                  bottomRight: Radius.circular(15.0),
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    // Align children to both ends
-                    children: [
-                      Text(
-                        "칼로리 합계",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      Text(
-                        '$totalCal kcal',
-                        style: TextStyle(
-                          color: Color(0xC6222B45),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text(
-                        '계란',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: Color(0xC6222B45),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(width: 135),
-                      Text(
-                        '$eggCal kcal',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          color: Color(0xc6222B45),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Text(
-                        '사과',
-                        style: TextStyle(
-                          color: Color(0xC6222B45),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(width: 130),
-                      Text(
-                        '$appleCal kcal',
-                        style: TextStyle(
-                          color: Color(0xc6222B45),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      RectangleText(
-                        Palette.tanSu,
-                        realGram: totalCarbo,
-                      ),
-                      SizedBox(width: 10),
-                      RectangleText(
-                        Palette.danBaek,
-                        realGram: totalProtein,
-                      ),
-                      SizedBox(width: 10),
-                      RectangleText(
-                        Palette.jiBang,
-                        realGram: totalFat,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ));
   }
 }
 

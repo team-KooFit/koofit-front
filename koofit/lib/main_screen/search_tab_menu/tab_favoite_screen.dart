@@ -81,17 +81,17 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
                 Row(
                   children: [
                     Text('탄  ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('${widget.food.carbo}g'),
+                    Text('${(widget.food.carbo)!=null?widget.food.carbo:0.0}g'),
                     SizedBox(
                       width: 10,
                     ),
                     Text('단  ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('${widget.food.protein}g'),
+                    Text('${(widget.food.protein)!=null?widget.food.protein:0.0}g'),
                     SizedBox(
                       width: 10,
                     ),
                     Text('지  ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('${widget.food.fat}g'),
+                    Text('${(widget.food.fat)!=null?widget.food.fat:0.0}g'),
                   ],
                 ),
               ],

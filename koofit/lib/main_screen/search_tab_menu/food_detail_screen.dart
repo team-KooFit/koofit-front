@@ -278,7 +278,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  Future<void> saveFoodToHiveBox(Food food, bool isFavoite) async {
+  Future<void> saveFoodToHiveBox(Food food, bool isFavorite) async {
     String date = widget.selectedDate;
 
     diet = Diet(
@@ -293,7 +293,7 @@ class _DetailsPageState extends State<DetailsPage> {
         isSuccess = true;
       });
 
-      if (isFavoite) {
+      if (isFavorite) {
         HiveUserHelper().updateUser(0, _userData);
       }
     }

@@ -82,7 +82,7 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
               ? Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Column(children: [
-                    for (var fitness in _todayFitness) todayGraphCard(fitness)
+                    for (var fitness in _todayFitness) todayGrscaphCard(fitness)
                   ]))
               : Container(),
           addBtn(),
@@ -91,7 +91,7 @@ class _FitnessModalBottomSheetState extends State<FitnessModalBottomSheet> {
     ); // Your existing build method content
   }
 
-  Widget todayGraphCard(Fitness fitness) {
+  Widget todayGrscaphCard(Fitness fitness) {
     return Card(
         color: Color(0xFFEFEFEF),
         shape: RoundedRectangleBorder(

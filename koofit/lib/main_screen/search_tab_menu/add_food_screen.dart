@@ -26,6 +26,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   late String keyTime;
   bool isSuccess = false;
   final ValueNotifier<String> keyTimeNotifier = ValueNotifier<String>('아침');
+  // int num=1;
 
   @override
   void initState() {
@@ -56,6 +57,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   }
 
   Future<void> _showNutrientSheet(BuildContext context, Food foodData) async {
+    int num=1;
     await showModalBottomSheet<void>(
       context: context,
       shape: RoundedRectangleBorder(
@@ -101,14 +103,31 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // 시작에 배치
                           children: [
+                        //     _datatile('칼로리', ${foodData.calories != null?((foodData.calories)*num)).toStringAsFixed(2):null});
+                        // _datatile('칼로리', ${foodData.calories != null?((foodData.calories)*num)).toStringAsFixed(2):null});
+
+                    Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
                             Text(
-                              "${foodData.calories}Kcal",
+                              "칼로리",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.black45),
+                            ),
+                            Text(
+                                // '${food.foodWeight != null ? (double.parse(widget.rowData[14].replaceAll('g', ''))) * num : '정보없음'}'),
+                      "${foodData.calories!=null?(foodData.calories)!*num:null}Kcal",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                                 color: Colors.black45,
                               ),
                             ),
+                      ],
+                    ),
                             Divider(
                               color: Colors.black12, // 가로선의 색상 설정
                               thickness: 1, // 가로선의 두께 설정
@@ -210,7 +229,59 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                     ),
                   ),
                   const Spacer(),
-                  //TODO : 영양성분 수정하는 버튼 추가
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Palette.mainSkyBlue,
+                          //background color of dropdown button
+                          border: Border.all(color: Palette.mainSkyBlue, width: 1),
+                          //border of dropdown button
+                          borderRadius: BorderRadius.circular(
+                              20), //border raiuds of dropdown button
+                        ),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                // print(widget.rowData);
+                                if (num > 1) {
+                                  num--;
+                                }
+                                print(num);
+                                setState(() {});
+                              },
+                              icon: Icon(
+                                Icons.remove,
+                                size: 29,
+                              ),
+                            ),
+                            Text(
+                              '$num',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                // print(widget.rowData);
+                                num++;
+                                print(num);
+                                setState(() {});
+                              },
+                              icon: Icon(
+                                Icons.add,
+                                size: 29,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 20,),
                   keyTimeSelecter(),
                   Container(
                     // padding: EdgeInsets.symmetric(vertical: 10),
@@ -254,6 +325,8 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     );
   }
 
+
+
   Future<void> saveFavoriteFoodToHiveBox(Food food) async {
 
     String date = widget.selectedDate;
@@ -272,6 +345,90 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       });
     }
   }
+
+  // Widget _datatile(String title, String value){
+  //   if(title == '칼로리') {
+  //     return Row(
+  //       mainAxisAlignment:
+  //       MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(
+  //           '$title',
+  //           style: TextStyle(
+  //               fontWeight: FontWeight.bold,
+  //               fontSize: 20,
+  //               color: Colors.black45),
+  //         ),
+  //         Text(
+  //           "${value}Kcal",
+  //           style: TextStyle(
+  //             fontWeight: FontWeight.bold,
+  //             fontSize: 20,
+  //             color: Colors.black45,
+  //           ),
+  //         ),
+  //       ],
+  //     );
+  //   }
+  //   else if(title == '탄수화물'){
+  //
+  //   }
+  //     else if(title=='당류'){
+  //     return Padding(
+  //       padding: EdgeInsets.all(5),
+  //       child: Row(
+  //           mainAxisAlignment:
+  //           MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Text(
+  //               "당류",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   fontSize: 13,
+  //                   color: Colors.black45),
+  //             ),
+  //             Text(
+  //               "${value}g",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   fontSize: 13,
+  //                   color: Colors.black45),
+  //             ),
+  //           ]
+  //       ),
+  //     );
+  //   }
+  //     else{
+  //    return Container(
+  //      Padding(
+  //       padding: EdgeInsets.symmetric(vertical: 10),
+  //       child: Row(
+  //           mainAxisAlignment:
+  //           MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Text(
+  //               "단백질",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   fontSize: 15),
+  //             ),
+  //             Text(
+  //               "${foodData.protein}g",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   fontSize: 15),
+  //             ),
+  //           ],
+  //       ),
+  //     ),
+  //   Divider(
+  //   color: Colors.black12, // 가로선의 색상 설정
+  //   thickness: 1, // 가로선의 두께 설정
+  //   height: 20, // 가로선의 높이 설정
+  //   ),
+  //   }
+  //
+  // }
 
   Widget keyTimeSelecter() {
     return Row(

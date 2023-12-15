@@ -168,7 +168,7 @@ class _InfoSectionState extends State<InfoSection> {
       elevation: 3,
       child: Column(
         children: isSelected.entries
-            .map((entry) => buildListTile(context, entry.key, 'Sample', () {
+            .map((entry) => buildListTile(context, entry.key, 'Lee', () {
                   setState(() {
                     isSelected.updateAll((key, value) => isSelected[key] = false);
                     isSelected[entry.key] = true;
